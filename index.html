@@ -404,8 +404,8 @@ button{font-family:inherit}
 .trainerCardV54 img{width:100%;height:205px;object-fit:contain;background:#08182f;border-radius:10px}
 .trainerCardV54 h4{margin:9px 2px 3px}.trainerRoleV54{font-size:10px;font-weight:800;color:#5dbbff;text-transform:uppercase}
 </style>
-function handleTeamSlotClick(i){
-  const formation = window.hsvFormation || localStorage.getItem("hsvFormation") || "4-3-3";
+<script id="formation-slot-click-handler">
+function handleTeamSlotClick(i){  const formation = window.hsvFormation || localStorage.getItem("hsvFormation") || "4-3-3";
   const positionMap = {
     "4-3-3":["TW","LV","IV","IV","RV","ZM","ZM","ZM","LF","ST","RF"],
     "4-4-2":["TW","LV","IV","IV","RV","LM","ZM","ZM","RM","ST","ST"],
@@ -3390,8 +3390,20 @@ window.v35Open=function(){
       return;
     }
     if(opening) return;
-    const packCount=Math.max(1,Math.min(10,Number(window.packQuantity)||1));
+    const registered=!!window.hsvAuthUser;
+    const remainingGuestPacks=Math.max(0,20-guestPackCount);
+    if(!registered && remainingGuestPacks<=0){
+      const text="🔒 Du hast bereits 20 Gast-Packs geöffnet. Bitte registriere dich jetzt, um weiterzuspielen.";
+      if($("msg")) $("msg").textContent=text;
+      if(typeof window.accountMode==="function") window.accountMode("register");
+      if(typeof window.openAccountModal==="function") window.openAccountModal();
+      if(typeof window.setAccountMsg==="function") window.setAccountMsg(text+" Dein Gast-Spielstand wird nicht weiter gespeichert.");
+      return;
+    }
+    const requestedPackCount=Math.max(1,Math.min(10,Number(window.packQuantity)||1));
+    const packCount=registered ? requestedPackCount : Math.min(requestedPackCount,remainingGuestPacks);
     const totalCost=c.price*packCount;
+    const guestStateBefore20=!registered && (guestPackCount+packCount>=20) ? localStorage.getItem("packOpenerV29") : null;
     if(coins<totalCost){
       if($("msg")) $("msg").textContent="❌ Nicht genug Coins!";
       return;
@@ -3437,6 +3449,11 @@ window.v35Open=function(){
     if(!results.length) throw new Error("Keine Spieler konnten gezogen werden");
 
     coins-=totalCost;
+    if(!registered){
+      guestPackCount+=packCount;
+      localStorage.setItem("packOpenerGuestPacksV1",String(guestPackCount));
+      window.guestNoGameSave=guestPackCount>=20;
+    }
     save();
     stats();
     opening=true;
@@ -3469,8 +3486,18 @@ window.v35Open=function(){
     setTimeout(()=>{
       ov.classList.add("complete");
       save();
+      if(guestStateBefore20!==null){
+        localStorage.setItem("packOpenerV29",guestStateBefore20);
+      }
       stats();
       opening=false;
+      if(!registered && guestPackCount>=20){
+        const text="🔒 20 Gast-Packs geöffnet. Für weitere Packs musst du dich jetzt registrieren.";
+        if($("msg")) $("msg").textContent=text;
+        if(typeof window.accountMode==="function") window.accountMode("register");
+        if(typeof window.openAccountModal==="function") window.openAccountModal();
+        if(typeof window.setAccountMsg==="function") window.setAccountMsg(text+" Dein Gast-Spielstand wird nicht weiter gespeichert.");
+      }
     },finishDelay);
 
   }catch(err){
