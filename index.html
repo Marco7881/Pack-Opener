@@ -403,7 +403,7 @@ button{font-family:inherit}
 .trainerCardV54{background:linear-gradient(180deg,#102b52,#07172c);border:1px solid #1688ff66;border-radius:15px;padding:9px;text-align:center}
 .trainerCardV54 img{width:100%;height:205px;object-fit:contain;background:#08182f;border-radius:10px}
 .trainerCardV54 h4{margin:9px 2px 3px}.trainerRoleV54{font-size:10px;font-weight:800;color:#5dbbff;text-transform:uppercase}
-</style><script>
+</style>
 function handleTeamSlotClick(i){
   const formation = window.hsvFormation || localStorage.getItem("hsvFormation") || "4-3-3";
   const positionMap = {
@@ -2811,8 +2811,8 @@ const PROFILE={"Daniel Heuer Fernandes": "https://www.hsv.de/teams/maenner/spiel
 const TANGVIK_ART=IMG["Sander Tangvik"]||"";
 const cfg={hsv:{price:10,rare:.02,legend:0,name:"BRONZE"},hsvrare:{price:25,rare:0,legend:.02,name:"SILBER"},hsvlegend:{price:50,rare:0,legend:1,name:"GOLD"}};
 let d=JSON.parse(localStorage.getItem("packOpenerV29")||"null")||{coins:3000,collection:[],daily:"",squad:[]}; if(!localStorage.getItem("hsvTest100kV169")){d.coins=100000;localStorage.setItem("hsvTest100kV169","1");localStorage.setItem("packOpenerV29",JSON.stringify(d));}let coins=d.coins,collection=d.collection,squad=d.squad,current=null,opening=false,flt="all",pendingResults=null,att=5,hs=0,os=0,selectedTrainer=d.trainer||null,career=d.career||{season:1,matchday:1,points:0,fans:57000};
-let idleLast=d.idleLast||Date.now(),idleBank=d.idleBank||0,idleCap=12*60*60;let playerXP=d.playerXP||{};const $=x=>document.getElementById(x);
-function save(){d.coins=coins;d.collection=collection;d.squad=squad;d.trainer=selectedTrainer;d.playerXP=playerXP;d.career=career;d.idleLast=idleLast;d.idleBank=idleBank;localStorage.setItem("packOpenerV29",JSON.stringify(d));$("coins").textContent=coins;const formattedCoins=Number(coins).toLocaleString("de-DE");const pc=$("packCoins");if(pc)pc.textContent=formattedCoins;const opc=$("overlayPackCoins");if(opc)opc.textContent=formattedCoins}
+let idleLast=d.idleLast||Date.now(),idleBank=d.idleBank||0,idleCap=12*60*60;let playerXP=d.playerXP||{};let guestPackCount=Number(localStorage.getItem("packOpenerGuestPacksV1")||0);window.guestNoGameSave=false;const $=x=>document.getElementById(x);
+function save(){if(window.guestNoGameSave){$("coins").textContent=coins;const formattedCoins=Number(coins).toLocaleString("de-DE");const pc=$("packCoins");if(pc)pc.textContent=formattedCoins;const opc=$("overlayPackCoins");if(opc)opc.textContent=formattedCoins;return}d.coins=coins;d.collection=collection;d.squad=squad;d.trainer=selectedTrainer;d.playerXP=playerXP;d.career=career;d.idleLast=idleLast;d.idleBank=idleBank;localStorage.setItem("packOpenerV29",JSON.stringify(d));$("coins").textContent=coins;const formattedCoins=Number(coins).toLocaleString("de-DE");const pc=$("packCoins");if(pc)pc.textContent=formattedCoins;const opc=$("overlayPackCoins");if(opc)opc.textContent=formattedCoins}
 function tab(t){["home","packs","squad","club","quickmatch","market","collection"].forEach(x=>{const e=$(x);if(e)e.classList.toggle("hidden",x!==t)});["homeTab","packsTab","squadTab","clubTab","quickMatchTab","marketTab","colTab"].forEach((x,i)=>{const e=$(x);if(e)e.classList.toggle("active",["home","packs","squad","club","quickmatch","market","collection"][i]===t)});$("title").textContent=t.toUpperCase();if(t==="collection"){flt="HSV";document.querySelectorAll(".filters button").forEach(x=>x.classList.remove("active"));const hb=document.querySelector(".filters button[onclick*='HSV']");if(hb)hb.classList.add("active");render();}if(t==="market")market();if(t==="squad")renderSquad();if(t==="career")renderCareer();if(t==="match"){let r=squad.length?Math.round(squad.reduce((a,p)=>a+p[1],0)/squad.length):0;$("matchRating").textContent=r;$("matchChem").textContent=Math.min(33,squad.length*3)}stats()}
 function choose(t){if(opening)return;current=t;$("openTitle").textContent=cfg[t].name;$("pack").className="pack "+(t==="rare"?"rare ":"")+(t==="legend"?"legend ":"");$("cards").classList.add("hidden");$("msg").textContent=cfg[t].price+" Coins – 1 Karte bereit!"}
 function roll(c){let x=Math.random();return x<c.legend?"Legend":x<c.legend+c.rare?"Rare":"Common"}
@@ -2823,9 +2823,19 @@ function openPack(){
   try{
     if(!current)current="hsv";
     if(opening)return;
+    const registered=!!window.hsvAuthUser;
+    if(!registered && guestPackCount>=20){
+      $("msg").textContent="🔒 Du hast bereits 20 Gast-Packs geöffnet. Bitte registriere dich jetzt, um weiterzuspielen.";
+      if(typeof window.accountMode==="function")window.accountMode("register");
+      if(typeof window.openAccountModal==="function")window.openAccountModal();
+      if(typeof window.setAccountMsg==="function")window.setAccountMsg("🔒 Deine 20 kostenlosen Gast-Packs sind aufgebraucht. Registriere dich jetzt, um weitere Packs zu öffnen. Dein Gast-Spielstand wird nicht weiter gespeichert.");
+      else alert("Du hast bereits 20 Gast-Packs geöffnet. Bitte registriere dich jetzt, um weiterzuspielen.");
+      return;
+    }
     const c=cfg[current];
     if(!c){$("msg").textContent="❌ Pack nicht gefunden.";return}
     if(coins<c.price){$("msg").textContent="❌ Nicht genug Coins!";return}
+    if(!registered){guestPackCount++;localStorage.setItem("packOpenerGuestPacksV1",String(guestPackCount));window.guestNoGameSave=guestPackCount>=20;}
     opening=true; coins-=totalPrice; save();
     document.body.classList.add("packOpening"); window.scrollTo(0,0); $("pack").classList.add("hidden"); $("cards").classList.add("hidden"); $("packClose").classList.remove("hidden"); document.documentElement.scrollTop=0; document.body.scrollTop=0; $("reveal").classList.remove("hidden"); $("reveal").scrollTop=0;
     ["s1","s2","s3","s4","s5"].forEach(x=>$(x).classList.remove("show"));
@@ -2844,6 +2854,14 @@ function openPack(){
     setTimeout(()=>{$("rr").textContent=first[1];$("s5").classList.add("show")},1750);
     pendingResults=rs;
     setTimeout(()=>showWalkout(first),2350);
+    if(!registered && guestPackCount===20){
+      setTimeout(()=>{
+        $("msg").textContent="🔒 20 Gast-Packs geöffnet. Für weitere Packs musst du dich registrieren. Dein Gast-Spielstand wird nicht weiter gespeichert.";
+        if(typeof window.accountMode==="function")window.accountMode("register");
+        if(typeof window.openAccountModal==="function")window.openAccountModal();
+        if(typeof window.setAccountMsg==="function")window.setAccountMsg("🔒 Du hast die 20 kostenlosen Gast-Packs aufgebraucht. Registriere dich jetzt, um weitere Packs zu öffnen. Dein Gast-Spielstand wird nicht weiter gespeichert.");
+      },3400);
+    }
   }catch(err){
     console.error(err); opening=false; $("msg").textContent="❌ Fehler beim Pack-Opening. Bitte erneut versuchen.";
   }
@@ -6290,8 +6308,8 @@ window.addEventListener("load",()=>{try{if(typeof render==="function")render();}
  * 4. Deine Firebase Web-App-Konfiguration hier eintragen.
  * Danach funktioniert Registrierung/Login auch geräteübergreifend.
  */
-window.HSV_FIREBASE_CONFIG = window.HSV_FIREBASE_CONFIG || {
-  apiKey: "AIzaSyCckjIVGrqkAWKCCb-JmbUdPSmxAUe3kTI",
+window.HSV_FIREBASE_CONFIG = {
+  apiKey: "AIzaSyCcjKVlGrqkAWKCCb-JmbUdpSmxAUe3kTl",
   authDomain: "pack-opener-marco.firebaseapp.com",
   projectId: "pack-opener-marco",
   storageBucket: "pack-opener-marco.firebasestorage.app",
