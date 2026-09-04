@@ -6401,14 +6401,22 @@ window.HSV_FIREBASE_CONFIG = {
   window.syncGameToCloud=async function(){
     if(!window.hsvFirebaseReady||!window.hsvAuthUser)return;
     const m=window.hsvFirebaseModules;
-    const game={coins,collection,squad,trainer:selectedTrainer,playerXP,career,idleLast,idleBank,updatedAt:m.serverTimestamp()};
-    await m.setDoc(m.doc(m.db,'users',window.hsvAuthUser.uid),{email:window.hsvAuthUser.email||'',game},{merge:true});
+    // Firestore does not allow nested arrays. Store the complete game state as JSON text
+    // so collections/squads containing nested arrays can be saved without errors.
+    const gameState={coins,collection,squad,trainer:selectedTrainer,playerXP,career,idleLast,idleBank};
+    const game=JSON.stringify(gameState);
+    await m.setDoc(m.doc(m.db,'users',window.hsvAuthUser.uid),{email:window.hsvAuthUser.email||'',game,updatedAt:m.serverTimestamp()},{merge:true});
   };
   window.loadGameFromCloud=async function(){
     if(!window.hsvFirebaseReady||!window.hsvAuthUser)return;
     const m=window.hsvFirebaseModules, snap=await m.getDoc(m.doc(m.db,'users',window.hsvAuthUser.uid));
     if(!snap.exists())return;
-    const game=snap.data()?.game||{};
+    let game=snap.data()?.game||{};
+    // New format: complete game state is stored as JSON text to avoid Firestore nested-array errors.
+    if(typeof game==='string'){
+      try{game=JSON.parse(game)||{};}catch(e){game={};}
+    }
+    // Backward compatibility with the previous object format.
     if(typeof game.coins==='number')coins=game.coins;
     if(Array.isArray(game.collection))collection=game.collection;
     if(Array.isArray(game.squad))squad=game.squad;
