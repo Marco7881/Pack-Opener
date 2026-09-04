@@ -75,3 +75,23 @@ assets/img_074.webp
 assets/img_075.webp
 assets/img_076.webp
 assets/img_077.webp
+Upamecano	assets/bayern_Upamecano.png
+Ndiaye	assets/bayern_Ndiaye.png
+Stanišić	assets/bayern_Stani_i.png
+Urbig	assets/bayern_Urbig.png
+Gnabry	assets/bayern_Gnabry.png
+Laimer	assets/bayern_Laimer.png
+Saibari	assets/bayern_Saibari.png
+Kimmich	assets/bayern_Kimmich.png
+Ito	assets/bayern_Ito.png
+Musiala	assets/bayern_Musiala.png
+Davies	assets/bayern_Davies.png
+Karl	assets/bayern_Karl.png
+Díaz	assets/bayern_D_az.png
+Neuer	assets/bayern_Neuer.png
+Olise	assets/bayern_Olise.png
+Kane	assets/bayern_Kane.png
+
+Tah -> assets/bayern_Tah.png
+Minjae -> assets/bayern_Minjae.png
+Kim -> assets/bayern_Minjae.png

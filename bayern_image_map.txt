@@ -1,0 +1,29 @@
+Bischof=assets/bayern_Bischof.png
+Boey=assets/bayern_Boey.png
+Brown=assets/bayern_Brown.webp
+Daiber=assets/bayern_Daiber.png
+Davies=assets/bayern_Davies.png
+Diaz=assets/bayern_Diaz.webp
+Díaz=assets/bayern_D_az.png
+Gnabry=assets/bayern_Gnabry.png
+Ito=assets/bayern_Ito.webp
+Kane=assets/bayern_Kane.png
+Karl=assets/bayern_Karl.webp
+Kim=assets/bayern_Kim.png
+Kimmich=assets/bayern_Kimmich.png
+Laimer=assets/bayern_Laimer.png
+Musiala=assets/bayern_Musiala.png
+Ndiaye=assets/bayern_Ndiaye.png
+Neuer=assets/bayern_Neuer.png
+Olise=assets/bayern_Olise.webp
+Pavlovic=assets/bayern_Pavlovic.webp
+Pavlović=assets/bayern_Pavlovi.webp
+Saibari=assets/bayern_Saibari.png
+Stanisic=assets/bayern_Stanisic.webp
+Stanišić=assets/bayern_Stani_i.png
+Upamecano=assets/bayern_Upamecano.png
+Urbig=assets/bayern_Urbig.png
+
+Tah -> assets/bayern_Tah.png
+Minjae -> assets/bayern_Minjae.png
+Kim -> assets/bayern_Minjae.png
