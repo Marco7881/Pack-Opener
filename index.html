@@ -404,7 +404,6 @@ button{font-family:inherit}
 .trainerCardV54 img{width:100%;height:205px;object-fit:contain;background:#08182f;border-radius:10px}
 .trainerCardV54 h4{margin:9px 2px 3px}.trainerRoleV54{font-size:10px;font-weight:800;color:#5dbbff;text-transform:uppercase}
 </style><script>
-
 function handleTeamSlotClick(i){
   const formation = window.hsvFormation || localStorage.getItem("hsvFormation") || "4-3-3";
   const positionMap = {
@@ -2667,7 +2666,7 @@ body:has(#squad:not(.hidden)) [data-section="squad"]{
   <div id="overlayPackCoinsDisplay" style="margin-top:10px;font-weight:900;font-size:15px">🪙 <span id="overlayPackCoins">0</span> Coins</div>
 </div>
 <div class="packGrid" id="v35Grid"></div><button class="nextBtn" onclick="v35Next()">📦 Nächstes Pack öffnen</button></div><button id="packClose" class="hidden" onclick="closePackOpening()" aria-label="Pack-Opening schließen">×</button><div id="walkout" class="walkout"><div class="stadium"><div class="lights"></div><div class="crowd"></div><div class="pitch"></div><div class="woText">NUR DER HSV</div><button class="closeWalk" onclick="closeWalkout()">✕</button><div id="walkCard" class="walkoutCard"><div class="badge">🔷 HSV</div><div id="woRating" class="woRating">90</div><div class="woFace">👤</div><div id="woName" class="woName">Spieler</div><div id="woClub" class="woClub">HSV • VOLKSPARKSTADION</div></div></div></div><div class="app"><h1>⚽ PACK OPENER</h1><div style="text-align:center;margin:8px auto 14px;padding:10px;border-radius:12px;background:linear-gradient(90deg,#07111f,#164b7a,#07111f);border:1px solid #5ab8f566;font-weight:900">🔷 HSV • VOLKSPARKSTADION • NUR DER HSV • STADIUM WALKOUT 🔷</div>
-<div class="top"><b id="title">HOME</b><div class="coins">🪙 <span id="coins">3000</span></div></div>
+<div class="top"><b id="title">HOME</b><div style="display:flex;align-items:center;gap:8px"><button id="accountBtn" type="button" onclick="openAccountModal()" style="padding:8px 12px;border-radius:10px;font-weight:900;cursor:pointer">👤 Registrieren</button><div class="coins">🪙 <span id="coins">3000</span></div></div></div>
 <div class="nav"><button id="homeTab" class="active" onclick="tab('home')">🏠 Home</button><button id="packsTab" onclick="tab('packs')">📦 Packs</button><button id="squadTab" type="button" onclick="tab('squad');return false;" style="display:inline-flex!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;position:relative!important;z-index:9999!important;">👥 Team</button><button id="clubTab" onclick="tab('club')">🏟️ Vereinszentrum</button><button id="quickMatchTab" type="button" onclick="tab('quickmatch');return false;" style="cursor:pointer;">⚽ Schnellspiel</button><button id="marketTab" onclick="tab('market')">💰 Markt</button><button id="colTab" onclick="tab('collection')">📚 Sammlung</button></div>
 
 <section id="home" class="panel hero"><h2>🔷 Baue dein HSV-Team auf</h2><p class="muted">Öffne Packs, decke Karten einzeln auf und stelle deine beste Elf zusammen.</p><div class="stats"><div class="stat"><b id="sc">0</b>Karten</div><div class="stat"><b id="sl">0</b>Gold</div><div class="stat"><b id="sr">0</b>Silber</div><div class="stat"><b id="sb">0</b>Teamrating</div></div><button onclick="daily()">🎁 +500 Tagesbonus</button><p id="dailyText" class="muted"></p><div id="idleBox" style="margin-top:18px;padding:16px;border:1px solid #69c8ff44;border-radius:16px;background:#071b2b99"><b>⚙️ Idle-Verein</b><div class="stats" style="margin-top:10px"><div class="stat"><b id="idleRate">0</b> Coins/h</div><div class="stat"><b id="idleBank">0</b> bereit</div><div class="stat"><b id="idleHours">0</b> h offline</div></div><button class="gold" onclick="collectIdle()">💰 Offline-Einnahmen abholen</button><p id="idleMsg" class="muted"></p></div></section>
@@ -6238,3 +6237,166 @@ IMG["Bischof"]="assets/bayern_Bischof.png";IMG["Boey"]="assets/bayern_Boey.png";
 window.addEventListener("load",()=>{try{if(typeof render==="function")render();}catch(e){} try{if(typeof renderSquad==="function")renderSquad();}catch(e){}});
 </script>
 <script id="complete-bayern-player-images-extra">IMG["Ulreich"]="assets/bayern_Ulreich.png";IMG["Karl"]="assets/bayern_Karl.png";IMG["Olise"]="assets/bayern_Olise.png";</script>
+
+
+<!-- =========================================================
+     ACCOUNT SYSTEM – Firebase Authentication + Firestore
+     GitHub Pages compatible. Fill HSV_FIREBASE_CONFIG below once.
+     ========================================================= -->
+<style id="account-system-style">
+#accountModal{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;z-index:999999;padding:18px;backdrop-filter:blur(5px)}
+#accountModal.open{display:flex}
+.accountBox{width:min(460px,96vw);background:linear-gradient(180deg,#102b52,#07172c);border:1px solid #4aa8ff55;border-radius:20px;padding:22px;box-shadow:0 20px 70px #000b;color:#fff;position:relative}
+.accountBox h2{margin:0 0 6px;font-size:24px}.accountSub{opacity:.75;font-size:13px;margin-bottom:16px;line-height:1.45}
+.accountTabs{display:flex;gap:8px;margin-bottom:14px}.accountTabs button{flex:1;border:1px solid #ffffff22;background:#0b1d35;color:#fff;border-radius:10px;padding:10px;font-weight:900;cursor:pointer}.accountTabs button.active{background:#f5c842;color:#111}
+.accountField{display:block;margin:10px 0}.accountField span{display:block;font-size:12px;font-weight:800;margin-bottom:5px;opacity:.85}.accountField input{width:100%;box-sizing:border-box;padding:12px;border-radius:10px;border:1px solid #ffffff22;background:#071526;color:#fff;outline:none}.accountField input:focus{border-color:#5ab8f5}
+.accountPrimary{width:100%;padding:12px;border:0;border-radius:11px;background:#f5c842;color:#111;font-weight:1000;cursor:pointer;margin-top:8px}.accountSecondary{width:100%;padding:10px;border:1px solid #ffffff22;border-radius:11px;background:#0b1d35;color:#fff;font-weight:800;cursor:pointer;margin-top:8px}
+.accountClose{position:absolute;right:12px;top:10px;border:0;background:transparent;color:#fff;font-size:28px;cursor:pointer}.accountMsg{min-height:20px;margin-top:10px;font-size:12px;line-height:1.4}.accountStatus{font-size:12px;opacity:.75;margin-top:10px;text-align:center}.accountLogged{display:none}.accountLogged.show{display:block}.accountAuth.show{display:block}.accountAuth{display:block}
+.accountNote{font-size:11px;opacity:.58;margin-top:12px;line-height:1.45}
+</style>
+<div id="accountModal" aria-hidden="true">
+  <div class="accountBox" role="dialog" aria-modal="true" aria-labelledby="accountTitle">
+    <button class="accountClose" type="button" onclick="closeAccountModal()">×</button>
+    <h2 id="accountTitle">👤 Konto</h2>
+    <div id="accountSub" class="accountSub">Erstelle ein Konto, damit deine Coins, Sammlung und dein Team online gespeichert werden.</div>
+    <div id="accountAuthPanel" class="accountAuth">
+      <div class="accountTabs">
+        <button id="accountLoginTab" class="active" type="button" onclick="accountMode('login')">Anmelden</button>
+        <button id="accountRegisterTab" type="button" onclick="accountMode('register')">Registrieren</button>
+      </div>
+      <label class="accountField"><span>E-Mail</span><input id="accountEmail" type="email" autocomplete="email" placeholder="deine@email.de"></label>
+      <label class="accountField"><span>Passwort</span><input id="accountPassword" type="password" autocomplete="current-password" placeholder="Mindestens 6 Zeichen"></label>
+      <button id="accountSubmit" class="accountPrimary" type="button" onclick="submitAccountAuth()">Anmelden</button>
+      <button id="accountReset" class="accountSecondary" type="button" onclick="resetAccountPassword()">Passwort vergessen?</button>
+      <div id="accountMsg" class="accountMsg"></div>
+      <div class="accountNote">Für echte Online-Konten wird Firebase verwendet. Die Zugangsdaten werden nicht im Spiel gespeichert.</div>
+    </div>
+    <div id="accountLoggedPanel" class="accountLogged">
+      <div class="accountSub">Du bist angemeldet als <b id="accountLoggedEmail"></b>.</div>
+      <button class="accountPrimary" type="button" onclick="syncGameToCloud().then(()=>setAccountMsg('Spielstand gespeichert.'))">☁️ Spielstand jetzt speichern</button>
+      <button class="accountSecondary" type="button" onclick="logoutAccount()">Abmelden</button>
+      <div id="accountLoggedMsg" class="accountMsg"></div>
+    </div>
+    <div id="accountStatus" class="accountStatus">Account-System wird geladen …</div>
+  </div>
+</div>
+
+<script id="account-system-config">
+/*
+ * EINMALIGES SETUP:
+ * 1. Firebase-Projekt erstellen.
+ * 2. Authentication → Sign-in method → E-Mail/Passwort aktivieren.
+ * 3. Firestore Database erstellen.
+ * 4. Deine Firebase Web-App-Konfiguration hier eintragen.
+ * Danach funktioniert Registrierung/Login auch geräteübergreifend.
+ */
+window.HSV_FIREBASE_CONFIG = window.HSV_FIREBASE_CONFIG || {
+  apiKey: "AIzaSyCckjIVGrqkAWKCCb-JmbUdPSmxAUe3kTI",
+  authDomain: "pack-opener-marco.firebaseapp.com",
+  projectId: "pack-opener-marco",
+  storageBucket: "pack-opener-marco.firebasestorage.app",
+  messagingSenderId: "219672463822",
+  appId: "1:219672463822:web:23ce23302ac9e7e5cb039f"
+};
+</script>
+<script id="account-system-runtime">
+(function(){
+  const cfg = window.HSV_FIREBASE_CONFIG || {};
+  const configured = cfg.apiKey && !String(cfg.apiKey).startsWith('HIER_') && cfg.projectId && !String(cfg.projectId).startsWith('HIER_');
+  window.hsvFirebaseReady=false; window.hsvAuthUser=null; window.hsvFirebaseModules=null; window.hsvAccountMode='login';
+  function msg(t){ const e=document.getElementById('accountMsg'); if(e)e.textContent=t; const le=document.getElementById('accountLoggedMsg'); if(le)le.textContent=t; }
+  window.setAccountMsg=msg;
+  window.accountMode=function(mode){
+    window.hsvAccountMode=mode;
+    const l=document.getElementById('accountLoginTab'), r=document.getElementById('accountRegisterTab');
+    if(l)l.classList.toggle('active',mode==='login'); if(r)r.classList.toggle('active',mode==='register');
+    const b=document.getElementById('accountSubmit'); if(b)b.textContent=mode==='login'?'Anmelden':'Konto erstellen';
+    const reset=document.getElementById('accountReset'); if(reset)reset.style.display=mode==='login'?'block':'none';
+    msg('');
+  };
+  window.openAccountModal=function(){ const m=document.getElementById('accountModal'); if(m){m.classList.add('open');m.setAttribute('aria-hidden','false');} updateUI(); };
+  window.closeAccountModal=function(){ const m=document.getElementById('accountModal'); if(m){m.classList.remove('open');m.setAttribute('aria-hidden','true');} };
+  function updateUI(){
+    const auth=document.getElementById('accountAuthPanel'), logged=document.getElementById('accountLoggedPanel'), btn=document.getElementById('accountBtn'), status=document.getElementById('accountStatus');
+    const u=window.hsvAuthUser;
+    if(logged)logged.classList.toggle('show',!!u); if(auth)auth.style.display=u?'none':'block';
+    const le=document.getElementById('accountLoggedEmail'); if(le)le.textContent=u?.email||'';
+    if(btn){btn.textContent=u?'👤 '+(u.email||'Konto'):'👤 Registrieren';}
+    if(status)status.textContent=!configured?'⚙️ Firebase-Konfiguration fehlt – das Konto-System ist vorbereitet.':(window.hsvFirebaseReady?'🟢 Online-Konto verbunden':'🟡 Firebase wird geladen …');
+  }
+  window.submitAccountAuth=async function(){
+    if(!window.hsvFirebaseReady){msg('Das Konto-System ist vorbereitet, aber die Firebase-Konfiguration wurde noch nicht eingetragen.');return;}
+    const email=(document.getElementById('accountEmail')?.value||'').trim(), password=document.getElementById('accountPassword')?.value||'';
+    if(!email||!password){msg('Bitte E-Mail und Passwort eingeben.');return;}
+    msg('Bitte warten …');
+    try{
+      const {auth,createUserWithEmailAndPassword,signInWithEmailAndPassword,saveCloud}=window.hsvFirebaseModules;
+      let cred;
+      if(window.hsvAccountMode==='register'){
+        cred=await createUserWithEmailAndPassword(auth,email,password);
+        window.hsvAuthUser=cred.user; await saveCloud(); msg('Konto erstellt. Dein Spielstand wurde gespeichert.');
+      } else {
+        cred=await signInWithEmailAndPassword(auth,email,password);
+        window.hsvAuthUser=cred.user; await window.loadGameFromCloud(); msg('Erfolgreich angemeldet.');
+      }
+      updateUI();
+    }catch(e){msg(firebaseError(e));}
+  };
+  window.resetAccountPassword=async function(){
+    if(!window.hsvFirebaseReady){msg('Firebase ist noch nicht konfiguriert.');return;}
+    const email=(document.getElementById('accountEmail')?.value||'').trim(); if(!email){msg('Bitte zuerst deine E-Mail eingeben.');return;}
+    try{await window.hsvFirebaseModules.sendPasswordResetEmail(window.hsvFirebaseModules.auth,email);msg('E-Mail zum Zurücksetzen wurde angefordert.');}catch(e){msg(firebaseError(e));}
+  };
+  window.logoutAccount=async function(){try{if(window.hsvFirebaseReady)await window.hsvFirebaseModules.signOut(window.hsvFirebaseModules.auth);}catch(e){} window.hsvAuthUser=null; updateUI(); msg(''); window.closeAccountModal();};
+  function firebaseError(e){
+    const c=e?.code||'';
+    const map={'auth/email-already-in-use':'Diese E-Mail ist bereits registriert.','auth/invalid-email':'Die E-Mail-Adresse ist ungültig.','auth/weak-password':'Das Passwort ist zu schwach.','auth/invalid-credential':'E-Mail oder Passwort ist falsch.','auth/user-not-found':'Kein Konto mit dieser E-Mail gefunden.','auth/wrong-password':'E-Mail oder Passwort ist falsch.','auth/too-many-requests':'Zu viele Versuche. Bitte später erneut versuchen.'};
+    return map[c]||('Fehler: '+(e?.message||c||'Unbekannter Fehler'));
+  }
+  window.syncGameToCloud=async function(){
+    if(!window.hsvFirebaseReady||!window.hsvAuthUser)return;
+    const m=window.hsvFirebaseModules;
+    const game={coins,collection,squad,trainer:selectedTrainer,playerXP,career,idleLast,idleBank,updatedAt:m.serverTimestamp()};
+    await m.setDoc(m.doc(m.db,'users',window.hsvAuthUser.uid),{email:window.hsvAuthUser.email||'',game},{merge:true});
+  };
+  window.loadGameFromCloud=async function(){
+    if(!window.hsvFirebaseReady||!window.hsvAuthUser)return;
+    const m=window.hsvFirebaseModules, snap=await m.getDoc(m.doc(m.db,'users',window.hsvAuthUser.uid));
+    if(!snap.exists())return;
+    const game=snap.data()?.game||{};
+    if(typeof game.coins==='number')coins=game.coins;
+    if(Array.isArray(game.collection))collection=game.collection;
+    if(Array.isArray(game.squad))squad=game.squad;
+    if(game.trainer!==undefined)selectedTrainer=game.trainer;
+    if(game.playerXP&&typeof game.playerXP==='object')playerXP=game.playerXP;
+    if(game.career&&typeof game.career==='object')career=game.career;
+    if(game.idleLast)idleLast=game.idleLast;
+    if(typeof game.idleBank==='number')idleBank=game.idleBank;
+    d.coins=coins;d.collection=collection;d.squad=squad;d.trainer=selectedTrainer;d.playerXP=playerXP;d.career=career;d.idleLast=idleLast;d.idleBank=idleBank;
+    localStorage.setItem('packOpenerV29',JSON.stringify(d));
+    try{if(typeof stats==='function')stats();}catch(e){} try{if(typeof render==='function')render();}catch(e){} try{if(typeof renderSquad==='function')renderSquad();}catch(e){}
+    const ce=document.getElementById('coins'); if(ce)ce.textContent=Number(coins).toLocaleString('de-DE');
+  };
+  // Extend the existing save function without replacing the game's save logic.
+  const oldSave=window.save;
+  if(typeof oldSave==='function'){
+    window.save=function(){ const r=oldSave.apply(this,arguments); if(window.hsvFirebaseReady&&window.hsvAuthUser) window.syncGameToCloud().catch(()=>{}); return r; };
+  }
+  async function init(){
+    if(!configured){updateUI();return;}
+    try{
+      const app=await import('https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js');
+      const fa=await import('https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js');
+      const fs=await import('https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js');
+      const firebaseApp=app.initializeApp(cfg);
+      const auth=fa.getAuth(firebaseApp), db=fs.getFirestore(firebaseApp);
+      window.hsvFirebaseModules={auth,db,createUserWithEmailAndPassword:fa.createUserWithEmailAndPassword,signInWithEmailAndPassword:fa.signInWithEmailAndPassword,sendPasswordResetEmail:fa.sendPasswordResetEmail,signOut:fa.signOut,saveCloud:window.syncGameToCloud,doc:fs.doc,setDoc:fs.setDoc,getDoc:fs.getDoc,serverTimestamp:fs.serverTimestamp};
+      window.hsvFirebaseReady=true;
+      fa.onAuthStateChanged(auth,async user=>{window.hsvAuthUser=user||null; if(user){await window.loadGameFromCloud().catch(()=>{});} updateUI();});
+      updateUI();
+    }catch(e){console.error('Firebase init:',e); const st=document.getElementById('accountStatus'); if(st)st.textContent='🔴 Firebase konnte nicht geladen werden.';}
+  }
+  document.addEventListener('DOMContentLoaded',init);
+  updateUI();
+})();
+</script>
