@@ -2659,6 +2659,18 @@ body:has(#squad:not(.hidden)) [data-section="squad"]{
 .otherProfileModal{max-width:560px;width:min(560px,92vw);position:relative}
 .otherProfileClose{position:absolute;right:12px;top:12px;width:36px;height:36px;border-radius:10px}
 </style>
+<style id="user-login-club-picker-ui">
+.picker-player .pickerClub{display:block!important;font-size:11px!important;opacity:.8!important;font-weight:800!important;margin-top:1px!important;color:#9fc9ec!important}
+#guestAccountActions button,#loggedUserBtn{white-space:nowrap}
+</style>
+<style id="compact-packs-club-layout">
+#packs .packs{gap:8px!important;max-width:900px!important;margin:0 auto!important}
+#packs .packChoice{transform:none!important;margin-bottom:4px!important}
+#packs .packChoice:first-child .packIcon{width:175px!important;height:225px!important}
+#packs .packChoice:not(:first-child) .packShopImg{height:255px!important}
+#club{margin-top:0!important}
+#club #clubContent{max-width:980px!important;margin:0 auto!important}
+</style>
 </head><body><div id="packOverlay"><button class="packClose" onclick="v35Close()">×</button>
 <div class="packTitle" id="v35Title">🔷 HSV PACK</div><div class="packSub"></div>
 <div class="quickPackSwitch" id="quickPackSwitch">
@@ -2676,7 +2688,7 @@ body:has(#squad:not(.hidden)) [data-section="squad"]{
   <div id="overlayPackCoinsDisplay" style="margin-top:10px;font-weight:900;font-size:15px">🪙 <span id="overlayPackCoins">0</span> Coins</div>
 </div>
 <div class="packGrid" id="v35Grid"></div><button class="nextBtn" onclick="v35Next()">📦 Nächstes Pack öffnen</button></div><button id="packClose" class="hidden" onclick="closePackOpening()" aria-label="Pack-Opening schließen">×</button><div id="walkout" class="walkout"><div class="stadium"><div class="lights"></div><div class="crowd"></div><div class="pitch"></div><div class="woText">NUR DER HSV</div><button class="closeWalk" onclick="closeWalkout()">✕</button><div id="walkCard" class="walkoutCard"><div class="badge">🔷 HSV</div><div id="woRating" class="woRating">90</div><div class="woFace">👤</div><div id="woName" class="woName">Spieler</div><div id="woClub" class="woClub">HSV • VOLKSPARKSTADION</div></div></div></div><div class="app"><h1>⚽ PACK OPENER</h1><div style="text-align:center;margin:8px auto 14px;padding:10px;border-radius:12px;background:linear-gradient(90deg,#07111f,#164b7a,#07111f);border:1px solid #5ab8f566;font-weight:900">🔷 HSV • VOLKSPARKSTADION • NUR DER HSV • STADIUM WALKOUT 🔷</div>
-<div class="top"><b id="title">HOME</b><div style="display:flex;align-items:center;gap:8px"><button id="accountLoginBtn" type="button" onclick="openAccountModal('login')" style="padding:8px 12px;border-radius:10px;font-weight:900;cursor:pointer">🔑 Login</button><button id="accountRegisterBtn" type="button" onclick="openAccountModal('register')" style="padding:8px 12px;border-radius:10px;font-weight:900;cursor:pointer">👤 Registrieren</button><div class="coins">🪙 <span id="coins">3000</span></div></div></div>
+<div class="top"><b id="title">HOME</b><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end"><div id="guestAccountActions" style="display:flex;align-items:center;gap:6px"><button id="loginBtn" type="button" onclick="accountMode('login');openAccountModal()" style="padding:8px 12px;border-radius:10px;font-weight:900;cursor:pointer;background:#17233d;color:#fff">🔑 Login</button><button id="registerBtn" type="button" onclick="accountMode('register');openAccountModal()" style="padding:8px 12px;border-radius:10px;font-weight:900;cursor:pointer">👤 Registrierung</button></div><button id="loggedUserBtn" type="button" onclick="openAccountModal()" style="display:none;padding:8px 12px;border-radius:10px;font-weight:900;cursor:pointer;background:#17233d;color:#fff">👤 Benutzername</button><div class="coins">🪙 <span id="coins">3000</span></div></div></div>
 <div class="nav"><button id="homeTab" class="active" onclick="tab('home')">🏠 Home</button><button id="packsTab" onclick="tab('packs')">📦 Packs</button><button id="squadTab" type="button" onclick="tab('squad');return false;" style="display:inline-flex!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;position:relative!important;z-index:9999!important;">👥 Team</button><button id="clubTab" onclick="tab('club')">🏟️ Vereinszentrum</button><button id="colTab" onclick="tab('collection')">📚 Sammlung</button><button id="leaderboardTab" onclick="tab('leaderboard')">🏆 Rangliste</button><button id="profileTab" onclick="tab('profile')">👤 Profil</button></div>
 
 <section id="home" class="panel hero"><h2>🔷 Baue dein HSV-Team auf</h2><p class="muted">Öffne Packs, decke Karten einzeln auf und stelle deine beste Elf zusammen.</p><div class="stats"><div class="stat"><b id="sc">0</b>Karten</div><div class="stat"><b id="sl">0</b>Gold</div><div class="stat"><b id="sr">0</b>Silber</div><div class="stat"><b id="sb">0</b>Teamrating</div></div><button onclick="daily()">🎁 +500 Tagesbonus</button><p id="dailyText" class="muted"></p><div id="idleBox" style="margin-top:18px;padding:16px;border:1px solid #69c8ff44;border-radius:16px;background:#071b2b99"><b>⚙️ Idle-Verein</b><div class="stats" style="margin-top:10px"><div class="stat"><b id="idleRate">0</b> Coins/h</div><div class="stat"><b id="idleBank">0</b> bereit</div><div class="stat"><b id="idleHours">0</b> h offline</div></div><button class="gold" onclick="collectIdle()">💰 Offline-Einnahmen abholen</button><p id="idleMsg" class="muted"></p></div></section>
@@ -2848,7 +2860,7 @@ function openPack(){
     if(!registered && guestPackCount>=20){
       $("msg").textContent="🔒 Du hast bereits 20 Gast-Packs geöffnet. Bitte registriere dich jetzt, um weiterzuspielen.";
       if(typeof window.accountMode==="function")window.accountMode("login");
-      if(typeof window.openAccountModal==="function")window.openAccountModal("login");
+      if(typeof window.openAccountModal==="function")window.openAccountModal();
       if(typeof window.setAccountMsg==="function")window.setAccountMsg("🔒 Deine 20 kostenlosen Gast-Packs sind aufgebraucht. Registriere dich jetzt, um weitere Packs zu öffnen. Dein Gast-Spielstand wird nicht weiter gespeichert.");
       else alert("Du hast bereits 20 Gast-Packs geöffnet. Bitte registriere dich jetzt, um weiterzuspielen.");
       return;
@@ -2879,7 +2891,7 @@ function openPack(){
       setTimeout(()=>{
         $("msg").textContent="🔒 20 Gast-Packs geöffnet. Für weitere Packs musst du dich registrieren. Dein Gast-Spielstand wird nicht weiter gespeichert.";
         if(typeof window.accountMode==="function")window.accountMode("login");
-        if(typeof window.openAccountModal==="function")window.openAccountModal("login");
+        if(typeof window.openAccountModal==="function")window.openAccountModal();
         if(typeof window.setAccountMsg==="function")window.setAccountMsg("🔒 Du hast die 20 kostenlosen Gast-Packs aufgebraucht. Registriere dich jetzt, um weitere Packs zu öffnen. Dein Gast-Spielstand wird nicht weiter gespeichert.");
       },3400);
     }
@@ -2890,7 +2902,7 @@ function openPack(){
 function showWalkout(p){ document.body.classList.add("packOpening"); window.scrollTo(0,0);
   try{
     pendingResults=pendingResults||[];
-    $("woRating").textContent=p[1]; $("woName").textContent=playerLastName(p[0]); $("woClub").textContent=p[4]+" • VOLKSPARKSTADION";
+    $("woRating").textContent=p[1]; $("woName").textContent=lastName(p[0]); $("woClub").textContent=p[4]+" • VOLKSPARKSTADION";
     const url=IMG[p[0]];
     $("woFace").innerHTML=(url&&/^(https?:\/\/|data:image\/)/.test(url))?`<img src="${url}" alt="${String(p[0]).replace(/"/g,'&quot;')}" class="walkoutPlayerArtwork" loading="eager" decoding="async">`:"👤";
     $("walkout").classList.add("on");
@@ -2926,7 +2938,7 @@ function revealCard(e,p,r){
   const url=IMG[p[0]];
   const photo=(url&&/^(https?:\/\/|data:image\/)/.test(url))?`<img src="${url}" alt="${String(p[0]).replace(/"/g,'&quot;')}" class="playerCardArtwork" loading="eager" decoding="async">`:`🔷`;
   const profile=(p[4]==="HSV"&&PROFILE[p[0]])?`<a href="${PROFILE[p[0]]}" target="_blank" rel="noopener" class="hsvProfile">HSV-Profil</a>`:"";
-  e.innerHTML=`<div class="r">${p[1]}</div><div class="p">${p[2]}</div><div class="f">${p[3]}</div><div class="hsvbadge">${p[4]==="HSV"?"🔷 HSV":""}</div><div class="face">${photo}</div><div class="name">${playerLastName(p[0])}</div>${profile}<div class="detail">🏟️ ${p[4]}<br>🌍 ${p[5]}<br><br>PAC ${p[6]} • SHO ${p[7]} • PAS ${p[8]}</div><div class="tag">${r.toUpperCase()}</div>`;
+  e.innerHTML=`<div class="r">${p[1]}</div><div class="p">${p[2]}</div><div class="f">${p[3]}</div><div class="hsvbadge">${p[4]==="HSV"?"🔷 HSV":""}</div><div class="face">${photo}</div><div class="name">${lastName(p[0])}</div>${profile}<div class="detail">🏟️ ${p[4]}<br>🌍 ${p[5]}<br><br>PAC ${p[6]} • SHO ${p[7]} • PAS ${p[8]}</div><div class="tag">${r.toUpperCase()}</div>`;
 }
 function cancel(){if(opening)return;$("cards").classList.add("hidden");$("reveal").classList.add("hidden");$("pack").classList.add("hidden");current=null}
 function updateCollectionRarityCounts(){
@@ -3094,9 +3106,16 @@ let collectionSort="dupes";
 function sortCollection(v){collectionSort=v;render()}
 function filter(f,b){flt=f;document.querySelectorAll(".filters button").forEach(x=>x.classList.remove("active"));b.classList.add("active");render()}
 function sell(i){let p=collection[i];if(!p)return;coins+=Math.round(p[10]*.55);collection.splice(i,1);squad=squad.filter(x=>x[0]!==p[0]);save();render();stats()}
-function market(){let names=collection.map(p=>p[0]);$("marketGrid").innerHTML=P.map((p,i)=>`<div class="listing ${p[9].toLowerCase()}"><div class="mini">${IMG[p[0]]?``:"🔷"}</div><b>${playerLastName(p[0])}</b><div class="muted">${p[1]} • ${p[2]} • ${p[9]}</div><div>${p[3]} ${p[4]}</div><button class="${names.includes(p[0])?'':'gold'}" ${names.includes(p[0])?'disabled':''} onclick="buy(${i})">${names.includes(p[0])?"Bereits im Besitz":"Kaufen • "+p[10]+" 🪙"}</button></div>`).join("")}
+function market(){let names=collection.map(p=>p[0]);$("marketGrid").innerHTML=P.map((p,i)=>`<div class="listing ${p[9].toLowerCase()}"><div class="mini">${IMG[p[0]]?``:"🔷"}</div><b>${p[0]}</b><div class="muted">${p[1]} • ${p[2]} • ${p[9]}</div><div>${p[3]} ${p[4]}</div><button class="${names.includes(p[0])?'':'gold'}" ${names.includes(p[0])?'disabled':''} onclick="buy(${i})">${names.includes(p[0])?"Bereits im Besitz":"Kaufen • "+p[10]+" 🪙"}</button></div>`).join("")}
 function buy(i){let p=P[i];if(collection.some(x=>x[0]===p[0]))return;if(coins<p[10]){alert("Nicht genug Coins!");return}coins-=p[10];collection.push(p);save();market();stats()}
 function autoSquad(){let unique=[...new Map(collection.map(p=>[p[0],p])).values()].sort((a,b)=>b[1]-a[1]);let need=["TW","IV","IV","ZDM","ZM","ZM","RF","LF","ST","ST","ST"];squad=[];let used=new Set();for(const pos of need){let p=unique.find(x=>!used.has(x[0])&&(x[2]===pos||(pos==="IV"&&x[2]==="IV")||(pos==="ZM"&&["ZM","ZDM"].includes(x[2]))));if(!p)p=unique.find(x=>!used.has(x[0]));if(p){squad.push(p);used.add(p[0])}}save();renderSquad()}
+function lastName(fullName){
+  const s=String(fullName||'').trim();
+  if(!s)return '';
+  const parts=s.split(/\s+/);
+  return parts[parts.length-1];
+}
+
 function renderSquad(){
   const formation = window.hsvFormation || localStorage.getItem("hsvFormation") || "4-3-3";
   const formationPositions = {
@@ -3123,7 +3142,7 @@ function renderSquad(){
       <b>${slots[i]}</b>
       ${p ? `<div class="player">
         ${IMG[p[0]]?`<img class="playerimg squad-player-image" src="${IMG[p[0]]}" alt="${p[0]}" loading="eager" decoding="async">`:``}
-        <strong>${playerLastName(p[0])}</strong>
+        <strong>${lastName(p[0])}</strong>
       </div>` : `<div class="empty">＋<br><span>Spieler auswählen</span></div>`}
     </div>`).join("");
   const placed=squad.filter(Boolean);
@@ -3148,7 +3167,7 @@ function openOccupiedPlayerMenu(slotIndex){
   modal.innerHTML=`
     <div class="picker-box occupied-menu-box">
       <div class="picker-head">
-        <div><h3>${p[0]}</h3><small>Was möchtest du machen?</small></div>
+        <div><h3>${lastName(p[0])}</h3><small>Was möchtest du machen?</small></div>
         <button onclick="closeOccupiedMenu()">✕</button>
       </div>
       <div class="occupied-menu-actions">
@@ -3240,7 +3259,7 @@ function openPlayerPicker(slotIndex){
         ${list.length ? list.map(p=>`
           <button class="picker-player" onclick='setTeamPlayer(${slotIndex},${JSON.stringify(p[0])})'>
             ${IMG[p[0]]?`<img class="playerimg squad-player-image" src="${IMG[p[0]]}" alt="${p[0]}" loading="eager" decoding="async">`:``}
-            <span class="pickerPlayerText"><b>${playerLastName(p[0])}</b></span><small class="pickerClub">${p[4]||''}</small>
+            <span><b>${lastName(p[0])}</b><small class="pickerClub">${p[4]||""}</small></span>
           </button>`).join("") :
           `<p class="muted">Keine verfügbaren Spieler für die Position <b>${position}.</b></p>`}
       </div>
@@ -3417,7 +3436,7 @@ window.v35Open=function(){
       const text="🔒 Du hast bereits 20 Gast-Packs geöffnet. Bitte registriere dich jetzt, um weiterzuspielen.";
       if($("msg")) $("msg").textContent=text;
       if(typeof window.accountMode==="function") window.accountMode("login");
-      if(typeof window.openAccountModal==="function") window.openAccountModal("login");
+      if(typeof window.openAccountModal==="function") window.openAccountModal();
       if(typeof window.setAccountMsg==="function") window.setAccountMsg(text+" Dein Gast-Spielstand wird nicht weiter gespeichert.");
       return;
     }
@@ -3497,7 +3516,7 @@ window.v35Open=function(){
       card.innerHTML=
         '<div class="rating">'+p[1]+'</div>'+
         '<div class="photo">'+photo+'</div>'+
-        '<div class="playerName">'+playerLastName(p[0])+'</div>'+
+        '<div class="playerName">'+p[0]+'</div>'+
         '<div class="meta">'+p[2]+' • '+p[3]+'<br>'+p[4]+'</div>';
       grid.appendChild(card);
       collection.push(p);
@@ -3517,7 +3536,7 @@ window.v35Open=function(){
         const text="🔒 20 Gast-Packs geöffnet. Für weitere Packs musst du dich jetzt registrieren.";
         if($("msg")) $("msg").textContent=text;
         if(typeof window.accountMode==="function") window.accountMode("login");
-        if(typeof window.openAccountModal==="function") window.openAccountModal("login");
+        if(typeof window.openAccountModal==="function") window.openAccountModal();
         if(typeof window.setAccountMsg==="function") window.setAccountMsg(text+" Dein Gast-Spielstand wird nicht weiter gespeichert.");
       }
     },finishDelay);
@@ -3830,7 +3849,7 @@ window.hsvPositionFilter = function(players, position){
   }
   const obs = new MutationObserver(apply);
   obs.observe(document.body,{childList:true,subtree:true});
-  document.addEventListener("click",()=>setTimeout(apply,0),true);
+  document.addEventListener("click",()=>requestAnimationFrame(apply),true);
 })();
 </script>
 
@@ -4925,6 +4944,14 @@ if(typeof HSVP!=="undefined") {
   }
 }
 </style>
+
+<script id="autosave-30-seconds">
+(function(){
+  setInterval(function(){
+    try{ if(typeof window.save==='function') window.save(); }catch(e){ console.warn('Autosave failed',e); }
+  },30000);
+})();
+</script>
 </body>
 <style id="v151-422-final-blue-points">
 /* FINAL: 4-2-2-2 nutzt exakt die 11 blauen Punkte des gelieferten Spielfelds. */
@@ -5135,7 +5162,7 @@ if(typeof HSVP!=="undefined") {
   }
   const obs=new MutationObserver(applyFilter);
   if(document.body) obs.observe(document.body,{childList:true,subtree:true});
-  document.addEventListener('click',function(){setTimeout(applyFilter,0);setTimeout(applyFilter,50);setTimeout(applyFilter,150)},true);
+  document.addEventListener('click',function(){requestAnimationFrame(applyFilter);},true);
 })();
 </script>
 
@@ -6118,7 +6145,7 @@ body:has(#squad:not(.hidden)) .nav #squadTab {
   },true);
   window.addEventListener('resize',schedule);
   window.addEventListener('scroll',schedule,true);
-  const mo=new MutationObserver(schedule); mo.observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['class','style','data-formation']});
+  /* Performance fix: disabled body-wide mutation observer to prevent repeated layout/install loops. */
   setTimeout(install,250); setTimeout(install,1000); setTimeout(install,2000);
 })();
 </script>
@@ -6285,21 +6312,6 @@ window.addEventListener("load",()=>{try{if(typeof render==="function")render();}
 <script id="complete-bayern-player-images-extra">IMG["Ulreich"]="assets/bayern_Ulreich.png";IMG["Karl"]="assets/bayern_Karl.png";IMG["Olise"]="assets/bayern_Olise.png";</script>
 
 
-<style id="player-name-club-ui">
-.picker-player .pickerClub{margin-left:auto;font-size:11px;font-weight:800;opacity:.8;white-space:nowrap;text-align:right}.picker-player .pickerPlayerText{min-width:0;display:flex;flex-direction:column;gap:3px}.picker-player .pickerPlayerText b{font-size:15px}.picker-player .pickerClubLabel{font-size:11px;opacity:.82}
-.accountTopLogin{display:inline-flex!important}
-</style>
-<script id="player-display-helper">
-(function(){
-  function lastName(name){
-    const s=String(name||"").trim();
-    if(!s) return s;
-    const parts=s.split(/\s+/);
-    return parts.length>1?parts[parts.length-1]:s;
-  }
-  window.playerLastName=lastName;
-})();
-</script>
 <!-- =========================================================
      ACCOUNT SYSTEM – Firebase Authentication + Firestore
      GitHub Pages compatible. Fill HSV_FIREBASE_CONFIG below once.
@@ -6386,14 +6398,16 @@ window.HSV_FIREBASE_CONFIG = {
     return {cards,gold,silver,bronze,teamRating:team,managerPoints:points,packsOpened:Number(packsOpened||0)};
   }
   window.accountMode=function(mode){window.hsvAccountMode=mode;const l=document.getElementById('accountLoginTab'),r=document.getElementById('accountRegisterTab');if(l)l.classList.toggle('active',mode==='login');if(r)r.classList.toggle('active',mode==='register');const b=document.getElementById('accountSubmit');if(b)b.textContent=mode==='login'?'Anmelden':'Konto erstellen';const reset=document.getElementById('accountReset');if(reset)reset.style.display=mode==='login'?'block':'none';const uw=document.getElementById('accountUsernameWrap');if(uw)uw.style.display=mode==='register'?'block':'none';msg('');};
-  window.openAccountModal=function(mode){const target=mode||'login';if(typeof window.accountMode==='function')window.accountMode(target);const m=document.getElementById('accountModal');if(m){m.classList.add('open');m.setAttribute('aria-hidden','false');}updateUI();};
+  window.openAccountModal=function(){const m=document.getElementById('accountModal');if(m){m.classList.add('open');m.setAttribute('aria-hidden','false');}updateUI();};
   window.closeAccountModal=function(){const m=document.getElementById('accountModal');if(m){m.classList.remove('open');m.setAttribute('aria-hidden','true');}};
   function updateUI(){
-    const auth=document.getElementById('accountAuthPanel'),logged=document.getElementById('accountLoggedPanel'),loginBtn=document.getElementById('accountLoginBtn'),registerBtn=document.getElementById('accountRegisterBtn'),status=document.getElementById('accountStatus'),u=window.hsvAuthUser;
+    const auth=document.getElementById('accountAuthPanel'),logged=document.getElementById('accountLoggedPanel'),status=document.getElementById('accountStatus'),u=window.hsvAuthUser;
     if(logged)logged.classList.toggle('show',!!u);if(auth)auth.style.display=u?'none':'block';
     const le=document.getElementById('accountLoggedEmail');if(le)le.textContent=u?.email||'';
     const lu=document.getElementById('accountLoggedUsername');if(lu&&window.hsvProfile?.username)lu.value=window.hsvProfile.username;
-    if(loginBtn)loginBtn.style.display=u?'none':'inline-flex';if(registerBtn){registerBtn.style.display=u?'none':'inline-flex';registerBtn.textContent='👤 Registrieren';}
+    const guestActions=document.getElementById('guestAccountActions'),userBtn=document.getElementById('loggedUserBtn');
+    if(guestActions)guestActions.style.display=u?'none':'flex';
+    if(userBtn){userBtn.style.display=u?'inline-flex':'none';userBtn.textContent='👤 '+(window.hsvProfile?.username||u?.email||'Konto');}
     if(status)status.textContent=!configured?'⚙️ Firebase-Konfiguration fehlt – das Konto-System ist vorbereitet.':(window.hsvFirebaseReady?'🟢 Online-Konto verbunden':'🟡 Firebase wird geladen …');
     renderProfile();
   }
@@ -6469,31 +6483,3 @@ window.HSV_FIREBASE_CONFIG = {
   document.addEventListener('DOMContentLoaded',init);updateUI();
 })();
 </script>
-
-<style id="last-name-display-final">
-/* Nur Nachnamen in sichtbaren Spielerlisten/Karten */
-#packOverlay .packCard .playerName, .card .name, #pitch .player strong, #playerPicker .pickerPlayerText b {
-  text-transform:none!important;
-}
-</style>
-<script id="last-name-render-final">
-(function(){
-  function ln(v){const s=String(v||'').trim();const a=s.split(/\s+/);return a.length>1?a[a.length-1]:s;}
-  window.addEventListener('DOMContentLoaded',function(){
-    const root=document.body;
-    const sync=()=>{
-      document.querySelectorAll('#packOverlay .playerName, #cards .name, #pitch .player strong').forEach(el=>{
-        if(el.dataset.fullPlayerName===undefined) el.dataset.fullPlayerName=el.textContent;
-        el.textContent=ln(el.dataset.fullPlayerName);
-      });
-    };
-    new MutationObserver(sync).observe(root,{childList:true,subtree:true});
-    sync();
-  });
-})();
-</script>
-<style id="picker-club-final">
-#playerPicker .picker-player{align-items:center!important}
-#playerPicker .pickerClub{min-width:135px}
-@media(max-width:600px){#playerPicker .pickerClub{min-width:92px;font-size:10px}.picker-player .pickerPlayerText b{font-size:13px}}
-</style>
