@@ -149,11 +149,12 @@ grid-template-rows:repeat(2,1fr)!important;gap:6px!important;align-content:stret
 font-family:inherit;color:#fff}
 #packOverlay.active{display:block}
 /* XP-Leiste direkt im Pack-Opening oben rechts */
-#packOverlay .packXpBar{position:absolute;top:10px;right:62px;z-index:20;display:flex;align-items:center;gap:8px;min-width:270px;max-width:360px;padding:7px 10px;border:1px solid #ffffff22;border-radius:12px;background:#071525dd;box-shadow:0 5px 18px #0009;backdrop-filter:blur(5px)}
-#packOverlay .packXpBar .xpLevel{font-size:12px;font-weight:1000;white-space:nowrap;color:#f5c542}
-#packOverlay .packXpBar .xpBarBox{flex:1;min-width:135px}
-#packOverlay .packXpBar .xpBarTrack{height:11px}
-#packOverlay .packXpBar .xpText{font-size:9px;margin-top:2px}
+#packOverlay .packXpBar{position:absolute;top:10px;right:62px;z-index:20;display:flex;align-items:center;gap:12px;min-width:380px;max-width:500px;padding:11px 14px;border:1px solid #ffffff30;border-radius:14px;background:#071525ee;box-shadow:0 7px 24px #0009;backdrop-filter:blur(6px)}
+#packOverlay .packXpBar .xpLevel{font-size:16px;font-weight:1000;white-space:nowrap;color:#f5c542}
+#packOverlay .packXpBar .xpBarBox{flex:1;min-width:190px}
+#packOverlay .packXpBar .xpBarTrack{height:17px;border-width:1px}
+#packOverlay .packXpBar .xpText{font-size:12px;margin-top:4px}
+@media(max-width:700px){#packOverlay .packXpBar{top:8px;right:48px;min-width:280px;max-width:calc(100vw - 60px);padding:8px 10px;gap:7px}#packOverlay .packXpBar .xpLevel{font-size:13px}#packOverlay .packXpBar .xpBarBox{min-width:120px}#packOverlay .packXpBar .xpBarTrack{height:13px}#packOverlay .packXpBar .xpText{font-size:10px}}
 #packOverlay .packXpBar .xpBarFill{transition:width .45s ease}
 #packOverlay .packTitle{text-align:center;font-size:22px;font-weight:900;padding:10px 430px 4px 60px}
 #packOverlay .packSub{text-align:center;font-size:12px;opacity:.75}
@@ -6630,7 +6631,7 @@ window.HSV_FIREBASE_CONFIG = {
   async function autosave30s(){if(autosaveBusy||!window.hsvFirebaseReady||!window.hsvAuthUser)return;autosaveBusy=true;try{await window.syncGameToCloud();}catch(e){console.warn('Autosave fehlgeschlagen',e);}finally{autosaveBusy=false;}}
   setInterval(autosave30s,30000);
   window.addEventListener('beforeunload',()=>{try{if(window.hsvFirebaseReady&&window.hsvAuthUser)window.syncGameToCloud().catch(()=>{});}catch(e){}});
-  async function init(){if(!configured){updateUI();return;}try{const app=await import('https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js');const fa=await import('https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js');const fs=await import('https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js');const firebaseApp=app.initializeApp(cfg);const auth=fa.getAuth(firebaseApp),db=fs.getFirestore(firebaseApp);window.hsvFirebaseModules={auth,db,createUserWithEmailAndPassword:fa.createUserWithEmailAndPassword,signInWithEmailAndPassword:fa.signInWithEmailAndPassword,sendPasswordResetEmail:fa.sendPasswordResetEmail,signOut:fa.signOut,saveCloud:window.syncGameToCloud,doc:fs.doc,setDoc:fs.setDoc,getDoc:fs.getDoc,getDocs:fs.getDocs,collection:fs.collection,query:fs.query,orderBy:fs.orderBy,limit:fs.limit,deleteDoc:fs.deleteDoc,serverTimestamp:fs.serverTimestamp};window.hsvFirebaseReady=true;fa.onAuthStateChanged(auth,async user=>{window.hsvAuthUser=user||null;if(user){await loadProfileCloud().catch(()=>{});await window.loadGameFromCloud().catch(()=>{});if(window.hsvProfile?.username)await publishLeaderboard().catch(()=>{});}else{window.hsvProfile=null;}updateUI();renderManagerXP();renderProfile();});updateUI();}catch(e){console.error('Firebase init:',e);const st=document.getElementById('accountStatus');if(st)st.textContent='🔴 Firebase konnte nicht geladen werden.';}}
+  async function init(){if(!configured){updateUI();return;}try{const app=await import('https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js');const fa=await import('https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js');const fs=await import('https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js');const firebaseApp=app.initializeApp(cfg);const auth=fa.getAuth(firebaseApp),db=fs.getFirestore(firebaseApp);await fa.setPersistence(auth,fa.browserLocalPersistence).catch(e=>console.warn('Firebase persistence:',e));window.hsvFirebaseModules={auth,db,createUserWithEmailAndPassword:fa.createUserWithEmailAndPassword,signInWithEmailAndPassword:fa.signInWithEmailAndPassword,sendPasswordResetEmail:fa.sendPasswordResetEmail,signOut:fa.signOut,saveCloud:window.syncGameToCloud,doc:fs.doc,setDoc:fs.setDoc,getDoc:fs.getDoc,getDocs:fs.getDocs,collection:fs.collection,query:fs.query,orderBy:fs.orderBy,limit:fs.limit,deleteDoc:fs.deleteDoc,serverTimestamp:fs.serverTimestamp};window.hsvFirebaseReady=true;fa.onAuthStateChanged(auth,async user=>{window.hsvAuthUser=user||null;if(user){await loadProfileCloud().catch(()=>{});await window.loadGameFromCloud().catch(()=>{});if(window.hsvProfile?.username)await publishLeaderboard().catch(()=>{});}else{window.hsvProfile=null;}updateUI();renderManagerXP();renderProfile();});updateUI();}catch(e){console.error('Firebase init:',e);const st=document.getElementById('accountStatus');if(st)st.textContent='🔴 Firebase konnte nicht geladen werden.';}}
   document.addEventListener('DOMContentLoaded',init);updateUI();
 })();
 </script>
