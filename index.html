@@ -1,6 +1,16 @@
 <!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pack Opener V9</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -5%,#3b8fd0 0,#12365f 28%,#080d16 58%,#020307 100%);color:#fff;font-family:Arial,sans-serif}.app{width:min(1200px,95vw);margin:auto;padding:20px 0 45px}h1{text-align:center;margin:0;font-size:42px}.sub{text-align:center;color:#bac6dc;margin:5px 0 15px}.top{display:flex;justify-content:space-between;background:#ffffff0d;border:1px solid #ffffff18;border-radius:14px;padding:12px 16px;margin-bottom:10px}.coins{font-weight:900;font-size:20px}.nav{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-bottom:15px}.nav button,button{border:0;border-radius:10px;padding:11px 16px;font-weight:900;cursor:pointer}.nav button{background:#17233d;color:#fff}.nav .active,.gold{background:#f5c542;color:#111}.hidden{display:none!important}.panel{background:#ffffff09;border:1px solid #ffffff15;border-radius:17px;padding:20px}.hero{text-align:center}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:15px 0}.stat{background:#121d32;border-radius:11px;padding:12px}.stat b{display:block;font-size:22px}.muted{color:#aebbd3}.packs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.packChoice{background:#111c31;border:1px solid #ffffff18;border-radius:16px;padding:18px;text-align:center;cursor:pointer}.packChoice:hover{transform:translateY(-4px);border-color:#f5c542}.packIcon{font-size:52px}.packShopImg{width:100%;height:300px;object-fit:contain;display:block;border-radius:12px;margin-bottom:8px}.price{color:#f5c542;font-weight:900}.chance{font-size:12px;color:#aebbd3}.area{min-height:390px;display:flex;align-items:center;justify-content:center}.pack{width:255px;height:345px;border-radius:23px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;border:4px solid #fff0a0;background:linear-gradient(145deg,#ffe96a,#d88c0c 48%,#633100);box-shadow:0 25px 80px #000c}.pack.rare{background:linear-gradient(145deg,#c7ffff,#1680b8 50%,#063653);border-color:#e5ffff}.pack.legend{background:linear-gradient(145deg,#f1caff,#873fc1 50%,#2b0b50);border-color:#f8dcff}.pack .icon{font-size:78px}.reveal{width:330px;text-align:center}.step{opacity:0;transform:translateY(12px);transition:.35s;margin:10px;font-size:20px;font-weight:900}.step.show{opacity:1;transform:none}.big{font-size:55px!important}.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.card{height:295px;border-radius:18px;border:3px solid #ffe99b;background:linear-gradient(145deg,#fff3a5,#bd7b16 50%,#653507);position:relative;padding:11px;display:flex;flex-direction:column;justify-content:center;align-items:center;cursor:pointer;animation:pop .55s ease both}.card.rare{background:linear-gradient(145deg,#d9ffff,#238ebd 50%,#063653);border-color:#e4ffff}.card.legend{background:linear-gradient(145deg,#f3d0ff,#873fc1 50%,#2c0c52);border-color:#ffeaff;box-shadow:0 0 45px #bf5dff99}.card.hsvcard{border-color:#9edbff;box-shadow:0 0 32px #168bd966}.card.hsvcard.legend{background:linear-gradient(145deg,#ffffff,#6fc7ff 32%,#123d73 70%,#050d1d);border-color:#fff;box-shadow:0 0 55px #39b9ffbb}.hsvbadge{position:absolute;top:8px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:900;letter-spacing:1px}.card.cover{background:linear-gradient(145deg,#293e68,#0b1428);border-color:#8ea7d4}.card .r{position:absolute;left:11px;top:9px;font-size:31px;font-weight:900}.card .p{position:absolute;left:13px;top:44px;font-size:11px}.card .f{position:absolute;right:11px;top:9px;font-size:22px}.face{font-size:63px}.faceimg{width:112px;height:145px;object-fit:contain;filter:drop-shadow(0 8px 7px #0008);margin-top:4px}.mini img{width:100%;height:100%;object-fit:cover;border-radius:12px}.playerimg{width:44px;height:54px;object-fit:cover;border-radius:6px;float:right}.name{font-weight:900;margin:4px}.detail{font-size:10px;text-align:center;line-height:1.5}.tag{position:absolute;bottom:8px;font-size:9px;font-weight:900;letter-spacing:1px}@keyframes pop{0%{transform:scale(.3) rotateY(90deg);opacity:0}100%{transform:none;opacity:1}}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -5%,#3b8fd0 0,#12365f 28%,#080d16 58%,#020307 100%);color:#fff;font-family:Arial,sans-serif}.app{width:min(1200px,95vw);margin:auto;padding:20px 0 45px}h1{text-align:center;margin:0;font-size:42px}.sub{text-align:center;color:#bac6dc;margin:5px 0 15px}
+/* Manager-XP-Leiste */
+.xpBarWrap{display:none;align-items:center;gap:8px;min-width:245px;max-width:330px}
+.xpBarWrap.show{display:flex}
+.xpLevel{font-size:13px;font-weight:1000;white-space:nowrap;color:#f5c542}
+.xpBarBox{flex:1;min-width:120px}
+.xpBarTrack{height:12px;border-radius:999px;background:#091221;border:1px solid #ffffff22;overflow:hidden;box-shadow:inset 0 1px 3px #0008}
+.xpBarFill{height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,#4bb8ff,#f5c542);transition:width .45s ease;box-shadow:0 0 10px #4bb8ff88}
+.xpText{font-size:10px;font-weight:900;text-align:right;color:#dbe8f8;margin-top:2px;white-space:nowrap}
+@media(max-width:700px){.xpBarWrap{min-width:170px;max-width:220px;gap:5px}.xpBarTrack{height:10px}.xpLevel{font-size:11px}.xpText{font-size:9px}}
+.top{display:flex;justify-content:space-between;background:#ffffff0d;border:1px solid #ffffff18;border-radius:14px;padding:12px 16px;margin-bottom:10px}.coins{font-weight:900;font-size:20px}.nav{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-bottom:15px}.nav button,button{border:0;border-radius:10px;padding:11px 16px;font-weight:900;cursor:pointer}.nav button{background:#17233d;color:#fff}.nav .active,.gold{background:#f5c542;color:#111}.hidden{display:none!important}.panel{background:#ffffff09;border:1px solid #ffffff15;border-radius:17px;padding:20px}.hero{text-align:center}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:15px 0}.stat{background:#121d32;border-radius:11px;padding:12px}.stat b{display:block;font-size:22px}.muted{color:#aebbd3}.packs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.packChoice{background:#111c31;border:1px solid #ffffff18;border-radius:16px;padding:18px;text-align:center;cursor:pointer}.packChoice:hover{transform:translateY(-4px);border-color:#f5c542}.packIcon{font-size:52px}.packShopImg{width:100%;height:300px;object-fit:contain;display:block;border-radius:12px;margin-bottom:8px}.price{color:#f5c542;font-weight:900}.chance{font-size:12px;color:#aebbd3}.area{min-height:390px;display:flex;align-items:center;justify-content:center}.pack{width:255px;height:345px;border-radius:23px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;border:4px solid #fff0a0;background:linear-gradient(145deg,#ffe96a,#d88c0c 48%,#633100);box-shadow:0 25px 80px #000c}.pack.rare{background:linear-gradient(145deg,#c7ffff,#1680b8 50%,#063653);border-color:#e5ffff}.pack.legend{background:linear-gradient(145deg,#f1caff,#873fc1 50%,#2b0b50);border-color:#f8dcff}.pack .icon{font-size:78px}.reveal{width:330px;text-align:center}.step{opacity:0;transform:translateY(12px);transition:.35s;margin:10px;font-size:20px;font-weight:900}.step.show{opacity:1;transform:none}.big{font-size:55px!important}.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.card{height:295px;border-radius:18px;border:3px solid #ffe99b;background:linear-gradient(145deg,#fff3a5,#bd7b16 50%,#653507);position:relative;padding:11px;display:flex;flex-direction:column;justify-content:center;align-items:center;cursor:pointer;animation:pop .55s ease both}.card.rare{background:linear-gradient(145deg,#d9ffff,#238ebd 50%,#063653);border-color:#e4ffff}.card.legend{background:linear-gradient(145deg,#f3d0ff,#873fc1 50%,#2c0c52);border-color:#ffeaff;box-shadow:0 0 45px #bf5dff99}.card.hsvcard{border-color:#9edbff;box-shadow:0 0 32px #168bd966}.card.hsvcard.legend{background:linear-gradient(145deg,#ffffff,#6fc7ff 32%,#123d73 70%,#050d1d);border-color:#fff;box-shadow:0 0 55px #39b9ffbb}.hsvbadge{position:absolute;top:8px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:900;letter-spacing:1px}.card.cover{background:linear-gradient(145deg,#293e68,#0b1428);border-color:#8ea7d4}.card .r{position:absolute;left:11px;top:9px;font-size:31px;font-weight:900}.card .p{position:absolute;left:13px;top:44px;font-size:11px}.card .f{position:absolute;right:11px;top:9px;font-size:22px}.face{font-size:63px}.faceimg{width:112px;height:145px;object-fit:contain;filter:drop-shadow(0 8px 7px #0008);margin-top:4px}.mini img{width:100%;height:100%;object-fit:cover;border-radius:12px}.playerimg{width:44px;height:54px;object-fit:cover;border-radius:6px;float:right}.name{font-weight:900;margin:4px}.detail{font-size:10px;text-align:center;line-height:1.5}.tag{position:absolute;bottom:8px;font-size:9px;font-weight:900;letter-spacing:1px}@keyframes pop{0%{transform:scale(.3) rotateY(90deg);opacity:0}100%{transform:none;opacity:1}}
 .squad{max-width:760px;margin:auto;background:linear-gradient(#184d2a,#0a3018);border-radius:20px;padding:25px;min-height:560px;position:relative;border:2px solid #62a76e}.pitch{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:center}.slot{min-height:105px;border:2px dashed #ffffff55;border-radius:14px;padding:8px;background:#ffffff0a}.slot b{display:block;font-size:12px}.player{background:#14223a;border-radius:11px;padding:8px;margin-top:6px;font-size:11px}.player strong{display:block;font-size:13px}.empty{color:#a9c2af;font-size:12px;padding:20px 0}.chem{text-align:center;font-size:20px;font-weight:900;margin-bottom:20px}.sell{margin-top:8px;width:100%}.collection{margin-top:14px}.filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}.filters button{background:#17233d;color:#fff}.filters .active{background:#f5c542;color:#111}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}.owned.bronzeCollection{background:linear-gradient(145deg,#b87333,#7a421d)!important;border:1px solid #d89a5a!important}.owned.silverCollection{background:linear-gradient(145deg,#f4f7fb,#aeb8c5 48%,#667382)!important;border:1px solid #e5e9ef!important}.owned.goldCollection{background:linear-gradient(145deg,#fff3a6,#e0a800 48%,#9a6500)!important;border:1px solid #ffe27a!important}.owned{background:#16223a;padding:12px;border-radius:10px}.owned strong{font-size:15px}.owned div{color:#aebbd3;margin-top:4px}.market{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}.listing{background:#111c31;border:1px solid #ffffff18;border-radius:14px;padding:13px}.mini{height:170px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:65px;background:linear-gradient(145deg,#fff3a5,#bd7b16 50%,#653507);margin-bottom:9px}.listing.rare .mini{background:linear-gradient(145deg,#d9ffff,#238ebd 50%,#063653)}.listing.legend .mini{background:linear-gradient(145deg,#f3d0ff,#873fc1 50%,#2c0c52)}.listing button{width:100%;margin-top:8px}.msg{text-align:center;color:#c6d1e4;min-height:23px;margin-top:10px}
 @media(max-width:800px){h1{font-size:32px}.packs{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.pitch{gap:10px}.slot{min-height:90px}}
 
@@ -108,7 +118,7 @@ grid-template-rows:repeat(2,1fr)!important;gap:6px!important;align-content:stret
 /* V32: compact cards and close control */
 #packClose{
  position:fixed!important;top:10px!important;right:14px!important;z-index:300000!important;
- width:42px!important;height:42px!important;border:0!important;border-radius:50%!important;
+ width:250px!important;height:280px!important;border:0!important;border-radius:50%!important;
  background:rgba(255,255,255,.16)!important;color:#fff!important;font-size:25px!important;
  font-weight:900!important;cursor:pointer!important;line-height:42px!important;
  box-shadow:0 4px 16px #0008!important;
@@ -131,7 +141,7 @@ grid-template-rows:repeat(2,1fr)!important;gap:6px!important;align-content:stret
  #cards:not(.hidden){top:52px!important;height:calc(100vh - 60px)!important;width:94vw!important;gap:4px!important}
  #cards:not(.hidden) .card{padding:5px!important}
  #cards:not(.hidden) .faceimg{max-height:58px!important;width:58px!important}
- #packClose{top:6px!important;right:8px!important;width:36px!important;height:36px!important;line-height:36px!important;font-size:21px!important}
+ #packClose{top:6px!important;right:8px!important;width:250px!important;height:280px!important;line-height:36px!important;font-size:21px!important}
 }
 
 /* V35 - independent pack opening overlay */
@@ -257,7 +267,7 @@ button{font-family:inherit}
    flex-basis:88px!important;height:88px!important;
  }
  #packOverlay .packCard .photo img{
-   width:84px!important;height:84px!important;max-width:84px!important;max-height:84px!important;
+   width:250px!important;height:280px!important;max-width:250px!important;max-height:280px!important;
  }
  #packOverlay .packCard .rating{font-size:20px!important}
 }
@@ -266,7 +276,7 @@ button{font-family:inherit}
    flex-basis:70px!important;height:70px!important;
  }
  #packOverlay .packCard .photo img{
-   width:66px!important;height:66px!important;max-width:66px!important;max-height:66px!important;
+   width:250px!important;height:280px!important;max-width:250px!important;max-height:280px!important;
  }
 }
 
@@ -340,14 +350,14 @@ button{font-family:inherit}
 @media(max-width:900px){
   #packOverlay .packCard{min-height:245px!important}
   #packOverlay .packCard .photo{flex-basis:125px!important;height:125px!important}
-  #packOverlay .packCard .photo img{width:118px!important;height:118px!important;max-width:118px!important;max-height:118px!important}
+  #packOverlay .packCard .photo img{width:250px!important;height:280px!important;max-width:118px!important;max-height:118px!important}
   #packOverlay .packCard .rating{font-size:23px!important}
   #packOverlay .packCard .playerName{font-size:12px!important;min-height:29px!important}
 }
 @media(max-width:650px){
   #packOverlay .packCard{min-height:205px!important;padding:5px 3px!important}
   #packOverlay .packCard .photo{flex-basis:96px!important;height:96px!important}
-  #packOverlay .packCard .photo img{width:91px!important;height:91px!important;max-width:91px!important;max-height:91px!important}
+  #packOverlay .packCard .photo img{width:250px!important;height:280px!important;max-width:91px!important;max-height:91px!important}
   #packOverlay .packCard .rating{font-size:19px!important;margin-top:3px!important}
   #packOverlay .packCard .playerName{font-size:10px!important;min-height:24px!important}
   #packOverlay .packCard .meta{font-size:7px!important}
@@ -951,7 +961,7 @@ function handleTeamSlotClick(i){  const formation = window.hsvFormation || local
   backdrop-filter:blur(5px)!important;
 }
 .trainer-select-btn span{font-weight:900!important}
-.trainer-selected img{width:48px!important;height:55px!important;object-fit:contain!important}
+.trainer-selected img{width:250px!important;height:280px!important;object-fit:contain!important}
 .trainer-selected span{display:flex!important;flex-direction:column!important;text-align:left!important}
 .trainer-selected small{opacity:.75!important;font-size:9px!important}
 .trainer-empty{padding:25px;text-align:center;opacity:.8}
@@ -1722,7 +1732,7 @@ body:has(#squad:not(.hidden)) [data-section="squad"]{
 #squad .pitch[data-formation="4-3-3"]{position:relative!important;}
 #squad .pitch[data-formation="4-3-3"] .team-slot{
  position:absolute!important;
- width:92px!important;height:92px!important;min-height:92px!important;
+ width:250px!important;height:280px!important;min-height:92px!important;
  padding:0!important;margin:0!important;
  border:0!important;background:transparent!important;box-shadow:none!important;
  transform:translate(-50%,-50%)!important;
@@ -1730,21 +1740,21 @@ body:has(#squad:not(.hidden)) [data-section="squad"]{
 }
 #squad .pitch[data-formation="4-3-3"] .team-slot > b{display:none!important;}
 #squad .pitch[data-formation="4-3-3"] .team-slot .empty{
- width:92px!important;height:92px!important;padding:0!important;margin:0!important;
+ width:250px!important;height:280px!important;padding:0!important;margin:0!important;
  display:flex!important;align-items:center!important;justify-content:center!important;
  background:transparent!important;color:transparent!important;
 }
 #squad .pitch[data-formation="4-3-3"] .team-slot .empty br,
 #squad .pitch[data-formation="4-3-3"] .team-slot .empty span{display:none!important;}
 #squad .pitch[data-formation="4-3-3"] .team-slot .player{
- width:92px!important;height:92px!important;min-height:92px!important;
+ width:250px!important;height:280px!important;min-height:92px!important;
  margin:0!important;padding:0!important;
  display:flex!important;flex-direction:column!important;
  align-items:center!important;justify-content:center!important;
  background:transparent!important;
 }
 #squad .pitch[data-formation="4-3-3"] .team-slot .playerimg{
- width:62px!important;height:62px!important;object-fit:contain!important;
+ width:250px!important;height:280px!important;object-fit:contain!important;
  margin:0!important;
 }
 #squad .pitch[data-formation="4-3-3"] .team-slot .player strong{font-size:10px!important;line-height:1!important;}
@@ -2013,14 +2023,14 @@ body:has(#squad:not(.hidden)) [data-section="squad"]{
 /* Keep the 4-4-2 background stable on smaller screens. */
 @media(max-width:800px){
   #squad .pitch[data-formation="4-4-2"] .team-slot{
-    width:76px!important;height:76px!important;min-height:76px!important;
+    width:250px!important;height:280px!important;min-height:76px!important;
   }
   #squad .pitch[data-formation="4-4-2"] .team-slot .player,
   #squad .pitch[data-formation="4-4-2"] .team-slot .empty{
-    width:76px!important;height:76px!important;min-height:76px!important;
+    width:250px!important;height:280px!important;min-height:76px!important;
   }
   #squad .pitch[data-formation="4-4-2"] .team-slot .playerimg{
-    width:54px!important;height:54px!important;
+    width:250px!important;height:280px!important;
   }
 }
 </style>
@@ -2501,7 +2511,7 @@ body:has(#squad:not(.hidden)) [data-section="squad"]{
 
 <style id="tangvik-image-fix">
 /* Sander Tangvik: supplied card artwork visible in pack results and collection. */
-#packOverlay .packCard img[alt="Sander Tangvik"]{display:block!important;max-width:72px!important;max-height:72px!important;object-fit:contain!important}
+#packOverlay .packCard img[alt="Sander Tangvik"]{display:block!important;max-width:250px!important;max-height:280px!important;object-fit:contain!important}
 .collectionFace img.tangvikCollectionPhoto{display:block!important;width:100%!important;height:170px!important;object-fit:contain!important;background:#0b1728;border-radius:10px;margin-bottom:7px}
 </style>
 
@@ -2659,17 +2669,19 @@ body:has(#squad:not(.hidden)) [data-section="squad"]{
 .otherProfileModal{max-width:560px;width:min(560px,92vw);position:relative}
 .otherProfileClose{position:absolute;right:12px;top:12px;width:36px;height:36px;border-radius:10px}
 </style>
-<style id="user-login-club-picker-ui">
-.picker-player .pickerClub{display:block!important;font-size:11px!important;opacity:.8!important;font-weight:800!important;margin-top:1px!important;color:#9fc9ec!important}
-#guestAccountActions button,#loggedUserBtn{white-space:nowrap}
-</style>
-<style id="compact-packs-club-layout">
-#packs .packs{gap:8px!important;max-width:900px!important;margin:0 auto!important}
-#packs .packChoice{transform:none!important;margin-bottom:4px!important}
-#packs .packChoice:first-child .packIcon{width:175px!important;height:225px!important}
-#packs .packChoice:not(:first-child) .packShopImg{height:255px!important}
-#club{margin-top:0!important}
-#club #clubContent{max-width:980px!important;margin:0 auto!important}
+<style id="account-modal-fix">#accountModal:not(.open){display:none!important;pointer-events:none!important;visibility:hidden!important}#accountModal.open{display:flex!important;pointer-events:auto!important;visibility:visible!important}</style><style id="compact-navigation">.nav{gap:4px!important;margin-bottom:10px!important}.nav button{padding:9px 12px!important}.top{margin-bottom:8px!important}</style>
+<style id="force-pack-player-artwork-250x280-final">
+#packOverlay .packCard .photo img.playerCardArtwork{
+  width:290px!important;
+  height:330px!important;
+  min-width:250px!important;
+  min-height:280px!important;
+  max-width:250px!important;
+  max-height:280px!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  margin:auto!important;
+}
 </style>
 </head><body><div id="packOverlay"><button class="packClose" onclick="v35Close()">×</button>
 <div class="packTitle" id="v35Title">🔷 HSV PACK</div><div class="packSub"></div>
@@ -2688,7 +2700,7 @@ body:has(#squad:not(.hidden)) [data-section="squad"]{
   <div id="overlayPackCoinsDisplay" style="margin-top:10px;font-weight:900;font-size:15px">🪙 <span id="overlayPackCoins">0</span> Coins</div>
 </div>
 <div class="packGrid" id="v35Grid"></div><button class="nextBtn" onclick="v35Next()">📦 Nächstes Pack öffnen</button></div><button id="packClose" class="hidden" onclick="closePackOpening()" aria-label="Pack-Opening schließen">×</button><div id="walkout" class="walkout"><div class="stadium"><div class="lights"></div><div class="crowd"></div><div class="pitch"></div><div class="woText">NUR DER HSV</div><button class="closeWalk" onclick="closeWalkout()">✕</button><div id="walkCard" class="walkoutCard"><div class="badge">🔷 HSV</div><div id="woRating" class="woRating">90</div><div class="woFace">👤</div><div id="woName" class="woName">Spieler</div><div id="woClub" class="woClub">HSV • VOLKSPARKSTADION</div></div></div></div><div class="app"><h1>⚽ PACK OPENER</h1><div style="text-align:center;margin:8px auto 14px;padding:10px;border-radius:12px;background:linear-gradient(90deg,#07111f,#164b7a,#07111f);border:1px solid #5ab8f566;font-weight:900">🔷 HSV • VOLKSPARKSTADION • NUR DER HSV • STADIUM WALKOUT 🔷</div>
-<div class="top"><b id="title">HOME</b><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end"><div id="guestAccountActions" style="display:flex;align-items:center;gap:6px"><button id="loginBtn" type="button" onclick="accountMode('login');openAccountModal()" style="padding:8px 12px;border-radius:10px;font-weight:900;cursor:pointer;background:#17233d;color:#fff">🔑 Login</button><button id="registerBtn" type="button" onclick="accountMode('register');openAccountModal()" style="padding:8px 12px;border-radius:10px;font-weight:900;cursor:pointer">👤 Registrierung</button></div><button id="loggedUserBtn" type="button" onclick="openAccountModal()" style="display:none;padding:8px 12px;border-radius:10px;font-weight:900;cursor:pointer;background:#17233d;color:#fff">👤 Benutzername</button><div class="coins">🪙 <span id="coins">3000</span></div></div></div>
+<div class="top"><b id="title">HOME</b><div id="topAccountArea" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end"><button id="loginBtnTop" type="button" onclick="accountMode('login');openAccountModal()" style="padding:8px 12px;border-radius:10px;font-weight:900;cursor:pointer">🔑 Login</button><button id="registerBtnTop" type="button" onclick="accountMode('register');openAccountModal()" style="padding:8px 12px;border-radius:10px;font-weight:900;cursor:pointer">👤 Registrieren</button><button id="accountUserBtn" type="button" onclick="openAccountModal()" style="display:none;padding:8px 12px;border-radius:10px;font-weight:900;cursor:pointer;background:#17233d;color:#fff;border:1px solid #ffffff22">👤 Benutzer</button><div id="managerXpBar" class="xpBarWrap" aria-label="Manager XP"><div id="managerXpLevel" class="xpLevel">Level 1</div><div class="xpBarBox"><div class="xpBarTrack"><div id="managerXpFill" class="xpBarFill"></div></div><div id="managerXpText" class="xpText">0 / 1000 XP</div></div></div><div class="coins">🪙 <span id="coins">3000</span></div></div></div>
 <div class="nav"><button id="homeTab" class="active" onclick="tab('home')">🏠 Home</button><button id="packsTab" onclick="tab('packs')">📦 Packs</button><button id="squadTab" type="button" onclick="tab('squad');return false;" style="display:inline-flex!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;position:relative!important;z-index:9999!important;">👥 Team</button><button id="clubTab" onclick="tab('club')">🏟️ Vereinszentrum</button><button id="colTab" onclick="tab('collection')">📚 Sammlung</button><button id="leaderboardTab" onclick="tab('leaderboard')">🏆 Rangliste</button><button id="profileTab" onclick="tab('profile')">👤 Profil</button></div>
 
 <section id="home" class="panel hero"><h2>🔷 Baue dein HSV-Team auf</h2><p class="muted">Öffne Packs, decke Karten einzeln auf und stelle deine beste Elf zusammen.</p><div class="stats"><div class="stat"><b id="sc">0</b>Karten</div><div class="stat"><b id="sl">0</b>Gold</div><div class="stat"><b id="sr">0</b>Silber</div><div class="stat"><b id="sb">0</b>Teamrating</div></div><button onclick="daily()">🎁 +500 Tagesbonus</button><p id="dailyText" class="muted"></p><div id="idleBox" style="margin-top:18px;padding:16px;border:1px solid #69c8ff44;border-radius:16px;background:#071b2b99"><b>⚙️ Idle-Verein</b><div class="stats" style="margin-top:10px"><div class="stat"><b id="idleRate">0</b> Coins/h</div><div class="stat"><b id="idleBank">0</b> bereit</div><div class="stat"><b id="idleHours">0</b> h offline</div></div><button class="gold" onclick="collectIdle()">💰 Offline-Einnahmen abholen</button><p id="idleMsg" class="muted"></p></div></section>
@@ -2712,7 +2724,7 @@ body:has(#squad:not(.hidden)) [data-section="squad"]{
 
 <section id="club" class="panel hidden"><div id="clubContent"><h2>🏟️ Vereinszentrum</h2><p class="muted">Baue deinen Verein aus und verdiene passiv Coins.</p></div></section>
 <section id="collection" class="panel hidden collection"><div id="collectionHSVContentV53">
-<div id="collectionTrainerV53" class="hidden"><div id="trainerGridV53" class="trainerGridV53"></div></div>
+
 </div>
 <h2>📚 Sammlung</h2><p class="muted">🔷 HSV-Sammlung • alle aktuellen HSV-Spieler mit Portraits. Jede gesammelte Karte enthält auf der Rückseite vollständige Spieler-Fakten.</p><div id="collectionRarityCounts" class="collectionRarityCounts"></div><p id="count"></p><div class="filters"><button class="active" onclick="filter('all',this)">Alle</button><button onclick="filter('Common',this)">Bronze</button><button onclick="filter('Rare',this)">Silber</button><button onclick="filter('Legend',this)">Gold</button><button onclick="filter('HSV',this)">🔷 HSV</button><button id="filterTrainerV54" type="button" onclick="filterTrainerV54(this)">🧑‍🏫 Trainerteam</button><select id="collectionSort" onchange="sortCollection(this.value)" style="margin-left:auto"><option value="dupes">Meiste Duplikate</option><option value="rating">Höchstes Rating</option><option value="st">Stürmer</option><option value="mid">Mittelfeldspieler</option><option value="def">Abwehr</option><option value="gk">TW</option></select></div><div id="grid" class="grid"></div></div></section>
 <section id="leaderboard" class="panel hidden">
@@ -2788,7 +2800,7 @@ const BAYERN_2627=[
 ["Stanišić",79,"RV","🇭🇷","Bayern München","Bundesliga",82,70,76,"Rare",330],
 ["Laimer",81,"ZDM","🇦🇹","Bayern München","Bundesliga",84,70,78,"Rare",390],
 ["Bischof",76,"ZM","🇩🇪","Bayern München","Bundesliga",82,68,84,"Rare",280],
-["Ndiaye",64,"ZM","🇸🇳","Bayern München","Bundesliga",70,55,68,"Common",120],
+["Ndiaye",70,"ZM","🇸🇳","Bayern München","Bundesliga",70,55,68,"Rare",120],
 ["Karl",75,"ZM","🇩🇪","Bayern München","Bundesliga",88,68,84,"Rare",280],
 ["Pavlović",79,"ZDM","🇷🇸","Bayern München","Bundesliga",74,67,85,"Rare",340],
 ["Daiber",60,"ZM","🇩🇪","Bayern München","Bundesliga",68,50,62,"Common",80],
@@ -2836,22 +2848,46 @@ const DORTMUND_2627=[
 for(const dp of DORTMUND_2627){if(!P.some(p=>p[0]===dp[0]&&p[4]==="Borussia Dortmund"))P.push(dp);}
 
 const HSVP=P.filter(function(p){return p[4]==="HSV";});
-const PACKP=P.filter(function(p){return p[4]==="HSV" || p[4]==="Bayern München" || p[4]==="Borussia Dortmund";});
+// Der Pack-Pool wird erst beim Öffnen berechnet, damit alle später gesetzten
+// IMG-Zuordnungen berücksichtigt werden und HSV-Spieler ohne Bild sicher
+// ausgeschlossen bleiben. Bayern und Dortmund bleiben vollständig enthalten.
+let PACKP=[];
 const IMG={"Albert Sambi Lokonga":"","Bakery Jatta":"","Sander Tangvik":"assets/img_010.webp","Martin Adeline":"","Elias Lahti":"","Daniel Elfadli":"","Daniel Heuer Fernandes":"","Shafiq Nandja":"","Rayan Philippe":"","Jean-Luc Dompe":"","Nicolas Capaldo":"","Bilal Nadir":"","Miro Muheim":"","Warmed Omari":"","Alexander Rössing-Lelesiit":"","Yussuf Poulsen":"","Louis Lemke":"","Albert Grönbaek":"","Otto Stange":"","Sebastiaan Bornauw":"","Jordan Torunarigha":"","Nicolai Remberg":"","Emir Sahiti":"","Joel Agyekum":"","Patson Daka":"","Fernando Dickes":"","Immanuel Pherai":"","Kofi Amoako":"assets/img_011.webp"};
 Object.assign(IMG,{"Tah":"assets/bayern_Tah.png","Minjae":"assets/bayern_Minjae.png","Kim":"assets/bayern_Minjae.png"});
 Object.assign(IMG,{"Upamecano":"assets/bayern_Upamecano.png","Ndiaye":"assets/bayern_Ndiaye.png","Stanišić":"assets/bayern_Stani_i.png","Urbig":"assets/bayern_Urbig.png","Gnabry":"assets/bayern_Gnabry.png","Laimer":"assets/bayern_Laimer.png","Saibari":"assets/bayern_Saibari.png","Kimmich":"assets/bayern_Kimmich.png","Ito":"assets/bayern_Ito.png","Musiala":"assets/bayern_Musiala.png","Davies":"assets/bayern_Davies.png","Karl":"assets/bayern_Karl.png","Díaz":"assets/bayern_D_az.png"});
 const PROFILE={"Daniel Heuer Fernandes": "https://www.hsv.de/teams/maenner/spieler", "Sander Tangvik": "https://www.hsv.de/teams/maenner/spieler", "Fernando Dickes": "https://www.hsv.de/teams/maenner/spieler", "Elias Lahti": "https://www.hsv.de/teams/maenner/spieler", "Daniel Elfadli": "https://www.hsv.de/teams/maenner/spieler", "Warmed Omari": "https://www.hsv.de/teams/maenner/spieler", "Jordan Torunarigha": "https://www.hsv.de/teams/maenner/spieler", "Nicolas Capaldo": "https://www.hsv.de/teams/maenner/spieler", "Miro Muheim": "https://www.hsv.de/teams/maenner/spieler", "Sebastiaan Bornauw": "https://www.hsv.de/teams/maenner/spieler", "Louis Lemke": "https://www.hsv.de/teams/maenner/spieler", "Joel Agyekum": "https://www.hsv.de/teams/maenner/spieler", "Shafiq Nandja": "https://www.hsv.de/teams/maenner/spieler", "Bilal Nadir": "https://www.hsv.de/teams/maenner/spieler", "Martin Adeline": "https://www.hsv.de/teams/maenner/spieler", "Albert Sambi Lokonga": "https://www.hsv.de/teams/maenner/spieler", "Immanuel Pherai": "https://www.hsv.de/teams/maenner/spieler", "Albert Grönbaek": "https://www.hsv.de/teams/maenner/spieler", "Nicolai Remberg": "https://www.hsv.de/teams/maenner/spieler", "Thierry Sedlatschek": "https://www.hsv.de/teams/maenner/spieler", "Jannes von Diczelski": "https://www.hsv.de/teams/maenner/spieler", "Jean-Luc Dompe": "https://www.hsv.de/teams/maenner/spieler", "Rayan Philippe": "https://www.hsv.de/teams/maenner/spieler", "Yussuf Poulsen": "https://www.hsv.de/teams/maenner/spieler", "Bakery Jatta": "https://www.hsv.de/teams/maenner/spieler", "Otto Stange": "https://www.hsv.de/teams/maenner/spieler", "Patson Daka": "https://www.hsv.de/teams/maenner/spieler", "Emir Sahiti": "https://www.hsv.de/teams/maenner/spieler", "Alexander Rössing-Lelesiit": "https://www.hsv.de/teams/maenner/spieler", "Fabio Balde": "https://www.hsv.de/teams/maenner/spieler"};
 const TANGVIK_ART=IMG["Sander Tangvik"]||"";
-const cfg={hsv:{price:10,rare:.02,legend:0,name:"BRONZE"},hsvrare:{price:25,rare:0,legend:.02,name:"SILBER"},hsvlegend:{price:50,rare:0,legend:1,name:"GOLD"}};
-let d=JSON.parse(localStorage.getItem("packOpenerV29")||"null")||{coins:3000,collection:[],daily:"",squad:[]}; if(!localStorage.getItem("hsvTest100kV169")){d.coins=100000;localStorage.setItem("hsvTest100kV169","1");localStorage.setItem("packOpenerV29",JSON.stringify(d));}let coins=d.coins,collection=d.collection,squad=d.squad,current=null,opening=false,flt="all",pendingResults=null,att=5,hs=0,os=0,selectedTrainer=d.trainer||null,career=d.career||{season:1,matchday:1,points:0,fans:57000},packsOpened=Number(d.packsOpened||0);
-let idleLast=d.idleLast||Date.now(),idleBank=d.idleBank||0,idleCap=12*60*60;let playerXP=d.playerXP||{};let guestPackCount=Number(localStorage.getItem("packOpenerGuestPacksV1")||0);window.guestNoGameSave=false;const $=x=>document.getElementById(x);
-function save(){if(window.guestNoGameSave){$("coins").textContent=coins;const formattedCoins=Number(coins).toLocaleString("de-DE");const pc=$("packCoins");if(pc)pc.textContent=formattedCoins;const opc=$("overlayPackCoins");if(opc)opc.textContent=formattedCoins;return}d.coins=coins;d.collection=collection;d.squad=squad;d.trainer=selectedTrainer;d.playerXP=playerXP;d.career=career;d.idleLast=idleLast;d.idleBank=idleBank;d.packsOpened=packsOpened;localStorage.setItem("packOpenerV29",JSON.stringify(d));$("coins").textContent=coins;const formattedCoins=Number(coins).toLocaleString("de-DE");const pc=$("packCoins");if(pc)pc.textContent=formattedCoins;const opc=$("overlayPackCoins");if(opc)opc.textContent=formattedCoins}
-function tab(t){["home","packs","squad","club","collection","leaderboard","profile"].forEach(x=>{const e=$(x);if(e)e.classList.toggle("hidden",x!==t)});const clubPanel=$("club");if(clubPanel)clubPanel.classList.toggle("hidden",t!=="club");["homeTab","packsTab","squadTab","clubTab","colTab","leaderboardTab","profileTab"].forEach((x,i)=>{const e=$(x);if(e)e.classList.toggle("active",["home","packs","squad","club","collection","leaderboard","profile"][i]===t)});$("title").textContent=t.toUpperCase();if(t==="collection"){flt="HSV";document.querySelectorAll(".filters button").forEach(x=>x.classList.remove("active"));const hb=document.querySelector(".filters button[onclick*='HSV']");if(hb)hb.classList.add("active");render();}if(t==="squad")renderSquad();if(t==="career")renderCareer();if(t==="match"){let r=squad.length?Math.round(squad.reduce((a,p)=>a+p[1],0)/squad.length):0;$("matchRating").textContent=r;$("matchChem").textContent=Math.min(33,squad.length*3)}stats()}
-function choose(t){if(opening)return;current=t;$("openTitle").textContent=cfg[t].name;$("pack").className="pack "+(t==="rare"?"rare ":"")+(t==="legend"?"legend ":"");$("cards").classList.add("hidden");$("msg").textContent=cfg[t].price+" Coins – 1 Karte bereit!"}
+const cfg={hsv:{price:10,rare:.02,legend:0,name:"BRONZE"},hsvrare:{price:25,rare:.98,legend:.02,name:"SILBER"},hsvlegend:{price:50,rare:0,legend:1,name:"GOLD"}};
+let d=JSON.parse(localStorage.getItem("packOpenerV29")||"null")||{coins:3000,collection:[],daily:"",squad:[]}; if(!localStorage.getItem("hsvTest100kV169")){d.coins=100000;localStorage.setItem("hsvTest100kV169","1");localStorage.setItem("packOpenerV29",JSON.stringify(d));}let coins=d.coins,collection=Array.isArray(d.collection)?d.collection.filter(p=>!(p&&String(p[0]).trim()==="Ndiaye")):[],squad=d.squad,current=null,opening=false,flt="all",pendingResults=null,att=5,hs=0,os=0,selectedTrainer=d.trainer||null,career=d.career||{season:1,matchday:1,points:0,fans:57000},packsOpened=Number(d.packsOpened||0);
+// Trainer-Namensmigration: alte gespeicherte Einträge „Merlin Polzin“ werden zu „Polzin“.
+collection.forEach(p=>{if(p&&String(p[0]).trim()==="Merlin Polzin")p[0]="Polzin";});
+if(selectedTrainer && String(selectedTrainer).trim()==="Merlin Polzin")selectedTrainer="Polzin";
+d.collection=collection; d.trainer=selectedTrainer; localStorage.setItem("packOpenerV29",JSON.stringify(d));
+// Ndiaye mit Rating 70 soll nicht mehr in der Sammlung erscheinen. Andere Karten bleiben unverändert.
+if(Array.isArray(d.collection) && d.collection.some(p=>p&&String(p[0]).trim()==="Ndiaye")){ d.collection=collection; localStorage.setItem("packOpenerV29",JSON.stringify(d)); }
+let idleLast=d.idleLast||Date.now(),idleBank=d.idleBank||0,idleCap=12*60*60;let playerXP=d.playerXP||{};let managerXP=Math.max(0,Number(d.managerXP)||0);let guestPackCount=Number(localStorage.getItem("packOpenerGuestPacksV1")||0);window.guestNoGameSave=false;const $=x=>document.getElementById(x);
+function managerXpInfo(){const perLevel=1000;const level=Math.floor(managerXP/perLevel)+1;const current=managerXP%perLevel;return {level,current,needed:perLevel,total:managerXP,percent:Math.min(100,(current/perLevel)*100)};}
+function renderManagerXP(){const w=$("managerXpBar"),lvl=$("managerXpLevel"),fill=$("managerXpFill"),txt=$("managerXpText");if(!w||!lvl||!fill||!txt)return;const logged=!!window.hsvAuthUser;w.classList.toggle("show",logged);const x=managerXpInfo();lvl.textContent="Level "+x.level;fill.style.width=x.percent+"%";txt.textContent=x.current.toLocaleString("de-DE")+" / "+x.needed.toLocaleString("de-DE")+" XP";}
+function addManagerXP(amount){const n=Math.max(0,Math.round(Number(amount)||0));if(!n)return;const before=managerXpInfo().level;managerXP+=n;const after=managerXpInfo().level;save();renderManagerXP();if(after>before){const el=$("managerXpLevel");if(el){el.animate([{transform:"scale(1)"},{transform:"scale(1.22)"},{transform:"scale(1)"}],{duration:500,easing:"ease-out"});}}}
+function save(){if(window.guestNoGameSave){$("coins").textContent=coins;const formattedCoins=Number(coins).toLocaleString("de-DE");const pc=$("packCoins");if(pc)pc.textContent=formattedCoins;const opc=$("overlayPackCoins");if(opc)opc.textContent=formattedCoins;return}d.coins=coins;d.collection=collection;d.squad=squad;d.trainer=selectedTrainer;d.playerXP=playerXP;d.managerXP=managerXP;d.career=career;d.idleLast=idleLast;d.idleBank=idleBank;d.packsOpened=packsOpened;localStorage.setItem("packOpenerV29",JSON.stringify(d));$("coins").textContent=coins;const formattedCoins=Number(coins).toLocaleString("de-DE");const pc=$("packCoins");if(pc)pc.textContent=formattedCoins;const opc=$("overlayPackCoins");if(opc)opc.textContent=formattedCoins}
+function tab(t){["home","packs","squad","club","collection","leaderboard","profile"].forEach(x=>{const e=$(x);if(e)e.classList.toggle("hidden",x!==t)});const clubPanel=$("club");if(clubPanel)clubPanel.classList.toggle("hidden",t!=="club");["homeTab","packsTab","squadTab","clubTab","colTab","leaderboardTab","profileTab"].forEach((x,i)=>{const e=$(x);if(e)e.classList.toggle("active",["home","packs","squad","club","collection","leaderboard","profile"][i]===t)});$("title").textContent=t.toUpperCase();if(t==="collection"){flt="all";document.querySelectorAll(".filters button").forEach(x=>x.classList.remove("active"));const ab=document.querySelector(".filters button:first-child");if(ab)ab.classList.add("active");render();}if(t==="squad")renderSquad();if(t==="career")renderCareer();if(t==="match"){let r=squad.length?Math.round(squad.reduce((a,p)=>a+p[1],0)/squad.length):0;$("matchRating").textContent=r;$("matchChem").textContent=Math.min(33,squad.length*3)}stats()}
+function choose(t){if(opening)return;current=t;$("openTitle").textContent=cfg[t].name;$("pack").className="pack "+(t==="hsvrare"?"rare ":"")+(t==="hsvlegend"?"legend ":"");$("cards").classList.add("hidden");$("msg").textContent=cfg[t].price+" Coins – 1 Karte bereit!"}
 function roll(c){let x=Math.random();return x<c.legend?"Legend":x<c.legend+c.rare?"Rare":"Common"}
-Object.assign(IMG,{"Merlin Polzin": "", "Richard Krohn": "", "Sven Hoh": "", "Sebastian Capel": "", "Tino Dehmelt": "", "Basil More Chevalier": "", "Jan Hasenkamp": "", "Loïc Fave": "", "Max Bergmann": ""});
-const TRAINERTEAM=[["Merlin Polzin", 88, "TR", "Merlin Polzin", "TRAINERTEAM", "HSV", 70, 65, 82, "Legend", 5000], ["Richard Krohn", 82, "TR", "Richard Krohn", "TRAINERTEAM", "HSV", 70, 65, 82, "Rare", 5000], ["Sven Hoh", 82, "TR", "Sven Hoh", "TRAINERTEAM", "HSV", 70, 65, 82, "Rare", 5000], ["Sebastian Capel", 76, "TR", "Sebastian Capel", "TRAINERTEAM", "HSV", 70, 65, 82, "Common", 5000], ["Tino Dehmelt", 76, "TR", "Tino Dehmelt", "TRAINERTEAM", "HSV", 70, 65, 82, "Common", 5000], ["Basil More Chevalier", 82, "TR", "Basil More Chevalier", "TRAINERTEAM", "HSV", 70, 65, 82, "Rare", 5000], ["Jan Hasenkamp", 76, "TR", "Jan Hasenkamp", "TRAINERTEAM", "HSV", 70, 65, 82, "Common", 5000], ["Loïc Fave", 82, "TR", "Loïc Fave", "TRAINERTEAM", "HSV", 70, 65, 82, "Rare", 5000], ["Max Bergmann", 76, "TR", "Max Bergmann", "TRAINERTEAM", "HSV", 70, 65, 82, "Common", 5000]];
-Object.assign(IMG,{"Merlin Polzin": "", "Richard Krohn": "", "Sven Hoh": "", "Sebastian Capel": "", "Tino Dehmelt": "", "Basil More Chevalier": "", "Jan Hasenkamp": "", "Loïc Fave": "", "Max Bergmann": ""});
+Object.assign(IMG,{"Polzin": "", "Richard Krohn": "", "Sven Hoh": "", "Sebastian Capel": "", "Tino Dehmelt": "", "Basil More Chevalier": "", "Jan Hasenkamp": "", "Loïc Fave": "", "Max Bergmann": ""});
+const TRAINERTEAM=[["Polzin", 88, "TR", "Polzin", "TRAINERTEAM", "HSV", 70, 65, 82, "Legend", 5000], ["Richard Krohn", 82, "TR", "Richard Krohn", "TRAINERTEAM", "HSV", 70, 65, 82, "Rare", 5000], ["Sven Hoh", 82, "TR", "Sven Hoh", "TRAINERTEAM", "HSV", 70, 65, 82, "Rare", 5000], ["Sebastian Capel", 76, "TR", "Sebastian Capel", "TRAINERTEAM", "HSV", 70, 65, 82, "Common", 5000], ["Tino Dehmelt", 76, "TR", "Tino Dehmelt", "TRAINERTEAM", "HSV", 70, 65, 82, "Common", 5000], ["Basil More Chevalier", 82, "TR", "Basil More Chevalier", "TRAINERTEAM", "HSV", 70, 65, 82, "Rare", 5000], ["Jan Hasenkamp", 76, "TR", "Jan Hasenkamp", "TRAINERTEAM", "HSV", 70, 65, 82, "Common", 5000], ["Loïc Fave", 82, "TR", "Loïc Fave", "TRAINERTEAM", "HSV", 70, 65, 82, "Rare", 5000], ["Max Bergmann", 76, "TR", "Max Bergmann", "TRAINERTEAM", "HSV", 70, 65, 82, "Common", 5000]];
+Object.assign(IMG,{"Polzin": "", "Richard Krohn": "", "Sven Hoh": "", "Sebastian Capel": "", "Tino Dehmelt": "", "Basil More Chevalier": "", "Jan Hasenkamp": "", "Loïc Fave": "", "Max Bergmann": ""});
+function hsvPackEligible(p){
+  if(!p || p[4]!=="HSV") return true;
+  const u=(typeof IMG!=="undefined" && IMG[p[0]]) ? String(IMG[p[0]]).trim() : "";
+  return /^(https?:\/\/|data:image\/|assets\/)/.test(u);
+}
+function getPackPool(){
+  PACKP=P.filter(function(p){
+      if(p && String(p[0]).trim()==="Ndiaye" && Number(p[1])===70) return false;
+    return p[4]==="HSV" ? hsvPackEligible(p) : (p[4]==="Bayern München" || p[4]==="Borussia Dortmund");
+  });
+  return PACKP;
+}
 function openPack(){
   try{
     if(!current)current="hsv";
@@ -2874,12 +2910,11 @@ function openPack(){
     ["s1","s2","s3","s4","s5"].forEach(x=>$(x).classList.remove("show"));
     const rs=Array.from({length:5},()=>roll(c));
     const getPool=(rarity)=>{
-      const isHSV=current==="hsv"||current==="hsvrare"||current==="hsvlegend";
-      let pool=PACKP.filter(p=>p[9]===rarity);
-      if(!pool.length) pool=PACKP;
-      return pool;
+      return getPackPool().filter(p=>canonicalRarity(p)===rarity);
     };
-    const first=getPool(rs[0])[Math.floor(Math.random()*getPool(rs[0]).length)];
+    const firstPool=getPool(rs[0]);
+    if(!firstPool.length) throw new Error("Kein Spieler für die gezogene Kartenrarität vorhanden");
+    const first=firstPool[Math.floor(Math.random()*firstPool.length)];
     setTimeout(()=>$("s1").classList.add("show"),120);
     setTimeout(()=>{$("rf").textContent=first[3];$("s2").classList.add("show")},550);
     setTimeout(()=>{$("rp").textContent=first[2];$("s3").classList.add("show")},950);
@@ -2902,7 +2937,7 @@ function openPack(){
 function showWalkout(p){ document.body.classList.add("packOpening"); window.scrollTo(0,0);
   try{
     pendingResults=pendingResults||[];
-    $("woRating").textContent=p[1]; $("woName").textContent=lastName(p[0]); $("woClub").textContent=p[4]+" • VOLKSPARKSTADION";
+    $("woRating").textContent=p[1]; $("woName").textContent=p[0]; $("woClub").textContent=p[4]+" • VOLKSPARKSTADION";
     const url=IMG[p[0]];
     $("woFace").innerHTML=(url&&/^(https?:\/\/|data:image\/)/.test(url))?`<img src="${url}" alt="${String(p[0]).replace(/"/g,'&quot;')}" class="walkoutPlayerArtwork" loading="eager" decoding="async">`:"👤";
     $("walkout").classList.add("on");
@@ -2922,10 +2957,8 @@ function closeWalkout(){ $("walkout").classList.remove("on"); if(pendingResults)
 function showCards(rs){
   $("reveal").classList.add("hidden"); $("packClose").classList.remove("hidden"); document.body.classList.remove("packOpening"); document.documentElement.scrollTop=0; document.body.scrollTop=0; $("cards").innerHTML=""; $("cards").classList.remove("hidden");
   rs.forEach((r,i)=>{
-    let isHSV=current==="hsv"||current==="hsvrare"||current==="hsvlegend";
-    let pool=P.filter(p=>p[4]==="HSV" || p[4]==="Bayern München" || p[4]==="Borussia Dortmund").filter(p=>p[9]===r);
-    if(isHSV) pool=pool.concat(TRAINERTEAM.filter(p=>p[9]===r));
-    if(!pool.length)pool=P.filter(p=>p[4]==="HSV" || p[4]==="Bayern München" || p[4]==="Borussia Dortmund").concat(TRAINERTEAM);
+    const pool=getPackPool().filter(p=>canonicalRarity(p)===r);
+    if(!pool.length){ console.error("Kein Spieler für Kartenrarität",r); return; }
     let p=pool[Math.floor(Math.random()*pool.length)]; collection.push(p);
     let e=document.createElement("div"); e.className="card cover "+(p[4]==="HSV"?"hsvcard":""); e.style.animationDelay=i*.06+"s";
     e.innerHTML=`<div style="font-size:70px">?</div><b>AUFDECKEN</b>`; setTimeout(()=>revealCard(e,p,r),900+i*520); $("cards").appendChild(e);
@@ -2938,11 +2971,11 @@ function revealCard(e,p,r){
   const url=IMG[p[0]];
   const photo=(url&&/^(https?:\/\/|data:image\/)/.test(url))?`<img src="${url}" alt="${String(p[0]).replace(/"/g,'&quot;')}" class="playerCardArtwork" loading="eager" decoding="async">`:`🔷`;
   const profile=(p[4]==="HSV"&&PROFILE[p[0]])?`<a href="${PROFILE[p[0]]}" target="_blank" rel="noopener" class="hsvProfile">HSV-Profil</a>`:"";
-  e.innerHTML=`<div class="r">${p[1]}</div><div class="p">${p[2]}</div><div class="f">${p[3]}</div><div class="hsvbadge">${p[4]==="HSV"?"🔷 HSV":""}</div><div class="face">${photo}</div><div class="name">${lastName(p[0])}</div>${profile}<div class="detail">🏟️ ${p[4]}<br>🌍 ${p[5]}<br><br>PAC ${p[6]} • SHO ${p[7]} • PAS ${p[8]}</div><div class="tag">${r.toUpperCase()}</div>`;
+  e.innerHTML=`<div class="r">${p[1]}</div><div class="p">${p[2]}</div><div class="f">${p[3]}</div><div class="hsvbadge">${p[4]==="HSV"?"🔷 HSV":""}</div><div class="face">${photo}</div><div class="name">${p[0]}</div>${profile}<div class="detail">🏟️ ${p[4]}<br>🌍 ${p[5]}<br><br>PAC ${p[6]} • SHO ${p[7]} • PAS ${p[8]}</div><div class="tag">${r.toUpperCase()}</div>`;
 }
 function cancel(){if(opening)return;$("cards").classList.add("hidden");$("reveal").classList.add("hidden");$("pack").classList.add("hidden");current=null}
 function updateCollectionRarityCounts(){
-  const allPlayers=(typeof P!=="undefined"?P:[]);
+  const allPlayers=(typeof getPackPool==="function"?getPackPool():[]);
   const uniqueOwned=new Set(collection.map(p=>p[0]));
   const defs=[
     ["Bronze","bronze",p=>Number(p[1])<=64],
@@ -2965,7 +2998,8 @@ function render(){
   else if(flt==="Rare") a=collection.filter(p=>Number(p[1])>=65 && Number(p[1])<=74);
   else if(flt==="Legend") a=collection.filter(p=>Number(p[1])>=75);
   else a=collection;
-  const owned=new Set(collection.map(p=>p[0]));
+  a=a.filter(p=>!(p&&String(p[0]).trim()==="Ndiaye"));
+  const owned=new Set(collection.filter(p=>!(p&&String(p[0]).trim()==="Ndiaye")).map(p=>p[0]));
   const qty={}; collection.forEach(p=>{qty[p[0]]=(qty[p[0]]||0)+1});
   const seen=new Set();
   a=a.filter(p=>{if(seen.has(p[0])) return false; seen.add(p[0]); return true;});
@@ -2982,6 +3016,18 @@ function render(){
     const ratingClass=Number(p[1])<=64?"bronzeCollection":(Number(p[1])<=74?"silverCollection":"goldCollection"); const fact=collectionFactsFor(p); const sellIndex=collection.findIndex(x=>x[0]===p[0]); return own ? `<div class="owned collectionCard collectionImageOnly" style="position:relative"><div class="collectionFace">${photo}${qty[p[0]]>1?`<div class="collectionQty">x${qty[p[0]]}</div>`:""}</div></div>` : "";
   }).join("");
 }
+function canonicalRarity(p){
+  if(!p)return "Common";
+  const name=String(p[0]||"").trim();
+  if(name==="Ndiaye") return "Rare";
+  if(name==="Joel Agyekum" || name==="Elias Lahti" || name==="Lahit") return "Common";
+  const rating=Number(p[1])||0;
+  return rating>=75 ? "Legend" : (rating>=65 ? "Rare" : "Common");
+}
+P.forEach(p=>{p[9]=canonicalRarity(p);});
+
+if(typeof collection!=="undefined"&&Array.isArray(collection)){collection.forEach(p=>{p[9]=canonicalRarity(p);});}
+
 function collectionFactsFor(p){
   const rating=Number(p[1])||0, value=Number(p[10])||0, pos=p[2]||"";
   const known={
@@ -3107,15 +3153,8 @@ function sortCollection(v){collectionSort=v;render()}
 function filter(f,b){flt=f;document.querySelectorAll(".filters button").forEach(x=>x.classList.remove("active"));b.classList.add("active");render()}
 function sell(i){let p=collection[i];if(!p)return;coins+=Math.round(p[10]*.55);collection.splice(i,1);squad=squad.filter(x=>x[0]!==p[0]);save();render();stats()}
 function market(){let names=collection.map(p=>p[0]);$("marketGrid").innerHTML=P.map((p,i)=>`<div class="listing ${p[9].toLowerCase()}"><div class="mini">${IMG[p[0]]?``:"🔷"}</div><b>${p[0]}</b><div class="muted">${p[1]} • ${p[2]} • ${p[9]}</div><div>${p[3]} ${p[4]}</div><button class="${names.includes(p[0])?'':'gold'}" ${names.includes(p[0])?'disabled':''} onclick="buy(${i})">${names.includes(p[0])?"Bereits im Besitz":"Kaufen • "+p[10]+" 🪙"}</button></div>`).join("")}
-function buy(i){let p=P[i];if(collection.some(x=>x[0]===p[0]))return;if(coins<p[10]){alert("Nicht genug Coins!");return}coins-=p[10];collection.push(p);save();market();stats()}
+function buy(i){let p=P[i];if(p&&String(p[0]).trim()==="Ndiaye"&&Number(p[1])===70)return;if(collection.some(x=>x[0]===p[0]))return;if(coins<p[10]){alert("Nicht genug Coins!");return}coins-=p[10];collection.push(p);save();market();stats()}
 function autoSquad(){let unique=[...new Map(collection.map(p=>[p[0],p])).values()].sort((a,b)=>b[1]-a[1]);let need=["TW","IV","IV","ZDM","ZM","ZM","RF","LF","ST","ST","ST"];squad=[];let used=new Set();for(const pos of need){let p=unique.find(x=>!used.has(x[0])&&(x[2]===pos||(pos==="IV"&&x[2]==="IV")||(pos==="ZM"&&["ZM","ZDM"].includes(x[2]))));if(!p)p=unique.find(x=>!used.has(x[0]));if(p){squad.push(p);used.add(p[0])}}save();renderSquad()}
-function lastName(fullName){
-  const s=String(fullName||'').trim();
-  if(!s)return '';
-  const parts=s.split(/\s+/);
-  return parts[parts.length-1];
-}
-
 function renderSquad(){
   const formation = window.hsvFormation || localStorage.getItem("hsvFormation") || "4-3-3";
   const formationPositions = {
@@ -3142,7 +3181,7 @@ function renderSquad(){
       <b>${slots[i]}</b>
       ${p ? `<div class="player">
         ${IMG[p[0]]?`<img class="playerimg squad-player-image" src="${IMG[p[0]]}" alt="${p[0]}" loading="eager" decoding="async">`:``}
-        <strong>${lastName(p[0])}</strong>
+        <strong>${p[0]}</strong>
       </div>` : `<div class="empty">＋<br><span>Spieler auswählen</span></div>`}
     </div>`).join("");
   const placed=squad.filter(Boolean);
@@ -3167,7 +3206,7 @@ function openOccupiedPlayerMenu(slotIndex){
   modal.innerHTML=`
     <div class="picker-box occupied-menu-box">
       <div class="picker-head">
-        <div><h3>${lastName(p[0])}</h3><small>Was möchtest du machen?</small></div>
+        <div><h3>${p[0]}</h3><small>Was möchtest du machen?</small></div>
         <button onclick="closeOccupiedMenu()">✕</button>
       </div>
       <div class="occupied-menu-actions">
@@ -3259,7 +3298,7 @@ function openPlayerPicker(slotIndex){
         ${list.length ? list.map(p=>`
           <button class="picker-player" onclick='setTeamPlayer(${slotIndex},${JSON.stringify(p[0])})'>
             ${IMG[p[0]]?`<img class="playerimg squad-player-image" src="${IMG[p[0]]}" alt="${p[0]}" loading="eager" decoding="async">`:``}
-            <span><b>${lastName(p[0])}</b><small class="pickerClub">${p[4]||""}</small></span>
+            <span><b>${p[0]}</b></span>
           </button>`).join("") :
           `<p class="muted">Keine verfügbaren Spieler für die Position <b>${position}.</b></p>`}
       </div>
@@ -3400,8 +3439,9 @@ function simulateIdleMatch(){
   const reward=result==="win"?300+rating*3:result==="draw"?180+rating*2:90+rating;
   const xp=result==="win"?55:result==="draw"?40:30;
   squad.forEach(p=>{if(p&&p[0])playerXP[p[0]]=(playerXP[p[0]]||0)+xp;});
+  managerXP+=xp;
   coins+=reward;
-  save();stats();
+  save();stats();renderManagerXP();
   const icon=result==="win"?"🏆":result==="draw"?"🤝":"😬";
   const nextLevel=squad.map(p=>Math.floor((playerXP[p[0]]||0)/100)).reduce((a,b)=>a+b,0);
   box.style.display="block";
@@ -3412,7 +3452,7 @@ function idleCalc(){let st={stadium:1,shop:1};try{st=Object.assign(st,JSON.parse
 function renderIdle(){const x=idleCalc();$("idleRate").textContent=x.rate.toLocaleString("de-DE");$("idleBank").textContent=Math.floor(idleBank).toLocaleString("de-DE");$("idleHours").textContent=(Math.min(idleCap,(Date.now()- (d.idleLast||Date.now()))/1000)/3600).toFixed(1);save();}
 function collectIdle(){idleCalc();const amount=Math.floor(idleBank);if(amount<=0){$("idleMsg").textContent="Noch keine Offline-Einnahmen vorhanden.";return}coins+=amount;idleBank=0;$("idleMsg").textContent="💰 +"+amount.toLocaleString("de-DE")+" Coins aus deinem Idle-Verein erhalten!";save();renderIdle();}
 function daily(){let t=new Date().toISOString().slice(0,10);if(d.daily===t){$("dailyText").textContent="Heute schon abgeholt.";return}coins+=500;d.daily=t;save();$("dailyText").textContent="+500 Coins erhalten!"}
-stats();$("coins").textContent=coins;const formattedInitialCoins=Number(coins).toLocaleString("de-DE");$("packCoins").textContent=formattedInitialCoins;$("overlayPackCoins").textContent=formattedInitialCoins;setTimeout(renderIdle,0);setInterval(renderIdle,60000);
+stats();$("coins").textContent=coins;const formattedInitialCoins=Number(coins).toLocaleString("de-DE");$("packCoins").textContent=formattedInitialCoins;$("overlayPackCoins").textContent=formattedInitialCoins;setTimeout(renderIdle,0);setTimeout(renderManagerXP,0);setInterval(renderIdle,60000);
 </script>
 <script>
 window.packQuantity=1;
@@ -3435,7 +3475,7 @@ window.v35Open=function(){
     if(!registered && remainingGuestPacks<=0){
       const text="🔒 Du hast bereits 20 Gast-Packs geöffnet. Bitte registriere dich jetzt, um weiterzuspielen.";
       if($("msg")) $("msg").textContent=text;
-      if(typeof window.accountMode==="function") window.accountMode("login");
+      if(typeof window.accountMode==="function") window.accountMode("register");
       if(typeof window.openAccountModal==="function") window.openAccountModal();
       if(typeof window.setAccountMsg==="function") window.setAccountMsg(text+" Dein Gast-Spielstand wird nicht weiter gespeichert.");
       return;
@@ -3457,7 +3497,7 @@ window.v35Open=function(){
 
     // Alle normalen Spieler sind im Pack-Pool. Bayern und Dortmund sind dadurch
     // ebenfalls in Bronze/Silber/Gold enthalten; das Trainerteam bleibt außen vor.
-    let pool=(typeof P!=="undefined" ? P.filter(p=>p[4]==="HSV" || p[4]==="Bayern München" || p[4]==="Borussia Dortmund") : []);
+    let pool=getPackPool();
     if(!pool.length) throw new Error("Kein Spieler-Pool verfügbar");
 
     const results=[];
@@ -3500,8 +3540,8 @@ window.v35Open=function(){
     opening=true;
 
     grid.innerHTML="";
-    ov.classList.remove("complete");
-    ov.classList.add("active");
+    ov.classList.remove("complete","pack-qty-1","pack-qty-5","pack-qty-10");
+    ov.classList.add("active","pack-qty-"+packCount);
     document.querySelectorAll("#quickPackSwitch button").forEach(function(b){
       b.classList.toggle("active",b.getAttribute("data-pack")===current);
     });
@@ -3512,7 +3552,7 @@ window.v35Open=function(){
       const card=document.createElement("div");
       card.className="packCard"+(p[0]==="Sander Tangvik"?" tangvikCard":"")+(Number(p[1])<=64?" bronzeCard":(Number(p[1])<=74?" silverCard":" goldCard"));
       const u=(p[0]==="Sander Tangvik" && TANGVIK_ART) ? TANGVIK_ART : ((typeof IMG!=="undefined" && IMG[p[0]]) ? IMG[p[0]] : "");
-      const photo=u ? '<img src="'+u+'" alt="'+String(p[0]).replace(/"/g,'&quot;')+'" class="playerCardArtwork" loading="eager" decoding="async" style="display:block!important;visibility:visible!important;opacity:1!important;">' : "🔷";
+      const photo=u ? '<img src="'+u+'" alt="'+String(p[0]).replace(/"/g,'&quot;')+'" class="playerCardArtwork" loading="eager" decoding="async" style="display:block!important;visibility:visible!important;opacity:1!important;width:250px!important;height:280px!important;max-width:250px!important;max-height:280px!important;min-width:250px!important;min-height:280px!important;object-fit:contain!important;margin:auto!important;">' : "🔷";
       card.innerHTML=
         '<div class="rating">'+p[1]+'</div>'+
         '<div class="photo">'+photo+'</div>'+
@@ -3535,7 +3575,7 @@ window.v35Open=function(){
       if(!registered && guestPackCount>=20){
         const text="🔒 20 Gast-Packs geöffnet. Für weitere Packs musst du dich jetzt registrieren.";
         if($("msg")) $("msg").textContent=text;
-        if(typeof window.accountMode==="function") window.accountMode("login");
+        if(typeof window.accountMode==="function") window.accountMode("register");
         if(typeof window.openAccountModal==="function") window.openAccountModal();
         if(typeof window.setAccountMsg==="function") window.setAccountMsg(text+" Dein Gast-Spielstand wird nicht weiter gespeichert.");
       }
@@ -3584,20 +3624,20 @@ window.v35Close=function(){
 })();
 </script>
 <script>
-const HSV_TRAINERTEAM=[{"name": "Merlin Polzin", "img": "assets/img_012.webp"}, {"name": "Richard Krohn", "img": "assets/img_013.webp"}, {"name": "Sven Hoh", "img": "assets/img_014.webp"}, {"name": "Sebastian Capel", "img": "assets/img_015.webp"}, {"name": "Tino Dehmelt", "img": "assets/img_016.webp"}, {"name": "Basil More Chevalier", "img": "assets/img_017.webp"}, {"name": "Jan Hasenkamp", "img": "assets/img_018.webp"}, {"name": "Loïc Fave", "img": "assets/img_019.webp"}, {"name": "Max Bergmann", "img": "assets/img_020.webp"}];
+const HSV_TRAINERTEAM=[{"name": "Polzin", "img": "assets/img_012.webp"}, {"name": "Richard Krohn", "img": "assets/img_013.webp"}, {"name": "Sven Hoh", "img": "assets/img_014.webp"}, {"name": "Sebastian Capel", "img": "assets/img_015.webp"}, {"name": "Tino Dehmelt", "img": "assets/img_016.webp"}, {"name": "Basil More Chevalier", "img": "assets/img_017.webp"}, {"name": "Jan Hasenkamp", "img": "assets/img_018.webp"}, {"name": "Loïc Fave", "img": "assets/img_019.webp"}, {"name": "Max Bergmann", "img": "assets/img_020.webp"}];
 function toggleTrainerTeam(){
  const box=document.getElementById("trainerTeamInline");
  const grid=document.getElementById("trainerTeamInlineGrid");
  if(!box||!grid)return;
  if(box.classList.contains("hidden")){
    box.classList.remove("hidden");
-   grid.innerHTML=HSV_TRAINERTEAM.map(t=>'<div class="trainerInlineCard"><img src="'+t.img+'" alt="'+t.name+'"><h4>'+t.name+'</h4><div class="trainerInlineRole">Trainerteam</div></div>').join("");
+   grid.innerHTML=HSV_TRAINERTEAM.filter(t=>t.name==="Polzin").map(t=>'<div class="trainerInlineCard"><img src="'+t.img+'" alt="'+t.name+'"><h4>Polzin</h4><div class="trainerInlineRole">Trainer</div><div class="trainerInlineClub">HSV</div></div>').join("");
  }else{box.classList.add("hidden");}
 }
 </script><script>
 function renderTrainerTeamV53(){
  const g=document.getElementById("trainerGridV53"); if(!g)return;
- g.innerHTML=TRAINERTEAM.map(t=>'<div class="trainerCardV53"><img src="'+IMG[t[0]]+'" alt="'+t[0]+'"><h4>'+t[0]+'</h4><div class="trainerRoleV53">Trainerteam</div></div>').join("");
+ g.innerHTML=TRAINERTEAM.filter(t=>t[0]==="Polzin").map(t=>'<div class="trainerCardV53"><img src="'+IMG[t[0]]+'" alt="'+t[0]+'"><h4>Polzin</h4><div class="trainerRoleV53">Trainer</div><div class="trainerClubV53">HSV</div></div>').join("");
 }
 function showCollectionTrainerV53(){
  document.getElementById("collectionHSVContentV53").classList.add("hidden");
@@ -3613,13 +3653,28 @@ function showCollectionHSVV53(){
 function filterTrainerV54(btn){
   flt="TRAINERTEAM";
   document.querySelectorAll(".filters button").forEach(x=>x.classList.remove("active"));
-  btn.classList.add("active");
+  if(btn) btn.classList.add("active");
+
+  // Alle alten/zusätzlichen Trainer-Container aus früheren Versionen entfernen bzw. ausblenden.
+  document.querySelectorAll("#collectionTrainerV53, #trainerTeamInline, #trainerGridV53").forEach(el=>{
+    if(el && el.id!=="grid") el.remove();
+  });
+
   const grid=document.getElementById("grid");
   const count=document.getElementById("count");
-  if(count) count.textContent=TRAINERTEAM.length+" Trainerteam-Mitglieder";
-  if(grid) grid.innerHTML='<div class="trainerFilterGridV54" style="grid-column:1/-1">'+
-    TRAINERTEAM.map(t=>'<div class="trainerCardV54"><img src="'+IMG[t[0]]+'" alt="'+t[0]+'"><h4>'+t[0]+'</h4><div class="trainerRoleV54">TRAINERTEAM</div></div>').join("")+
-    '</div>';
+  if(count) count.textContent="1 Trainer";
+  if(!grid) return;
+
+  // Exakt EIN Trainer: Polzin.
+  grid.innerHTML='';
+  const wrap=document.createElement("div");
+  wrap.className="trainerFilterGridV54";
+  wrap.style.gridColumn="1/-1";
+  const card=document.createElement("div");
+  card.className="trainerCardV54";
+  card.innerHTML='<img src="'+(IMG["Polzin"]||"")+'" alt="Polzin"><h4>Polzin</h4><div class="trainerRoleV54">Trainer</div><div class="trainerClubV54">HSV</div>';
+  wrap.appendChild(card);
+  grid.appendChild(wrap);
 }
 </script><script>if(typeof IMG!=="undefined"){IMG["Fernando Dickes"]="assets/img_021.webp";}</script><script>Object.assign(IMG,{"Alexander Rössing-Lelesiit": "", "Joel Agyekum": "", "Fernando Dickes": "", "Warmed Omari": ""});</script><script>if(typeof IMG!=="undefined"){Object.assign(IMG,{"Alexander Rössing-Lelesiit": "", "Rossing Lelesiit": ""});}</script><script>if(typeof IMG!=="undefined"){Object.assign(IMG,{"Emir Sahiti": ""});}</script><script>if(typeof IMG!=="undefined"){Object.assign(IMG,{"Sondre Langås": "", "Jean-Luc Dompe": "", "Guilherme Ramos": "", "Lukas-Pascal Poulsen": "", "Miro Muheim": "", "Jordan Torunarigha": "", "Emir Sahiti": "", "Immanuel Pherai": ""});}</script><script>if(typeof IMG!=="undefined"){Object.assign(IMG,{"Sander Tangvik": IMG["Sander Tangvik"], "Rayan Philippe": "", "Yussuf Poulsen": "", "Miro Muheim": "", "Jordan Torunarigha": "", "Emir Sahiti": "", "Immanuel Pherai": ""});}</script>
 <script>
@@ -3849,7 +3904,7 @@ window.hsvPositionFilter = function(players, position){
   }
   const obs = new MutationObserver(apply);
   obs.observe(document.body,{childList:true,subtree:true});
-  document.addEventListener("click",()=>requestAnimationFrame(apply),true);
+  document.addEventListener("click",()=>setTimeout(apply,0),true);
 })();
 </script>
 
@@ -4167,11 +4222,11 @@ window.hsvPositionFilter = function(players, position){
 #squad .pitch[data-formation="4-3-3"] .slot:nth-child(11){left:58.25%!important;top:17.67%!important;}
 @media(max-width:700px){
   #squad .pitch[data-formation="4-3-3"]{min-height:560px!important;}
-  #squad .pitch[data-formation="4-3-3"] .team-slot{width:76px!important;height:76px!important;min-height:76px!important;}
-  #squad .pitch[data-formation="4-3-3"] .team-slot .empty{width:64px!important;height:64px!important;min-height:64px!important;margin:6px!important;}
+  #squad .pitch[data-formation="4-3-3"] .team-slot{width:250px!important;height:280px!important;min-height:76px!important;}
+  #squad .pitch[data-formation="4-3-3"] .team-slot .empty{width:250px!important;height:280px!important;min-height:64px!important;margin:6px!important;}
   #squad .pitch[data-formation="4-3-3"] .team-slot .empty::after{font-size:22px!important;}
-  #squad .pitch[data-formation="4-3-3"] .team-slot .player{width:76px!important;height:76px!important;min-height:76px!important;}
-  #squad .pitch[data-formation="4-3-3"] .team-slot .playerimg{width:50px!important;height:50px!important;}
+  #squad .pitch[data-formation="4-3-3"] .team-slot .player{width:250px!important;height:280px!important;min-height:76px!important;}
+  #squad .pitch[data-formation="4-3-3"] .team-slot .playerimg{width:250px!important;height:280px!important;}
 }
 </style>
 
@@ -4253,11 +4308,11 @@ window.hsvPositionFilter = function(players, position){
   min-height:112px!important; width:100%!important; box-sizing:border-box!important;
   padding:4px 2px!important; background:rgba(5,18,36,.72)!important; border-radius:12px!important;
 }
-#squad .pitch[data-formation="3-4-2-1"] .playerimg {width:74px!important;height:74px!important;}
+#squad .pitch[data-formation="3-4-2-1"] .playerimg {width:250px!important;height:280px!important;}
 @media(max-width:800px) {
   #squad .pitch[data-formation="3-4-2-1"] .slot {width:105px!important;min-height:92px!important;}
   #squad .pitch[data-formation="3-4-2-1"] .player {min-height:92px!important;}
-  #squad .pitch[data-formation="3-4-2-1"] .playerimg {width:60px!important;height:60px!important;}
+  #squad .pitch[data-formation="3-4-2-1"] .playerimg {width:250px!important;height:280px!important;}
 }
 </style>
 
@@ -4939,25 +4994,67 @@ if(typeof HSVP!=="undefined") {
 }
 @media(max-width:700px){
   #squad .pitch .team-slot .playerimg.squad-player-image{
-    width:58px!important;height:58px!important;min-width:58px!important;min-height:58px!important;
-    max-width:58px!important;max-height:58px!important;
+    width:250px!important;height:280px!important;min-width:250px!important;min-height:280px!important;
+    max-width:250px!important;max-height:280px!important;
   }
 }
 </style>
 
-<script id="autosave-30-seconds">
-(function(){
-  setInterval(function(){
-    try{ if(typeof window.save==='function') window.save(); }catch(e){ console.warn('Autosave failed',e); }
-  },30000);
-})();
-</script>
+<style id="pack-player-artwork-350-final">
+#packOverlay .packCard .photo .playerCardArtwork,
+#packOverlay .packCard .photo img.playerCardArtwork {
+  width:350px !important;
+  height:400px !important;
+  min-width:350px !important;
+  min-height:400px !important;
+  max-width:350px !important;
+  max-height:400px !important;
+  object-fit:contain !important;
+  object-position:center center !important;
+  margin:auto !important;
+}
+</style>
+
+
+<style id="force-pack-player-artwork-300x350-final">
+#packOverlay .packCard .photo img.playerCardArtwork{
+  width:290px!important;
+  height:330px!important;
+  min-width:300px!important;
+  min-height:350px!important;
+  max-width:300px!important;
+  max-height:350px!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  margin:auto!important;
+}
+</style>
+
+<style id="force-pack-player-artwork-290x330">
+#packOverlay .packCard .photo img.playerCardArtwork{
+  width:290px!important;height:330px!important;
+  min-width:290px!important;min-height:330px!important;
+  max-width:290px!important;max-height:330px!important;
+  object-fit:contain!important;object-position:center center!important;margin:auto!important;
+}
+</style>
+<style id="force-10pack-row-gap-smaller">
+#packOverlay .packGrid{
+  row-gap:0!important;
+  gap:0!important;
+  align-content:center!important;
+}
+#packOverlay .packCard{
+  margin-top:-18px!important;
+  margin-bottom:-18px!important;
+}
+</style>
 </body>
 <style id="v151-422-final-blue-points">
 /* FINAL: 4-2-2-2 nutzt exakt die 11 blauen Punkte des gelieferten Spielfelds. */
 #squad .pitch[data-formation="4-2-2-2"] .team-slot{
   position:absolute!important;
-  width:92px!important;height:92px!important;min-height:92px!important;
+  width:250px!important;height:280px!important;min-height:92px!important;
   padding:0!important;margin:0!important;border:0!important;
   background:transparent!important;box-shadow:none!important;
   transform:translate(-50%,-50%)!important;
@@ -4974,7 +5071,7 @@ if(typeof HSVP!=="undefined") {
 #squad .pitch[data-formation="4-2-2-2"] .team-slot:nth-child(9){left:82.03%!important;top:41.37%!important}
 #squad .pitch[data-formation="4-2-2-2"] .team-slot:nth-child(10){left:40.51%!important;top:17.68%!important}
 #squad .pitch[data-formation="4-2-2-2"] .team-slot:nth-child(11){left:58.25%!important;top:17.67%!important}
-#squad .pitch[data-formation="4-2-2-2"] .team-slot .empty{width:92px!important;height:92px!important;padding:0!important;margin:0!important;background:transparent!important;color:transparent!important;display:flex!important;align-items:center!important;justify-content:center!important}
+#squad .pitch[data-formation="4-2-2-2"] .team-slot .empty{width:250px!important;height:280px!important;padding:0!important;margin:0!important;background:transparent!important;color:transparent!important;display:flex!important;align-items:center!important;justify-content:center!important}
 #squad .pitch[data-formation="4-2-2-2"] .team-slot .empty *{display:none!important}
 </style>
 <script id="v151-422-final-picker-fix">
@@ -5045,7 +5142,7 @@ if(typeof HSVP!=="undefined") {
 #squad .pitch[data-formation="4-2-2"] .team-slot{
   position:absolute!important;
   box-sizing:border-box!important;
-  width:92px!important;height:92px!important;min-height:92px!important;
+  width:250px!important;height:280px!important;min-height:92px!important;
   padding:0!important;margin:0!important;
   border:0!important;background:transparent!important;box-shadow:none!important;
   transform:translate(-50%,-50%)!important;
@@ -5078,7 +5175,7 @@ if(typeof HSVP!=="undefined") {
 #squad .pitch[data-formation="4-2-2"] .team-slot> b{display:none!important}
 #squad .pitch[data-formation="4-2-2-2"] .team-slot .empty,
 #squad .pitch[data-formation="4-2-2"] .team-slot .empty{
-  width:92px!important;height:92px!important;padding:0!important;margin:0!important;
+  width:250px!important;height:280px!important;padding:0!important;margin:0!important;
   display:flex!important;align-items:center!important;justify-content:center!important;
   background:transparent!important;color:transparent!important;
 }
@@ -5086,13 +5183,13 @@ if(typeof HSVP!=="undefined") {
 #squad .pitch[data-formation="4-2-2"] .team-slot .empty *{display:none!important}
 #squad .pitch[data-formation="4-2-2-2"] .team-slot .player,
 #squad .pitch[data-formation="4-2-2"] .team-slot .player{
-  width:92px!important;height:92px!important;min-height:92px!important;
+  width:250px!important;height:280px!important;min-height:92px!important;
   margin:0!important;padding:0!important;border:0!important;background:transparent!important;
   display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;
 }
 #squad .pitch[data-formation="4-2-2-2"] .team-slot .playerimg,
 #squad .pitch[data-formation="4-2-2"] .team-slot .playerimg{
-  width:62px!important;height:62px!important;object-fit:contain!important;margin:0!important;
+  width:250px!important;height:280px!important;object-fit:contain!important;margin:0!important;
 }
 #squad .pitch[data-formation="4-2-2-2"] .team-slot .player strong,
 #squad .pitch[data-formation="4-2-2"] .team-slot .player strong{font-size:10px!important;line-height:1!important}
@@ -5162,7 +5259,7 @@ if(typeof HSVP!=="undefined") {
   }
   const obs=new MutationObserver(applyFilter);
   if(document.body) obs.observe(document.body,{childList:true,subtree:true});
-  document.addEventListener('click',function(){requestAnimationFrame(applyFilter);},true);
+  document.addEventListener('click',function(){setTimeout(applyFilter,0);setTimeout(applyFilter,50);setTimeout(applyFilter,150)},true);
 })();
 </script>
 
@@ -5531,7 +5628,7 @@ body:has(#squad:not(.hidden)) .nav #squadTab {
   document.addEventListener('click',function(e){
     if(e.target.closest('#squadTab')) setTimeout(syncTeamHotbar,0);
   },true);
-  setInterval(syncTeamHotbar,250);
+  setInterval(syncTeamHotbar,2000);
 })();
 </script>
 
@@ -5704,6 +5801,8 @@ body:has(#squad:not(.hidden)) .nav #squadTab {
 </style>
 <style id="v206-433-user-background">
 #squad .pitch[data-formation="4-3-3"]{background-image:url("assets/img_065.png")!important;background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important;}
+/* 4-3-3: Hintergrundbild 5px nach unten verschieben */
+#squad .pitch[data-formation="4-3-3"]{background-position:center 5px!important;}
 </style>
 
 <style id="v211-remove-433-card-circles">
@@ -5992,9 +6091,9 @@ body:has(#squad:not(.hidden)) .nav #squadTab {
 </style>
 
 <style id="v231-3421-final">
-#squad .pitch[data-formation="3-4-2-1"] .team-slot .player{position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;width:92px!important;height:112px!important;min-height:112px!important;padding:0!important;margin:0!important;border:0!important;outline:0!important;background:transparent!important;box-shadow:none!important;overflow:visible!important;display:block!important}
+#squad .pitch[data-formation="3-4-2-1"] .team-slot .player{position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;width:250px!important;height:280px!important;min-height:112px!important;padding:0!important;margin:0!important;border:0!important;outline:0!important;background:transparent!important;box-shadow:none!important;overflow:visible!important;display:block!important}
 #squad .pitch[data-formation="3-4-2-1"] .team-slot .player::before,#squad .pitch[data-formation="3-4-2-1"] .team-slot .player::after{content:none!important;border:0!important;box-shadow:none!important;background:none!important}
-#squad .pitch[data-formation="3-4-2-1"] .team-slot .playerimg{position:absolute!important;left:50%!important;top:calc(50% + 10px)!important;transform:translate(-50%,-50%)!important;width:74px!important;height:74px!important;margin:0!important;padding:0!important;border:0!important;outline:0!important;box-shadow:none!important;object-fit:contain!important}
+#squad .pitch[data-formation="3-4-2-1"] .team-slot .playerimg{position:absolute!important;left:50%!important;top:calc(50% + 10px)!important;transform:translate(-50%,-50%)!important;width:250px!important;height:280px!important;margin:0!important;padding:0!important;border:0!important;outline:0!important;box-shadow:none!important;object-fit:contain!important}
 #squad .pitch[data-formation="3-4-2-1"] .team-slot .player strong{position:absolute!important;left:50%!important;bottom:0!important;transform:translateX(-50%)!important;font-size:13px!important;line-height:1!important;white-space:nowrap!important;margin:0!important;padding:0!important}
 #squad .pitch[data-formation="3-4-2-1"] .team-slot .player-rating{position:absolute!important;left:50%!important;bottom:-18px!important;transform:translateX(-50%)!important;font-size:17px!important;line-height:1!important;font-weight:1000!important;margin:0!important;padding:0!important;white-space:nowrap!important}
 #squad .pitch[data-formation="3-4-2-1"] .team-slot .player small{display:none!important}
@@ -6032,9 +6131,9 @@ body:has(#squad:not(.hidden)) .nav #squadTab {
 }
 </style>
 <style id="v234-3421-iv-final">
-#squad .pitch[data-formation="3-4-2-1"] .slot:nth-child(2),#squad .pitch[data-formation="3-4-2-1"] .slot:nth-child(3),#squad .pitch[data-formation="3-4-2-1"] .slot:nth-child(4){position:absolute!important;top:250px!important;bottom:auto!important;transform:translate(-50%,-50%)!important;width:92px!important;height:92px!important;margin:0!important;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important;z-index:50!important;pointer-events:auto!important;}
+#squad .pitch[data-formation="3-4-2-1"] .slot:nth-child(2),#squad .pitch[data-formation="3-4-2-1"] .slot:nth-child(3),#squad .pitch[data-formation="3-4-2-1"] .slot:nth-child(4){position:absolute!important;top:250px!important;bottom:auto!important;transform:translate(-50%,-50%)!important;width:250px!important;height:280px!important;margin:0!important;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important;z-index:50!important;pointer-events:auto!important;}
 #squad .pitch[data-formation="3-4-2-1"] .slot:nth-child(2){left:30%!important;}#squad .pitch[data-formation="3-4-2-1"] .slot:nth-child(3){left:50%!important;}#squad .pitch[data-formation="3-4-2-1"] .slot:nth-child(4){left:70%!important;}
-#squad .pitch[data-formation="3-4-2-1"] .slot:nth-child(2) .empty,#squad .pitch[data-formation="3-4-2-1"] .slot:nth-child(3) .empty,#squad .pitch[data-formation="3-4-2-1"] .slot:nth-child(4) .empty{display:flex!important;position:absolute!important;inset:0!important;width:92px!important;height:92px!important;margin:0!important;padding:0!important;border:0!important;outline:0!important;background:transparent!important;box-shadow:none!important;transform:none!important;pointer-events:auto!important;}
+#squad .pitch[data-formation="3-4-2-1"] .slot:nth-child(2) .empty,#squad .pitch[data-formation="3-4-2-1"] .slot:nth-child(3) .empty,#squad .pitch[data-formation="3-4-2-1"] .slot:nth-child(4) .empty{display:flex!important;position:absolute!important;inset:0!important;width:250px!important;height:280px!important;margin:0!important;padding:0!important;border:0!important;outline:0!important;background:transparent!important;box-shadow:none!important;transform:none!important;pointer-events:auto!important;}
 #squad .pitch[data-formation="3-4-2-1"] .slot:nth-child(2) .empty::before,#squad .pitch[data-formation="3-4-2-1"] .slot:nth-child(3) .empty::before,#squad .pitch[data-formation="3-4-2-1"] .slot:nth-child(4) .empty::before{content:"+"!important;display:block!important;position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;font-size:34px!important;line-height:1!important;color:#fff!important;text-shadow:0 2px 5px #000!important;}
 #squad .pitch[data-formation="3-4-2-1"] .slot:nth-child(2) .empty::after,#squad .pitch[data-formation="3-4-2-1"] .slot:nth-child(3) .empty::after,#squad .pitch[data-formation="3-4-2-1"] .slot:nth-child(4) .empty::after{content:none!important;display:none!important;}
 </style>
@@ -6145,7 +6244,7 @@ body:has(#squad:not(.hidden)) .nav #squadTab {
   },true);
   window.addEventListener('resize',schedule);
   window.addEventListener('scroll',schedule,true);
-  /* Performance fix: disabled body-wide mutation observer to prevent repeated layout/install loops. */
+  const mo=new MutationObserver(schedule); mo.observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['class','style','data-formation']});
   setTimeout(install,250); setTimeout(install,1000); setTimeout(install,2000);
 })();
 </script>
@@ -6264,7 +6363,7 @@ body:has(#squad:not(.hidden)) .nav #squadTab {
 <style id="silver-pack-user-image-final">#packs .packChoice:nth-child(2) .packIcon{background-image:url("assets/img_068.png")!important;background-size:contain!important;background-position:center!important;background-repeat:no-repeat!important;} #pack.silverImage{background-image:url("assets/img_068.png")!important;background-size:contain!important;background-position:center!important;background-repeat:no-repeat!important;}</style>
 
 <style id="bronze-pack-visible-final">
-#packs .packChoice:first-child .packIcon{width:180px!important;height:240px!important;margin:0 auto 10px!important;padding:0!important;background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;overflow:hidden!important;display:flex!important;align-items:center!important;justify-content:center!important;font-size:0!important;}
+#packs .packChoice:first-child .packIcon{width:250px!important;height:280px!important;margin:0 auto 10px!important;padding:0!important;background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;overflow:hidden!important;display:flex!important;align-items:center!important;justify-content:center!important;font-size:0!important;}
 #packs .packChoice:first-child .packIcon img{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;margin:0!important;padding:0!important;border:0!important;}
 </style>
 <script id="bronze-pack-visible-final-js">
@@ -6300,7 +6399,7 @@ body:has(#squad:not(.hidden)) .nav #squadTab {
 <style id="v277-433-player-on-position">#squad .pitch[data-formation="4-3-3"] .team-slot:has(.player){transform:translate(-50%,-50%) !important;} #squad .pitch[data-formation="4-3-3"] .team-slot:has(.player) .player{left:auto !important; transform:none !important;}</style>
 <script id="player-artwork-mapping">if(typeof IMG!=="undefined"){Object.assign(IMG,{"Warmed Omari":"assets/img_069.webp","Immanuel Pherai":"assets/img_070.webp","Rayan Philippe":"assets/img_071.webp","Yussuf Poulsen":"assets/img_072.webp","Nicolai Remberg":"assets/img_073.webp","Alexander Rössing-Lelesiit":"assets/img_074.webp","Miro Muheim":"assets/img_075.webp","Bilal Nadir":"assets/img_076.webp","Shafiq Nandja":"assets/img_077.webp"});}</script><style id="player-card-artwork-final">
 /* Final player artwork mapping: supplied full card images are visible in packs and collection. */
-#packOverlay .packCard .photo img.playerCardArtwork{display:block!important;visibility:visible!important;opacity:1!important;width:auto!important;height:auto!important;max-width:90px!important;max-height:95px!important;object-fit:contain!important;border-radius:8px!important;}
+#packOverlay .packCard .photo img.playerCardArtwork{display:block!important;visibility:visible!important;opacity:1!important;width:auto!important;height:auto!important;max-width:290px!important;max-height:330px!important;object-fit:contain!important;border-radius:8px!important;}
 #packOverlay .packCard img[alt="Warmed Omari"],#packOverlay .packCard img[alt="Immanuel Pherai"],#packOverlay .packCard img[alt="Rayan Philippe"],#packOverlay .packCard img[alt="Yussuf Poulsen"],#packOverlay .packCard img[alt="Nicolai Remberg"],#packOverlay .packCard img[alt="Alexander Rössing-Lelesiit"],#packOverlay .packCard img[alt="Miro Muheim"],#packOverlay .packCard img[alt="Bilal Nadir"],#packOverlay .packCard img[alt="Shafiq Nandja"]{display:block!important;visibility:visible!important;opacity:1!important;}
 .collectionFace img.playerCardArtwork,.collectionFace img.tangvikCollectionPhoto{display:block!important;visibility:visible!important;width:100%!important;height:170px!important;max-width:100%!important;max-height:170px!important;object-fit:contain!important;background:#0b1728;border-radius:10px;margin-bottom:7px;}
 </style>
@@ -6402,14 +6501,16 @@ window.HSV_FIREBASE_CONFIG = {
   window.closeAccountModal=function(){const m=document.getElementById('accountModal');if(m){m.classList.remove('open');m.setAttribute('aria-hidden','true');}};
   function updateUI(){
     const auth=document.getElementById('accountAuthPanel'),logged=document.getElementById('accountLoggedPanel'),status=document.getElementById('accountStatus'),u=window.hsvAuthUser;
+    const loginBtn=document.getElementById('loginBtnTop'),registerBtn=document.getElementById('registerBtnTop'),userBtn=document.getElementById('accountUserBtn');
     if(logged)logged.classList.toggle('show',!!u);if(auth)auth.style.display=u?'none':'block';
     const le=document.getElementById('accountLoggedEmail');if(le)le.textContent=u?.email||'';
     const lu=document.getElementById('accountLoggedUsername');if(lu&&window.hsvProfile?.username)lu.value=window.hsvProfile.username;
-    const guestActions=document.getElementById('guestAccountActions'),userBtn=document.getElementById('loggedUserBtn');
-    if(guestActions)guestActions.style.display=u?'none':'flex';
+    if(loginBtn)loginBtn.style.display=u?'none':'';
+    if(registerBtn)registerBtn.style.display=u?'none':'';
     if(userBtn){userBtn.style.display=u?'inline-flex':'none';userBtn.textContent='👤 '+(window.hsvProfile?.username||u?.email||'Konto');}
     if(status)status.textContent=!configured?'⚙️ Firebase-Konfiguration fehlt – das Konto-System ist vorbereitet.':(window.hsvFirebaseReady?'🟢 Online-Konto verbunden':'🟡 Firebase wird geladen …');
     renderProfile();
+    renderManagerXP();
   }
   window.submitAccountAuth=async function(){
     if(!window.hsvFirebaseReady){msg('Das Konto-System ist vorbereitet, aber die Firebase-Konfiguration wurde noch nicht eingetragen.');return;}
@@ -6455,8 +6556,8 @@ window.HSV_FIREBASE_CONFIG = {
   async function loadProfileCloud(){if(!window.hsvFirebaseReady||!window.hsvAuthUser)return null;const m=window.hsvFirebaseModules,snap=await m.getDoc(m.doc(m.db,'users',window.hsvAuthUser.uid));const data=snap.exists()?snap.data():{};window.hsvProfile=data.profile||{};return window.hsvProfile;}
   async function saveProfileCloud(){if(!window.hsvFirebaseReady||!window.hsvAuthUser)return;const m=window.hsvFirebaseModules;const st=managerStats();window.hsvProfile={...(window.hsvProfile||{}),stats:st,updatedAt:new Date().toISOString()};await m.setDoc(m.doc(m.db,'users',window.hsvAuthUser.uid),{email:window.hsvAuthUser.email||'',profile:window.hsvProfile},{merge:true});}
   async function publishLeaderboard(){if(!window.hsvFirebaseReady||!window.hsvAuthUser||!window.hsvProfile?.username)return;const m=window.hsvFirebaseModules,st=managerStats();await m.setDoc(m.doc(m.db,'leaderboard',window.hsvAuthUser.uid),{uid:window.hsvAuthUser.uid,username:window.hsvProfile.username,managerPoints:st.managerPoints,collection:st.cards,gold:st.gold,silver:st.silver,bronze:st.bronze,teamRating:st.teamRating,packsOpened:st.packsOpened,updatedAt:m.serverTimestamp()},{merge:true});window.hsvProfile.stats=st;}
-  window.syncGameToCloud=async function(){if(!window.hsvFirebaseReady||!window.hsvAuthUser)return;const m=window.hsvFirebaseModules;const gameState={coins,collection,squad,trainer:selectedTrainer,playerXP,career,idleLast,idleBank,packsOpened};const game=JSON.stringify(gameState);await m.setDoc(m.doc(m.db,'users',window.hsvAuthUser.uid),{email:window.hsvAuthUser.email||'',game},{merge:true});if(window.hsvProfile?.username){await saveProfileCloud();await publishLeaderboard();}};
-  window.loadGameFromCloud=async function(){if(!window.hsvFirebaseReady||!window.hsvAuthUser)return;const m=window.hsvFirebaseModules,snap=await m.getDoc(m.doc(m.db,'users',window.hsvAuthUser.uid));if(!snap.exists())return;let game=snap.data()?.game||{};if(typeof game==='string'){try{game=JSON.parse(game)||{};}catch(e){game={};}}if(typeof game.coins==='number')coins=game.coins;if(Array.isArray(game.collection))collection=game.collection;if(Array.isArray(game.squad))squad=game.squad;if(game.trainer!==undefined)selectedTrainer=game.trainer;if(game.playerXP&&typeof game.playerXP==='object')playerXP=game.playerXP;if(game.career&&typeof game.career==='object')career=game.career;if(game.idleLast)idleLast=game.idleLast;if(typeof game.idleBank==='number')idleBank=game.idleBank;if(typeof game.packsOpened==='number')packsOpened=game.packsOpened;d.coins=coins;d.collection=collection;d.squad=squad;d.trainer=selectedTrainer;d.playerXP=playerXP;d.career=career;d.idleLast=idleLast;d.idleBank=idleBank;d.packsOpened=packsOpened;localStorage.setItem('packOpenerV29',JSON.stringify(d));try{if(typeof stats==='function')stats();}catch(e){}try{if(typeof render==='function')render();}catch(e){}try{if(typeof renderSquad==='function')renderSquad();}catch(e){}const ce=document.getElementById('coins');if(ce)ce.textContent=Number(coins).toLocaleString('de-DE');};
+  window.syncGameToCloud=async function(){if(!window.hsvFirebaseReady||!window.hsvAuthUser)return;const m=window.hsvFirebaseModules;const gameState={coins,collection,squad,trainer:selectedTrainer,playerXP,managerXP,career,idleLast,idleBank,packsOpened};const game=JSON.stringify(gameState);await m.setDoc(m.doc(m.db,'users',window.hsvAuthUser.uid),{email:window.hsvAuthUser.email||'',game},{merge:true});if(window.hsvProfile?.username){await saveProfileCloud();await publishLeaderboard();}};
+  window.loadGameFromCloud=async function(){if(!window.hsvFirebaseReady||!window.hsvAuthUser)return;const m=window.hsvFirebaseModules,snap=await m.getDoc(m.doc(m.db,'users',window.hsvAuthUser.uid));if(!snap.exists())return;let game=snap.data()?.game||{};if(typeof game==='string'){try{game=JSON.parse(game)||{};}catch(e){game={};}}if(typeof game.coins==='number')coins=game.coins;if(Array.isArray(game.collection))collection=game.collection.filter(p=>!(p&&String(p[0]).trim()==="Ndiaye"));if(Array.isArray(collection))collection.forEach(p=>{if(p&&String(p[0]).trim()==="Merlin Polzin")p[0]="Polzin";});if(Array.isArray(game.squad))squad=game.squad;if(game.trainer!==undefined)selectedTrainer=game.trainer;if(selectedTrainer&&String(selectedTrainer).trim()==="Merlin Polzin")selectedTrainer="Polzin";if(game.playerXP&&typeof game.playerXP==='object')playerXP=game.playerXP;if(typeof game.managerXP==='number')managerXP=Math.max(0,game.managerXP);if(game.career&&typeof game.career==='object')career=game.career;if(game.idleLast)idleLast=game.idleLast;if(typeof game.idleBank==='number')idleBank=game.idleBank;if(typeof game.packsOpened==='number')packsOpened=game.packsOpened;d.coins=coins;d.collection=collection;d.squad=squad;d.trainer=selectedTrainer;d.playerXP=playerXP;d.managerXP=managerXP;d.career=career;d.idleLast=idleLast;d.idleBank=idleBank;d.packsOpened=packsOpened;localStorage.setItem('packOpenerV29',JSON.stringify(d));try{if(typeof stats==='function')stats();}catch(e){}try{if(typeof render==='function')render();}catch(e){}try{if(typeof renderSquad==='function')renderSquad();}catch(e){}const ce=document.getElementById('coins');if(ce)ce.textContent=Number(coins).toLocaleString('de-DE');};
   window.openOtherProfile=function(x,rank){
     const overlay=document.getElementById('otherProfileOverlay');if(!overlay)return;
     const name=x?.username||'Spieler', points=Number(x?.managerPoints||0), cards=Number(x?.collection||0), team=Number(x?.teamRating||0), packs=Number(x?.packsOpened||0), gold=Number(x?.gold||0), silver=Number(x?.silver||0), bronze=Math.max(0,cards-gold-silver);
@@ -6478,8 +6579,263 @@ window.HSV_FIREBASE_CONFIG = {
   function escapeHtml(v){return String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
   function renderProfile(){const guest=document.getElementById('profileGuest'),content=document.getElementById('profileContent');if(!guest||!content)return;const u=window.hsvAuthUser,p=window.hsvProfile;if(!u||!p?.username){guest.classList.remove('hidden');content.classList.add('hidden');return;}guest.classList.add('hidden');content.classList.remove('hidden');const st=managerStats();document.getElementById('profileName').textContent=p.username;document.getElementById('profileAvatar').textContent=(p.username[0]||'👤').toUpperCase();document.getElementById('profilePoints').textContent=st.managerPoints.toLocaleString('de-DE');document.getElementById('profileCards').textContent=st.cards;document.getElementById('profileTeam').textContent=st.teamRating;document.getElementById('profilePacks').textContent=st.packsOpened;document.getElementById('profileGold').textContent=st.gold;document.getElementById('profileSilver').textContent=st.silver;document.getElementById('profileLevel').textContent='Level '+(Math.floor(st.managerPoints/1000)+1);document.getElementById('profileSince').textContent='Online-Spieler';}
   // Extend the game's save function.
-  const oldSave=window.save;if(typeof oldSave==='function'){window.save=function(){const r=oldSave.apply(this,arguments);if(window.hsvFirebaseReady&&window.hsvAuthUser)window.syncGameToCloud().catch(()=>{});return r;};}
+  const oldSave=window.save;if(typeof oldSave==='function'){window.save=function(){return oldSave.apply(this,arguments);};}
+  let autosaveBusy=false;
+  async function autosave30s(){if(autosaveBusy||!window.hsvFirebaseReady||!window.hsvAuthUser)return;autosaveBusy=true;try{await window.syncGameToCloud();}catch(e){console.warn('Autosave fehlgeschlagen',e);}finally{autosaveBusy=false;}}
+  setInterval(autosave30s,30000);
+  window.addEventListener('beforeunload',()=>{try{if(window.hsvFirebaseReady&&window.hsvAuthUser)window.syncGameToCloud().catch(()=>{});}catch(e){}});
   async function init(){if(!configured){updateUI();return;}try{const app=await import('https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js');const fa=await import('https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js');const fs=await import('https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js');const firebaseApp=app.initializeApp(cfg);const auth=fa.getAuth(firebaseApp),db=fs.getFirestore(firebaseApp);window.hsvFirebaseModules={auth,db,createUserWithEmailAndPassword:fa.createUserWithEmailAndPassword,signInWithEmailAndPassword:fa.signInWithEmailAndPassword,sendPasswordResetEmail:fa.sendPasswordResetEmail,signOut:fa.signOut,saveCloud:window.syncGameToCloud,doc:fs.doc,setDoc:fs.setDoc,getDoc:fs.getDoc,getDocs:fs.getDocs,collection:fs.collection,query:fs.query,orderBy:fs.orderBy,limit:fs.limit,deleteDoc:fs.deleteDoc,serverTimestamp:fs.serverTimestamp};window.hsvFirebaseReady=true;fa.onAuthStateChanged(auth,async user=>{window.hsvAuthUser=user||null;if(user){await loadProfileCloud().catch(()=>{});await window.loadGameFromCloud().catch(()=>{});if(window.hsvProfile?.username)await publishLeaderboard().catch(()=>{});}else{window.hsvProfile=null;}updateUI();});updateUI();}catch(e){console.error('Firebase init:',e);const st=document.getElementById('accountStatus');if(st)st.textContent='🔴 Firebase konnte nicht geladen werden.';}}
   document.addEventListener('DOMContentLoaded',init);updateUI();
 })();
 </script>
+<style id="v-final-lineup-player-images-larger">
+/* Aufstellung: Spielerbilder deutlich größer, ohne die Positionen zu verändern. */
+#squad .pitch .team-slot .playerimg.squad-player-image,
+#squad .pitch .team-slot .playerimg{
+  width:90px!important;
+  height:90px!important;
+  min-width:90px!important;
+  min-height:90px!important;
+  object-fit:contain!important;
+  object-position:center!important;
+}
+#squad .pitch[data-formation="4-3-3"] .team-slot .playerimg,
+#squad .pitch[data-formation="4-4-2"] .team-slot .playerimg,
+#squad .pitch[data-formation="4-2-2-2"] .team-slot .playerimg,
+#squad .pitch[data-formation="3-4-2-1"] .team-slot .playerimg{
+  width:90px!important;
+  height:90px!important;
+}
+@media(max-width:700px){
+  #squad .pitch .team-slot .playerimg.squad-player-image,
+  #squad .pitch .team-slot .playerimg,
+  #squad .pitch[data-formation="4-3-3"] .team-slot .playerimg,
+  #squad .pitch[data-formation="4-4-2"] .team-slot .playerimg,
+  #squad .pitch[data-formation="4-2-2-2"] .team-slot .playerimg,
+  #squad .pitch[data-formation="3-4-2-1"] .team-slot .playerimg{
+    width:76px!important;
+    height:76px!important;
+    min-width:76px!important;
+    min-height:76px!important;
+  }
+}
+</style>
+<style id="v214-player-images-much-larger">
+/* Spielerbilder in der Aufstellung deutlich vergrößern */
+#squad .pitch .team-slot .playerimg{width:250px!important;height:280px!important;max-width:none!important;max-height:none!important;object-fit:contain!important}
+@media(max-width:700px){#squad .pitch .team-slot .playerimg{width:250px!important;height:280px!important;max-width:none!important;max-height:none!important}}
+</style>
+
+<style id="v300-lineup-images-REALLY-HUGE">
+/* V300: Aufstellungs-Spielerbilder wirklich sichtbar vergrößern.
+   Größe wird zusätzlich per JS als !important gesetzt, damit formationsspezifische Alt-Regeln nicht gewinnen. */
+#squad .pitch .team-slot .playerimg.squad-player-image,
+#squad .pitch .team-slot .playerimg{
+  width:220px!important;
+  height:220px!important;
+  min-width:220px!important;
+  min-height:220px!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:scale(1.25)!important;
+  transform-origin:center center!important;
+}
+#squad .pitch .team-slot .player{
+  overflow:visible!important;
+}
+@media(max-width:700px){
+  #squad .pitch .team-slot .playerimg.squad-player-image,
+  #squad .pitch .team-slot .playerimg{
+    width:190px!important;
+    height:190px!important;
+    min-width:190px!important;
+    min-height:190px!important;
+    max-width:none!important;
+    max-height:none!important;
+    transform:scale(1.25)!important;
+  }
+}
+</style>
+<script id="v300-lineup-images-force-js">
+(function(){
+  function force(){
+    document.querySelectorAll('#squad .pitch .team-slot .playerimg').forEach(function(img){
+      var mobile=window.innerWidth<=700;
+      var size=mobile?190:220;
+      img.style.setProperty('width',size+'px','important');
+      img.style.setProperty('height',size+'px','important');
+      img.style.setProperty('min-width',size+'px','important');
+      img.style.setProperty('min-height',size+'px','important');
+      img.style.setProperty('max-width','none','important');
+      img.style.setProperty('max-height','none','important');
+      img.style.setProperty('object-fit','contain','important');
+      img.style.setProperty('transform','scale(1.25)','important');
+      img.style.setProperty('transform-origin','center center','important');
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',force);else force();
+  window.addEventListener('load',force);
+  window.addEventListener('resize',force);
+  setTimeout(force,100);setTimeout(force,400);setTimeout(force,1000);
+  new MutationObserver(force).observe(document.body,{subtree:true,childList:true});
+})();
+</script>
+<style id="final-squad-player-size-110px">
+/* Finale Vorgabe: Spielerbilder in ALLEN Aufstellungen 110x110px */
+#squad .pitch .team-slot .playerimg,
+#squad .pitch img.playerimg,
+#squad .team-slot .playerimg{
+  width:110px !important;
+  height:110px !important;
+  max-width:110px !important;
+  max-height:110px !important;
+  min-width:110px !important;
+  min-height:110px !important;
+  object-fit:contain !important;
+}
+@media(max-width:700px){
+  #squad .pitch .team-slot .playerimg,
+  #squad .pitch img.playerimg,
+  #squad .team-slot .playerimg{
+    width:110px !important;
+    height:110px !important;
+    max-width:110px !important;
+    max-height:110px !important;
+    min-width:110px !important;
+    min-height:110px !important;
+  }
+}
+</style>
+
+<style id="final-squad-player-images-110px">
+/* Finale Größe der Spielerbilder in allen Aufstellungen */
+#squad .pitch .team-slot .playerimg,
+#squad .pitch img.playerimg,
+#squad .team-slot img.playerimg {
+  width:110px !important;
+  height:110px !important;
+  max-width:110px !important;
+  max-height:110px !important;
+  object-fit:contain !important;
+}
+@media(max-width:700px){
+  #squad .pitch .team-slot .playerimg,
+  #squad .pitch img.playerimg,
+  #squad .team-slot img.playerimg {
+    width:110px !important;
+    height:110px !important;
+    max-width:110px !important;
+    max-height:110px !important;
+  }
+}
+</style>
+
+<!-- NEXT PACK BUTTON POSITION -->
+
+<style id="next-pack-button-over-results">
+/* Nächstes Pack: direkt über den gezogenen Spielern und unter dem Coinstand */
+#packOverlay .nextBtn{
+  position:absolute!important;
+  left:50%!important;
+  transform:translateX(-50%)!important;
+  top:185px!important;
+  bottom:auto!important;
+  z-index:10020!important;
+  margin:0!important;
+}
+#packOverlay .packGrid{
+  top:235px!important;
+}
+@media(max-width:700px){
+  #packOverlay .nextBtn{top:185px!important;}
+  #packOverlay .packGrid{top:205px!important;}
+}
+</style>
+
+<style id="final-pack-player-size-1-5">
+/* 1-/5-Pack: Spielerbilder bewusst auf die Größe der 10-Spieler-Packs reduziert.
+   Karten bleiben klickbar; nur das Portrait wird kleiner. */
+#packOverlay.pack-qty-1 .packCard .photo img.playerCardArtwork,
+#packOverlay.pack-qty-5 .packCard .photo img.playerCardArtwork,
+#packOverlay.pack-qty-1 .packCard .photo img,
+#packOverlay.pack-qty-5 .packCard .photo img{
+  width:290px!important;
+  height:330px!important;
+  min-width:78px!important;
+  min-height:82px!important;
+  max-width:78px!important;
+  max-height:82px!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  transform:none!important;
+}
+#packOverlay.pack-qty-1 .packCard .photo,
+#packOverlay.pack-qty-5 .packCard .photo{
+  flex:0 0 92px!important;
+  width:100%!important;
+  height:92px!important;
+  min-height:92px!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:0!important;
+}
+@media(max-width:650px){
+  #packOverlay.pack-qty-1 .packCard .photo img.playerCardArtwork,
+  #packOverlay.pack-qty-5 .packCard .photo img.playerCardArtwork,
+  #packOverlay.pack-qty-1 .packCard .photo img,
+  #packOverlay.pack-qty-5 .packCard .photo img{
+    width:290px!important;
+    height:330px!important;
+    min-width:78px!important;
+    min-height:82px!important;
+    max-width:78px!important;
+    max-height:82px!important;
+  }
+}
+</style>
+
+<style id="pack-player-images-definitively-smaller">#packOverlay .packCard .photo .playerCardArtwork{width:290px!important;height:330px!important;max-width:250px!important;max-height:280px!important;min-width:250px!important;min-height:280px!important;object-fit:contain!important;margin:auto!important;}</style>
+
+<style id="final-pack-player-size-350x400">
+#packOverlay .packCard .photo img.playerCardArtwork{width:290px!important;height:330px!important;min-width:250px!important;min-height:270px!important;max-width:250px!important;max-height:270px!important;object-fit:contain!important;margin:auto!important;}
+</style>
+
+<style id="force-pack-player-artwork-340x390">
+#packOverlay .packCard .photo .playerCardArtwork, #packOverlay .packCard .photo img{width:290px!important;height:330px!important;min-width:250px!important;min-height:270px!important;max-width:250px!important;max-height:270px!important;object-fit:contain!important;object-position:center center!important;}
+</style>
+
+<style id="force-pack-player-artwork-250x270">
+#packOverlay .packCard .photo img.playerCardArtwork{
+ width:290px!important;height:330px!important;
+ min-width:250px!important;min-height:270px!important;
+ max-width:250px!important;max-height:270px!important;
+ object-fit:contain!important;object-position:center center!important;margin:auto!important;
+}
+</style>
+<style id="pack-10-row-gap-tight">
+/* 10er-Packs: obere 5 und untere 5 deutlich enger zusammenrücken. */
+#packOverlay.pack-qty-10 .packGrid{
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  grid-template-rows:repeat(2,minmax(0,1fr))!important;
+  row-gap:0px!important;
+  column-gap:10px!important;
+  align-content:stretch!important;
+}
+#packOverlay.pack-qty-10 .packCard{
+  margin:0!important;
+  align-self:stretch!important;
+}
+@media(max-width:900px){
+  #packOverlay.pack-qty-10 .packGrid{row-gap:0px!important;column-gap:6px!important;}
+}
+@media(max-width:650px){
+  #packOverlay.pack-qty-10 .packGrid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    grid-template-rows:repeat(5,minmax(0,1fr))!important;
+    row-gap:0px!important;
+    column-gap:6px!important;
+  }
+}
+</style>
