@@ -6488,6 +6488,7 @@ window.addEventListener("load",()=>{try{if(typeof render==="function")render();}
       <label class="accountField"><span>Dein Benutzername</span><input id="accountLoggedUsername" type="text" autocomplete="nickname" maxlength="16" placeholder="Dein Benutzername"><small style="display:block;opacity:.55;margin-top:4px">Der Benutzername ist öffentlich und wird in der Rangliste angezeigt.</small></label>
       <button class="accountPrimary" type="button" onclick="saveUsername()">💾 Benutzernamen speichern</button>
       <button class="accountPrimary" type="button" onclick="syncGameToCloud().then(()=>setAccountMsg('Spielstand gespeichert.'))">☁️ Spielstand jetzt speichern</button>
+      <button id="adminCoinsBtn" class="accountPrimary" type="button" style="display:none;background:linear-gradient(135deg,#f5c542,#d99800);color:#111" onclick="grantTestCoinsToAll()">👑 Allen Spielern 750.000 Coins geben</button>
       <button class="accountSecondary" type="button" onclick="logoutAccount()">Abmelden</button>
       <div id="accountLoggedMsg" class="accountMsg"></div>
     </div>
@@ -6504,6 +6505,8 @@ window.addEventListener("load",()=>{try{if(typeof render==="function")render();}
  * 4. Deine Firebase Web-App-Konfiguration hier eintragen.
  * Danach funktioniert Registrierung/Login auch geräteübergreifend.
  */
+window.HSV_ADMIN_EMAILS = window.HSV_ADMIN_EMAILS || [];
+// Zusätzlich darf ein Account mit dem Benutzernamen "Admin" den Test-Button sehen.
 window.HSV_FIREBASE_CONFIG = {
   apiKey: "AIzaSyCcjkvIGrqkAWKCCb-JmbUdPsmxAUe3ktI",
   authDomain: "pack-opener-marco.firebaseapp.com",
@@ -6573,6 +6576,9 @@ window.HSV_FIREBASE_CONFIG = {
         msg('Erfolgreich angemeldet.');
       }
       updateUI();
+      if(window.hsvAuthUser && window.hsvProfile?.username){
+        window.closeAccountModal();
+      }
     }catch(e){msg(firebaseError(e));}
   };
   window.saveUsername=async function(){
@@ -6588,7 +6594,61 @@ window.HSV_FIREBASE_CONFIG = {
   window.resetAccountPassword=async function(){if(!window.hsvFirebaseReady){msg('Firebase ist noch nicht konfiguriert.');return;}const email=(document.getElementById('accountEmail')?.value||'').trim();if(!email){msg('Bitte zuerst deine E-Mail eingeben.');return;}try{await window.hsvFirebaseModules.sendPasswordResetEmail(window.hsvFirebaseModules.auth,email);msg('E-Mail zum Zurücksetzen wurde angefordert.');}catch(e){msg(firebaseError(e));}};
   window.logoutAccount=async function(){try{if(window.hsvFirebaseReady)await window.hsvFirebaseModules.signOut(window.hsvFirebaseModules.auth);}catch(e){}window.hsvAuthUser=null;window.hsvProfile=null;updateUI();msg('');window.closeAccountModal();};
   function firebaseError(e){const c=e?.code||'';const map={'auth/email-already-in-use':'Diese E-Mail ist bereits registriert.','auth/invalid-email':'Die E-Mail-Adresse ist ungültig.','auth/weak-password':'Das Passwort ist zu schwach.','auth/invalid-credential':'E-Mail oder Passwort ist falsch.','auth/user-not-found':'Kein Konto mit dieser E-Mail gefunden.','auth/wrong-password':'E-Mail oder Passwort ist falsch.','auth/too-many-requests':'Zu viele Versuche. Bitte später erneut versuchen.'};return map[c]||('Fehler: '+(e?.message||c||'Unbekannter Fehler'));}
-  async function loadProfileCloud(){if(!window.hsvFirebaseReady||!window.hsvAuthUser)return null;const m=window.hsvFirebaseModules,snap=await m.getDoc(m.doc(m.db,'users',window.hsvAuthUser.uid));const data=snap.exists()?snap.data():{};window.hsvProfile=data.profile||{};return window.hsvProfile;}
+  async function isHsvAdmin(){
+    const u=window.hsvAuthUser;
+    if(!u)return false;
+    try{
+      const tokenResult=await u.getIdTokenResult();
+      if(tokenResult?.claims?.admin===true)return true;
+    }catch(e){console.warn('Admin-Token konnte nicht gelesen werden:',e);}
+    const email=String(u.email||'').trim().toLowerCase();
+    const allowed=Array.isArray(window.HSV_ADMIN_EMAILS)&&window.HSV_ADMIN_EMAILS.map(x=>String(x).trim().toLowerCase());
+    return !!(email&&allowed.includes(email));
+  }
+  async function updateAdminCoinsButton(){
+    const b=document.getElementById('adminCoinsBtn');
+    if(!b)return;
+    b.style.display=await isHsvAdmin()?'block':'none';
+  }
+  window.grantTestCoinsToAll=async function(){
+    if(!await isHsvAdmin()){setAccountMsg('Keine Admin-Berechtigung.');return;}
+    if(!window.hsvFirebaseReady){setAccountMsg('Firebase ist noch nicht verbunden.');return;}
+    if(!confirm('Wirklich allen registrierten Spielern 750.000 Coins geben?'))return;
+    const btn=document.getElementById('adminCoinsBtn');
+    if(btn){btn.disabled=true;btn.textContent='⏳ Coins werden verteilt …';}
+    try{
+      const m=window.hsvFirebaseModules;
+      const snap=await m.getDocs(m.collection(m.db,'users'));
+      let count=0;
+      for(const docSnap of snap.docs){
+        const data=docSnap.data()||{};
+        let game=data.game||{};
+        if(typeof game==='string'){try{game=JSON.parse(game)||{};}catch(e){game={};}}
+        game.coins=750000;
+        await m.setDoc(m.doc(m.db,'users',docSnap.id),{game:JSON.stringify(game)},{merge:true});
+        const profile=data.profile||{};
+        if(profile.username){
+          // Ranglisten-Eintrag wird für den eigenen Admin-Account separat über publishLeaderboard gepflegt.
+          // Für andere Nutzer werden vorhandene Ranglistenwerte übernommen und nur Coins geändert.
+          const lbRef=m.doc(m.db,'leaderboard',docSnap.id);
+          await m.setDoc(lbRef,{coins:750000,username:profile.username,uid:docSnap.id,updatedAt:m.serverTimestamp()},{merge:true});
+        }
+        count++;
+      }
+      if(window.hsvAuthUser){coins=750000;d.coins=coins;localStorage.setItem('packOpenerV29',JSON.stringify(d));}
+      if(typeof render==='function')render();
+      const ce=document.getElementById('coins');if(ce)ce.textContent='750.000';
+      await publishLeaderboard().catch(()=>{});
+      setAccountMsg('✅ '+count+' registrierten Spielern wurden 750.000 Coins gegeben.');
+    }catch(e){
+      console.error('Admin-Coins:',e);
+      setAccountMsg('❌ Coins konnten nicht verteilt werden: '+(e?.message||'Unbekannter Fehler'));
+    }finally{
+      if(btn){btn.disabled=false;btn.textContent='👑 Allen Spielern 750.000 Coins geben';}
+    }
+  };
+
+  async function loadProfileCloud(){if(!window.hsvFirebaseReady||!window.hsvAuthUser)return null;const m=window.hsvFirebaseModules,snap=await m.getDoc(m.doc(m.db,'users',window.hsvAuthUser.uid));const data=snap.exists()?snap.data():{};window.hsvProfile=data.profile||{};updateAdminCoinsButton();return window.hsvProfile;}
   async function saveProfileCloud(){if(!window.hsvFirebaseReady||!window.hsvAuthUser)return;const m=window.hsvFirebaseModules;const st=managerStats();window.hsvProfile={...(window.hsvProfile||{}),stats:st,updatedAt:new Date().toISOString()};await m.setDoc(m.doc(m.db,'users',window.hsvAuthUser.uid),{email:window.hsvAuthUser.email||'',profile:window.hsvProfile},{merge:true});}
   async function publishLeaderboard(){if(!window.hsvFirebaseReady||!window.hsvAuthUser||!window.hsvProfile?.username)return;const m=window.hsvFirebaseModules,st=managerStats(),xp=playerXpInfo();await m.setDoc(m.doc(m.db,'leaderboard',window.hsvAuthUser.uid),{uid:window.hsvAuthUser.uid,username:window.hsvProfile.username,playerLevel:xp.level,playerXpCurrent:xp.current,playerXpNeeded:xp.needed,playerXpTotal:xp.total,coins:Number(coins)||0,collection:st.cards,gold:st.gold,silver:st.silver,bronze:st.bronze,teamRating:st.teamRating,packsOpened:st.packsOpened,updatedAt:m.serverTimestamp()},{merge:true});window.hsvProfile.stats=st;}
   let cloudSaveChain=Promise.resolve();
@@ -6631,7 +6691,7 @@ window.HSV_FIREBASE_CONFIG = {
   async function autosave30s(){if(autosaveBusy||!window.hsvFirebaseReady||!window.hsvAuthUser)return;autosaveBusy=true;try{await window.syncGameToCloud();}catch(e){console.warn('Autosave fehlgeschlagen',e);}finally{autosaveBusy=false;}}
   setInterval(autosave30s,30000);
   window.addEventListener('beforeunload',()=>{try{if(window.hsvFirebaseReady&&window.hsvAuthUser)window.syncGameToCloud().catch(()=>{});}catch(e){}});
-  async function init(){if(!configured){updateUI();return;}try{const app=await import('https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js');const fa=await import('https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js');const fs=await import('https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js');const firebaseApp=app.initializeApp(cfg);const auth=fa.getAuth(firebaseApp),db=fs.getFirestore(firebaseApp);await fa.setPersistence(auth,fa.browserLocalPersistence).catch(e=>console.warn('Firebase persistence:',e));window.hsvFirebaseModules={auth,db,createUserWithEmailAndPassword:fa.createUserWithEmailAndPassword,signInWithEmailAndPassword:fa.signInWithEmailAndPassword,sendPasswordResetEmail:fa.sendPasswordResetEmail,signOut:fa.signOut,saveCloud:window.syncGameToCloud,doc:fs.doc,setDoc:fs.setDoc,getDoc:fs.getDoc,getDocs:fs.getDocs,collection:fs.collection,query:fs.query,orderBy:fs.orderBy,limit:fs.limit,deleteDoc:fs.deleteDoc,serverTimestamp:fs.serverTimestamp};window.hsvFirebaseReady=true;fa.onAuthStateChanged(auth,async user=>{window.hsvAuthUser=user||null;if(user){await loadProfileCloud().catch(()=>{});await window.loadGameFromCloud().catch(()=>{});if(window.hsvProfile?.username)await publishLeaderboard().catch(()=>{});}else{window.hsvProfile=null;}updateUI();renderManagerXP();renderProfile();});updateUI();}catch(e){console.error('Firebase init:',e);const st=document.getElementById('accountStatus');if(st)st.textContent='🔴 Firebase konnte nicht geladen werden.';}}
+  async function init(){if(!configured){updateUI();return;}try{const app=await import('https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js');const fa=await import('https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js');const fs=await import('https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js');const firebaseApp=app.initializeApp(cfg);const auth=fa.getAuth(firebaseApp),db=fs.getFirestore(firebaseApp);await fa.setPersistence(auth,fa.browserLocalPersistence).catch(e=>console.warn('Firebase persistence:',e));window.hsvFirebaseModules={auth,db,createUserWithEmailAndPassword:fa.createUserWithEmailAndPassword,signInWithEmailAndPassword:fa.signInWithEmailAndPassword,sendPasswordResetEmail:fa.sendPasswordResetEmail,signOut:fa.signOut,saveCloud:window.syncGameToCloud,doc:fs.doc,setDoc:fs.setDoc,getDoc:fs.getDoc,getDocs:fs.getDocs,collection:fs.collection,query:fs.query,orderBy:fs.orderBy,limit:fs.limit,deleteDoc:fs.deleteDoc,serverTimestamp:fs.serverTimestamp};window.hsvFirebaseReady=true;fa.onAuthStateChanged(auth,async user=>{window.hsvAuthUser=user||null;if(user){await user.getIdToken(true).catch(()=>{});await loadProfileCloud().catch(()=>{});await window.loadGameFromCloud().catch(()=>{});if(window.hsvProfile?.username)await publishLeaderboard().catch(()=>{});}else{window.hsvProfile=null;}updateUI();updateAdminCoinsButton();renderManagerXP();renderProfile();});updateUI();}catch(e){console.error('Firebase init:',e);const st=document.getElementById('accountStatus');if(st)st.textContent='🔴 Firebase konnte nicht geladen werden.';}}
   document.addEventListener('DOMContentLoaded',init);updateUI();
 })();
 </script>
