@@ -6886,3 +6886,89 @@ window.HSV_FIREBASE_CONFIG = {
   }
 }
 </style>
+
+<style id="responsive-pack-scaling-final">
+/* Responsive Pack-Opening: Karten und Spielerbilder skalieren automatisch mit dem Browserfenster. */
+#packOverlay .packGrid{
+  width:min(1020px,94vw)!important;
+  height:calc(100vh - 250px)!important;
+  gap:clamp(3px,0.55vw,10px)!important;
+}
+#packOverlay .packCard{
+  width:auto!important;
+  min-width:0!important;
+  min-height:0!important;
+  padding:clamp(3px,0.45vw,8px)!important;
+  border-radius:clamp(7px,0.8vw,14px)!important;
+}
+#packOverlay .packCard .photo{
+  flex:0 1 auto!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:48vh!important;
+}
+#packOverlay .packCard .photo img,
+#packOverlay .packCard .photo img.playerCardArtwork{
+  width:min(13vw,22vh,250px)!important;
+  height:min(25vh,270px)!important;
+  min-width:0!important;
+  min-height:0!important;
+  max-width:min(13vw,22vh,250px)!important;
+  max-height:min(25vh,270px)!important;
+  object-fit:contain!important;
+}
+#packOverlay .packCard .rating{
+  font-size:clamp(13px,1.25vw,22px)!important;
+  margin:clamp(1px,0.25vh,4px) 0!important;
+}
+#packOverlay .packCard .playerName{
+  font-size:clamp(8px,0.8vw,13px)!important;
+  line-height:1.1!important;
+  min-height:clamp(16px,2.5vh,28px)!important;
+  margin:clamp(1px,0.25vh,3px) 0!important;
+}
+#packOverlay .packCard .meta{font-size:clamp(7px,0.55vw,9px)!important;line-height:1.1!important}
+
+/* 10er-Pack: 5 oben + 5 unten, Höhe und Spielerbild passen sich an die verfügbare Fläche an. */
+#packOverlay.pack-qty-10 .packGrid{
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  grid-template-rows:repeat(2,minmax(0,1fr))!important;
+  row-gap:clamp(0px,0.25vh,4px)!important;
+}
+
+@media(max-width:650px){
+  #packOverlay .packGrid{
+    width:94vw!important;
+    height:calc(100vh - 215px)!important;
+    top:205px!important;
+    gap:clamp(3px,0.8vw,6px)!important;
+  }
+  #packOverlay .packCard .photo img,
+  #packOverlay .packCard .photo img.playerCardArtwork{
+    width:min(25vw,12vh,150px)!important;
+    height:min(14vh,150px)!important;
+    max-width:min(25vw,12vh,150px)!important;
+    max-height:min(14vh,150px)!important;
+  }
+  #packOverlay .packCard .rating{font-size:clamp(12px,3.8vw,18px)!important}
+  #packOverlay .packCard .playerName{font-size:clamp(8px,2.4vw,11px)!important;min-height:clamp(14px,3vh,24px)!important}
+  #packOverlay .packCard .meta{font-size:clamp(7px,1.8vw,9px)!important}
+  #packOverlay.pack-qty-10 .packGrid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    grid-template-rows:repeat(5,minmax(0,1fr))!important;
+  }
+}
+
+/* Sehr kleine/hohe oder sehr breite Fenster: niemals über die verfügbare Fläche hinaus skalieren. */
+@media(max-height:650px){
+  #packOverlay .packGrid{height:calc(100vh - 220px)!important}
+  #packOverlay .packCard .photo img,
+  #packOverlay .packCard .photo img.playerCardArtwork{
+    width:min(12vw,14vh,190px)!important;
+    height:min(14vh,190px)!important;
+    max-width:min(12vw,14vh,190px)!important;
+    max-height:min(14vh,190px)!important;
+  }
+}
+</style>
