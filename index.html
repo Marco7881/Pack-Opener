@@ -2702,6 +2702,182 @@ body:has(#squad:not(.hidden)) [data-section="squad"]{
   margin:auto!important;
 }
 </style>
+
+<style id="pack-1to5to10-full-player-visible">
+/* 5er- und 10er-Packs: wie beim 1er-Pack das komplette Spielerbild sichtbar halten. */
+#packOverlay.pack-qty-5 .packCard .photo img.playerCardArtwork,
+#packOverlay.pack-qty-5 .packCard .photo img,
+#packOverlay.pack-qty-10 .packCard .photo img.playerCardArtwork,
+#packOverlay.pack-qty-10 .packCard .photo img{
+  width:auto!important;
+  height:auto!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  margin:auto!important;
+  transform:none!important;
+}
+#packOverlay.pack-qty-5 .packCard .photo,
+#packOverlay.pack-qty-10 .packCard .photo{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:hidden!important;
+}
+</style>
+
+<style id="final-5-10-full-player-visible">
+/* 5er/10er: exakt wie 1er-Pack – komplette Spielerbilder proportional sichtbar */
+#packOverlay.pack-qty-5 .packCard .photo,
+#packOverlay.pack-qty-10 .packCard .photo{
+  display:flex!important; align-items:center!important; justify-content:center!important;
+  overflow:hidden!important; padding:0!important;
+}
+#packOverlay.pack-qty-5 .packCard .photo img.playerCardArtwork,
+#packOverlay.pack-qty-10 .packCard .photo img.playerCardArtwork{
+  width:auto!important; height:auto!important;
+  max-width:100%!important; max-height:100%!important;
+  min-width:0!important; min-height:0!important;
+  object-fit:contain!important; object-position:center center!important;
+  transform:none!important; margin:auto!important;
+}
+</style>
+
+<style id="final-5-10-no-crop-v8">
+/* 5er/10er-Pack: komplettes Spielerbild sichtbar, ohne Abschneiden. */
+#packOverlay.pack-qty-5 .packCard .photo,
+#packOverlay.pack-qty-10 .packCard .photo{
+  position:relative!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  max-height:none!important;
+  flex:1 1 auto!important;
+  overflow:visible!important;
+  padding:0!important;
+  margin:0!important;
+}
+#packOverlay.pack-qty-5 .packCard .photo img.playerCardArtwork,
+#packOverlay.pack-qty-10 .packCard .photo img.playerCardArtwork,
+#packOverlay.pack-qty-5 .packCard .photo img,
+#packOverlay.pack-qty-10 .packCard .photo img{
+  position:static!important;
+  display:block!important;
+  width:auto!important;
+  height:auto!important;
+  min-width:0!important;
+  min-height:0!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  transform:none!important;
+  margin:0 auto!important;
+  flex:0 1 auto!important;
+}
+#packOverlay.pack-qty-5 .packCard,
+#packOverlay.pack-qty-10 .packCard{
+  overflow:visible!important;
+}
+/* Keine künstliche Verschiebung nach links. */
+#packOverlay.pack-qty-5 .packCard .photo img.playerCardArtwork,
+#packOverlay.pack-qty-10 .packCard .photo img.playerCardArtwork{
+  left:auto!important;
+}
+@media(max-width:650px){
+  #packOverlay.pack-qty-5 .packCard .photo img.playerCardArtwork,
+  #packOverlay.pack-qty-10 .packCard .photo img.playerCardArtwork,
+  #packOverlay.pack-qty-5 .packCard .photo img,
+  #packOverlay.pack-qty-10 .packCard .photo img{
+    width:auto!important;
+    height:auto!important;
+    max-width:100%!important;
+    max-height:100%!important;
+  }
+}
+</style>
+
+<style id="final-5er10er-same-as-1er">
+/* 5er- und 10er-Pack: exakt dieselbe Portrait-Darstellung wie der 1er-Pack. */
+#packOverlay.pack-qty-5 .packCard .photo,
+#packOverlay.pack-qty-10 .packCard .photo{
+  flex:0 0 92px!important;
+  width:100%!important;
+  height:92px!important;
+  min-height:92px!important;
+  max-height:92px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:hidden!important;
+  padding:0!important;
+  margin:0!important;
+  position:relative!important;
+}
+#packOverlay.pack-qty-5 .packCard .photo img.playerCardArtwork,
+#packOverlay.pack-qty-10 .packCard .photo img.playerCardArtwork,
+#packOverlay.pack-qty-5 .packCard .photo img,
+#packOverlay.pack-qty-10 .packCard .photo img{
+  position:static!important;
+  display:block!important;
+  width:78px!important;
+  height:82px!important;
+  min-width:78px!important;
+  min-height:82px!important;
+  max-width:78px!important;
+  max-height:82px!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  transform:none!important;
+  margin:0 auto!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  flex:0 0 78px!important;
+}
+@media(max-width:650px){
+  #packOverlay.pack-qty-5 .packCard .photo,
+  #packOverlay.pack-qty-10 .packCard .photo{
+    flex-basis:92px!important;height:92px!important;min-height:92px!important;max-height:92px!important;
+  }
+  #packOverlay.pack-qty-5 .packCard .photo img.playerCardArtwork,
+  #packOverlay.pack-qty-10 .packCard .photo img.playerCardArtwork,
+  #packOverlay.pack-qty-5 .packCard .photo img,
+  #packOverlay.pack-qty-10 .packCard .photo img{
+    width:78px!important;height:82px!important;min-width:78px!important;min-height:82px!important;max-width:78px!important;max-height:82px!important;
+  }
+}
+</style>
+
+<style id="final-pack-black-border-fix">
+#packOverlay.pack-qty-5 .packCard:has(img.playerCardArtwork) .photo,
+#packOverlay.pack-qty-10 .packCard:has(img.playerCardArtwork) .photo { overflow:hidden!important; }
+#packOverlay.pack-qty-5 .packCard:has(img.playerCardArtwork) .photo img.playerCardArtwork,
+#packOverlay.pack-qty-10 .packCard:has(img.playerCardArtwork) .photo img.playerCardArtwork {
+  width:calc(100% + 8px)!important;
+  height:calc(100% + 8px)!important;
+  max-width:none!important; max-height:none!important;
+  object-fit:contain!important; object-position:center!important;
+  margin:-4px!important; transform:none!important;
+}
+</style>
+
+<style id="final-remove-pack-black-margins">
+#packOverlay.pack-qty-5 .packCard:has(img.playerCardArtwork) .photo,
+#packOverlay.pack-qty-10 .packCard:has(img.playerCardArtwork) .photo {
+  overflow:hidden!important; display:flex!important; align-items:center!important; justify-content:center!important;
+}
+#packOverlay.pack-qty-5 .packCard:has(img.playerCardArtwork) .photo img.playerCardArtwork,
+#packOverlay.pack-qty-10 .packCard:has(img.playerCardArtwork) .photo img.playerCardArtwork {
+  object-fit:contain!important; object-position:center!important;
+  width:108%!important; height:108%!important; max-width:none!important; max-height:none!important;
+  min-width:0!important; min-height:0!important; margin:0!important; transform:none!important;
+}
+</style>
 </head><body><div id="packOverlay"><button class="packClose" onclick="v35Close()">×</button>
 <div class="packTitle" id="v35Title">🔷 HSV PACK</div><div class="packSub"></div>
 <div class="packXpBar" id="packOverlayXpBar" aria-label="Spieler XP">
@@ -5084,6 +5260,67 @@ if(typeof HSVP!=="undefined") {
   margin-bottom:-18px!important;
 }
 </style>
+
+<style id="definitive-full-player-5-10">
+/* FINAL: 5er/10er pack cards show the complete player artwork, never crop it */
+#packOverlay.pack-qty-5 .packCard:has(img.playerCardArtwork),
+#packOverlay.pack-qty-10 .packCard:has(img.playerCardArtwork){
+  overflow:visible!important;
+}
+#packOverlay.pack-qty-5 .packCard:has(img.playerCardArtwork) .photo,
+#packOverlay.pack-qty-10 .packCard:has(img.playerCardArtwork) .photo{
+  position:absolute!important; inset:0!important; width:100%!important; height:100%!important;
+  overflow:visible!important; display:flex!important; align-items:center!important; justify-content:center!important;
+}
+#packOverlay.pack-qty-5 .packCard:has(img.playerCardArtwork) .photo img.playerCardArtwork,
+#packOverlay.pack-qty-10 .packCard:has(img.playerCardArtwork) .photo img.playerCardArtwork{
+  position:static!important; inset:auto!important;
+  width:auto!important; height:auto!important;
+  min-width:0!important; min-height:0!important;
+  max-width:100%!important; max-height:100%!important;
+  object-fit:contain!important; object-position:center center!important;
+  transform:none!important; margin:0!important;
+}
+/* defeat player-specific crop rules */
+#packOverlay.pack-qty-5 .packCard .photo img.playerCardArtwork,
+#packOverlay.pack-qty-10 .packCard .photo img.playerCardArtwork{
+  object-fit:contain!important; object-position:center center!important;
+}
+</style>
+
+
+<style id="final-black-margin-reduction-5-10">
+/* 5er/10er: schwarzen Rand innerhalb der Spielerbilder verkleinern, ohne Nachbarkarten zu überdecken. */
+#packOverlay.pack-qty-5 .packCard,
+#packOverlay.pack-qty-10 .packCard{
+  position:relative!important;
+  overflow:hidden!important;
+  isolation:isolate!important;
+}
+#packOverlay.pack-qty-5 .packCard .photo,
+#packOverlay.pack-qty-10 .packCard .photo{
+  overflow:hidden!important;
+  clip-path:inset(0)!important;
+  z-index:1!important;
+}
+#packOverlay.pack-qty-5 .packCard .photo img.playerCardArtwork,
+#packOverlay.pack-qty-10 .packCard .photo img.playerCardArtwork{
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  transform:scale(1.12)!important;
+  transform-origin:center center!important;
+  left:auto!important;
+  right:auto!important;
+  margin:0!important;
+}
+</style>
+
 </body>
 <style id="v151-422-final-blue-points">
 /* FINAL: 4-2-2-2 nutzt exakt die 11 blauen Punkte des gelieferten Spielfelds. */
@@ -7037,5 +7274,104 @@ window.HSV_FIREBASE_CONFIG = {
     max-width:min(12vw,14vh,190px)!important;
     max-height:min(14vh,190px)!important;
   }
+}
+</style>
+
+<style id="final-pack-player-width-boost-5-10">
+/* Spielerbilder im 5er- und 10er-Pack leicht breiter, damit sie seitlich nicht abgeschnitten wirken. */
+#packOverlay.pack-qty-5 .packCard .photo img.playerCardArtwork,
+#packOverlay.pack-qty-5 .packCard .photo img{
+  width:90px!important;
+  max-width:90px!important;
+  min-width:90px!important;
+  height:82px!important;
+  max-height:82px!important;
+}
+#packOverlay.pack-qty-10 .packCard .photo img.playerCardArtwork,
+#packOverlay.pack-qty-10 .packCard .photo img{
+  width:min(15vw,22vh,270px)!important;
+  max-width:min(15vw,22vh,270px)!important;
+  height:min(25vh,270px)!important;
+  max-height:min(25vh,270px)!important;
+}
+@media(max-width:650px){
+  #packOverlay.pack-qty-5 .packCard .photo img.playerCardArtwork,
+  #packOverlay.pack-qty-5 .packCard .photo img{
+    width:90px!important;max-width:90px!important;min-width:90px!important;
+    height:82px!important;max-height:82px!important;
+  }
+  #packOverlay.pack-qty-10 .packCard .photo img.playerCardArtwork,
+  #packOverlay.pack-qty-10 .packCard .photo img{
+    width:min(40vw,105px)!important;
+    max-width:min(40vw,105px)!important;
+    height:min(14vh,105px)!important;
+    max-height:min(14vh,105px)!important;
+  }
+}
+</style>
+<style id="pack-player-centered-no-side-gaps">
+/* Spielerbilder im Pack immer exakt mittig und ohne unnötigen seitlichen Leerraum. */
+#packOverlay .packCard .photo{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  overflow:hidden!important;
+}
+#packOverlay .packCard .photo img,
+#packOverlay .packCard .photo img.playerCardArtwork{
+  display:block!important;
+  position:relative!important;
+  left:50%!important;
+  transform:translateX(-50%)!important;
+  margin-left:-50%!important;
+  margin-right:-50%!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+}
+</style>
+
+<style id="pack-player-shift-left">
+/* 5er/10er-Pack: Spielerbilder etwas nach links verschieben, damit sie nicht rechts abgeschnitten werden. */
+#packOverlay.pack-qty-5 .packCard .photo img.playerCardArtwork,
+#packOverlay.pack-qty-10 .packCard .photo img.playerCardArtwork{
+  position:relative!important;
+  left:-5px!important;
+}
+</style>
+
+<style id="final-no-black-border-overlap-5-10">
+/* FINAL: Schwarze Bildbereiche dürfen im 5er/10er-Pack niemals über die eigene Karte hinausragen. */
+#packOverlay.pack-qty-5 .packCard,
+#packOverlay.pack-qty-10 .packCard{
+  overflow:hidden!important;
+}
+#packOverlay.pack-qty-5 .packCard .photo,
+#packOverlay.pack-qty-10 .packCard .photo{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  overflow:hidden!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  box-sizing:border-box!important;
+}
+#packOverlay.pack-qty-5 .packCard .photo img.playerCardArtwork,
+#packOverlay.pack-qty-10 .packCard .photo img.playerCardArtwork{
+  position:static!important;
+  left:auto!important;
+  margin:0!important;
+  transform:none!important;
+  width:100%!important;
+  height:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  box-sizing:border-box!important;
 }
 </style>
