@@ -6559,17 +6559,24 @@ window.HSV_FIREBASE_CONFIG = {
     try{
       const m=window.hsvFirebaseModules;let cred;
       if(window.hsvAccountMode==='register'){
-        const un=(document.getElementById('accountUsername').value||'').trim(),key=usernameId(un);
-        // Erst prüfen, ob der gewünschte Benutzername bereits existiert.
-        // So wird bei einem belegten Namen kein unnötiges Auth-Konto angelegt.
-        const existing=await m.getDoc(m.doc(m.db,'usernames',key));
-        if(existing.exists()) throw new Error('Dieser Benutzername ist bereits vergeben. Bitte wähle einen anderen.');
+        const un=(document.getElementById('accountUsername').value||'').trim();
+        // Registrierung ohne vorherigen Zugriff auf die öffentliche "usernames"-Collection.
+        // Dieser Zugriff verursachte bei den aktuellen Firestore-Regeln den Fehler
+        // "Missing or insufficient permissions" bereits vor der eigentlichen Registrierung.
         cred=await m.createUserWithEmailAndPassword(m.auth,email,password);
         window.hsvAuthUser=cred.user;
-        try{await m.setDoc(m.doc(m.db,'usernames',key),{uid:cred.user.uid,username:un,createdAt:m.serverTimestamp()});}
-        catch(e){await m.signOut(m.auth);window.hsvAuthUser=null;if(e?.code==='permission-denied')throw new Error('Der Benutzername konnte nicht gespeichert werden. Bitte veröffentliche die neuen Firestore-Regeln.');if(e?.code==='already-exists')throw new Error('Dieser Benutzername ist bereits vergeben. Bitte wähle einen anderen.');throw e;}
         window.hsvProfile={username:un,createdAt:null};
-        await saveProfileCloud();await window.syncGameToCloud();msg('Konto erstellt. Dein Benutzername wurde gespeichert.');
+        try{
+          await saveProfileCloud();
+          await window.syncGameToCloud();
+        }catch(e){
+          console.error('Profil/Spielstand nach Registrierung konnte nicht gespeichert werden:',e);
+          // Das Firebase-Auth-Konto bleibt bestehen. Der Benutzer kann sich anmelden
+          // und den Spielstand später erneut speichern.
+          if(e?.code==='permission-denied') throw new Error('Konto erstellt, aber der Spielstand konnte wegen der Firestore-Berechtigungen noch nicht gespeichert werden.');
+          throw e;
+        }
+        msg('Konto erstellt. Dein Benutzername wurde gespeichert.');
       }else{
         cred=await m.signInWithEmailAndPassword(m.auth,email,password);window.hsvAuthUser=cred.user;await loadProfileCloud();await window.loadGameFromCloud();
         if(!window.hsvProfile?.username){msg('Bitte wähle jetzt deinen Benutzernamen.');updateUI();return;}
